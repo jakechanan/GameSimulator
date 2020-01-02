@@ -4,7 +4,7 @@ import java.util.List;
 
 import brown.auction.endowment.IEndowment;
 import brown.auction.endowment.distribution.IEndowmentDistribution;
-import brown.auction.value.generator.ITypeGenerator;
+import brown.auction.type.generator.ITypeGenerator;
 
 public abstract class AbsEndowmentDistribution
     implements IEndowmentDistribution {

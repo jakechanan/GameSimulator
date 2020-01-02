@@ -1,4 +1,4 @@
-package brown.communication.bid;
+package brown.communication.action;
 
 public interface IGameAction extends IBid {
 

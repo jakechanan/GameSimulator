@@ -9,19 +9,14 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import brown.auction.value.distribution.ITypeDistribution;
-import brown.auction.value.distribution.library.AdditiveValuationDistribution;
-import brown.auction.value.generator.ITypeGenerator;
-import brown.auction.value.generator.library.NormalValGenerator;
-import brown.auction.value.valuation.IType;
-import brown.auction.value.valuation.ISpecificValuation;
-import brown.auction.value.valuation.library.GeneralValuation;
+import brown.auction.type.distribution.ITypeDistribution;
+import brown.auction.type.distribution.library.HLTypeDistribution;
+import brown.auction.type.generator.ITypeGenerator;
+import brown.auction.type.generator.library.NormalValGenerator;
+import brown.auction.type.valuation.IType;
+import brown.auction.type.valuation.library.HLType;
 import brown.platform.accounting.IAccount;
 import brown.platform.accounting.library.Account;
-import brown.platform.item.ICart;
-import brown.platform.item.IItem;
-import brown.platform.item.library.Cart;
-import brown.platform.item.library.Item;
 import brown.platform.managers.IUtilityManager;
 
 public class UtilityManagerTest {
@@ -41,28 +36,18 @@ public class UtilityManagerTest {
     Map<Integer, IType> valuations =
         new HashMap<Integer, IType>();
 
-    List<IItem> agentItems = new LinkedList<IItem>();
-    agentItems.add(new Item("test", 1));;
 
-    List<IItem> agentItemsTwo = new LinkedList<IItem>();
-    agentItemsTwo.add(new Item("test", 1));
-
-    ICart agentCart = new Cart(agentItems);
-    ICart agentCartTwo = new Cart(agentItemsTwo);
-
-    IAccount acctOne = new Account(0, 100.0, agentCart);
-    IAccount acctTwo = new Account(0, 100.0, agentCartTwo);
+    IAccount acctOne = new Account(0, 100.0);
+    IAccount acctTwo = new Account(0, 100.0);
 
     accounts.put(0, acctOne);
     accounts.put(1, acctTwo);
 
-    Map<List<IItem>, ISpecificValuation> valOne =
-        new HashMap<List<IItem>, ISpecificValuation>();
-    Map<List<IItem>, ISpecificValuation> valTwo =
-        new HashMap<List<IItem>, ISpecificValuation>();
+    IType valOne = new HLType(0); 
+    IType valTwo = new HLType(1); 
 
-    valuations.put(0, new GeneralValuation(valOne));
-    valuations.put(0, new GeneralValuation(valTwo));
+    valuations.put(0, valOne);
+    valuations.put(0, valTwo);
 
     List<ITypeGenerator> gen = new LinkedList<ITypeGenerator>();
     List<Double> valParams = new LinkedList<Double>();
@@ -71,14 +56,13 @@ public class UtilityManagerTest {
 
     gen.add(new NormalValGenerator(valParams));
     ITypeDistribution valDist =
-        new AdditiveValuationDistribution(new Cart(agentItems), gen);
-    ISpecificValuation valuation = valDist.sample();
+        new HLTypeDistribution(gen);
+    
+    IType type = valDist.sample();
 
-    valOne.put(agentItems, valuation);
-    valTwo.put(agentItems, valuation);
-
-    IType genOne = new GeneralValuation(valOne);
-    IType genTwo = new GeneralValuation(valTwo);
+    
+    IType genOne = new HLType(0);
+    IType genTwo = new HLType(0); 
 
     valuations.put(0, genOne);
     valuations.put(1, genTwo);

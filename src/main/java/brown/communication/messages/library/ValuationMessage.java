@@ -1,6 +1,6 @@
 package brown.communication.messages.library;
 
-import brown.auction.value.valuation.IType;
+import brown.auction.type.valuation.IType;
 import brown.communication.messages.ITypeMessage;
 import brown.user.agent.IAgent;
 

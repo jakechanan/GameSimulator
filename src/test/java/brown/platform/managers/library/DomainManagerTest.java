@@ -9,22 +9,20 @@ import brown.platform.domain.IDomain;
 import brown.platform.managers.IAccountManager;
 import brown.platform.managers.IDomainManager;
 import brown.platform.managers.IEndowmentManager;
-import brown.platform.managers.IItemManager;
 import brown.platform.managers.ITypeManager;
 
 public class DomainManagerTest {
   
   @Test
   public void testDomainManager() {
-    IItemManager mockedTManager = mock(ItemManager.class); 
     ITypeManager mockedVManager = mock(TypeManager.class); 
     IEndowmentManager mockedEManager = mock(EndowmentManager.class); 
     IAccountManager mockedAManager = mock(AccountManager.class); 
     
     IDomainManager dManager = new DomainManager(); 
     
-    dManager.createDomain(mockedTManager, mockedVManager, mockedEManager, mockedAManager); 
-    IDomain expected = new Domain(mockedTManager, mockedVManager, mockedEManager, mockedAManager); 
+    dManager.createDomain(mockedVManager, mockedEManager, mockedAManager); 
+    IDomain expected = new Domain(mockedVManager, mockedEManager, mockedAManager); 
     assertEquals(dManager.getDomain(), expected); 
     
   }

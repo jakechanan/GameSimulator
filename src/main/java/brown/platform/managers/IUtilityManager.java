@@ -3,7 +3,7 @@ package brown.platform.managers;
 import java.util.List;
 import java.util.Map;
 
-import brown.auction.value.valuation.IType;
+import brown.auction.type.valuation.IType;
 import brown.platform.accounting.IAccount;
 
 /**

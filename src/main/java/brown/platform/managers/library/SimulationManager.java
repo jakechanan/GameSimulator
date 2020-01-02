@@ -9,7 +9,7 @@ import java.util.Map;
 import com.esotericsoftware.kryonet.Connection;
 
 import brown.auction.endowment.IEndowment;
-import brown.auction.value.valuation.IType;
+import brown.auction.type.valuation.IType;
 import brown.communication.messages.IUtilityUpdateMessage;
 import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IRegistrationMessage;

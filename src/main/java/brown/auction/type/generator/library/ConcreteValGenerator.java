@@ -1,8 +1,8 @@
-package brown.auction.value.generator.library;
+package brown.auction.type.generator.library;
 
 import java.util.List;
 
-import brown.auction.value.generator.ITypeGenerator;
+import brown.auction.type.generator.ITypeGenerator;
 
 public class ConcreteValGenerator implements ITypeGenerator {
   

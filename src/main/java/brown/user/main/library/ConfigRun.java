@@ -20,7 +20,7 @@ import brown.platform.managers.library.SimulationManager;
 import brown.platform.managers.library.TypeManager;
 import brown.platform.managers.library.WorldManager;
 import brown.user.main.IEndowmentConfig;
-import brown.user.main.IMarketConfig;
+import brown.user.main.IGameConfig;
 import brown.user.main.ISimulationConfig;
 import brown.user.main.IValuationConfig;
 
@@ -61,9 +61,9 @@ public class ConfigRun {
       } 
       
       // market manager
-      for (List<IMarketConfig> mConfigList : aConfig.getMConfig()) {
+      for (List<IGameConfig> mConfigList : aConfig.getMConfig()) {
         List<IFlexibleRules> marketRules = new LinkedList<IFlexibleRules>();
-        for (IMarketConfig mConfig : mConfigList) {
+        for (IGameConfig mConfig : mConfigList) {
           marketRules.add(mConfig.getRules());
         }
         marketManager.createSimultaneousGame(marketRules);

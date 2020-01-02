@@ -16,6 +16,4 @@ public interface IEndowmentConfig extends IInputConfig {
   
   public List<List<Double>> getGeneratorParams(); 
   
-  public List<String> getItemNames(); 
-  
 }

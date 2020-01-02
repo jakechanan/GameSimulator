@@ -1,10 +1,10 @@
-package brown.auction.value.distribution.library;
+package brown.auction.type.distribution.library;
 
 import java.util.List;
 
-import brown.auction.value.distribution.ITypeDistribution;
-import brown.auction.value.generator.ITypeGenerator;
-import brown.auction.value.valuation.IType;
+import brown.auction.type.distribution.ITypeDistribution;
+import brown.auction.type.generator.ITypeGenerator;
+import brown.auction.type.valuation.IType;
 
 public abstract class AbsTypeDistribution
     implements ITypeDistribution {

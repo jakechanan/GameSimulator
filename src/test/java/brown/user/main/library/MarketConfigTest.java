@@ -16,27 +16,26 @@ import brown.auction.rules.ITerminationCondition;
 import brown.auction.rules.IUtilityRule;
 import brown.platform.game.IFlexibleRules;
 import brown.platform.game.library.FlexibleRules;
-import brown.user.main.IMarketConfig; 
+import brown.user.main.IGameConfig;
 
 public class MarketConfigTest {
-  
+
   @Test
   public void testMarketConfigOne() {
-    IUtilityRule mockAllocationRule = mock(IUtilityRule.class); 
+    IUtilityRule mockAllocationRule = mock(IUtilityRule.class);
     IQueryRule mockQueryRule = mock(IQueryRule.class);
-    IActivityRule mockActivityRule = mock(IActivityRule.class); 
-    IInformationRevelationPolicy mockIR = mock(IInformationRevelationPolicy.class); 
-    ITerminationCondition mocktCondition = mock(ITerminationCondition.class); 
-    IInnerIRPolicy innerIR = mock(IInnerIRPolicy.class); 
-    
-    IFlexibleRules mRules = new FlexibleRules(mockAllocationRule, mockQueryRule, mockActivityRule, mockIR, innerIR, mocktCondition); 
-    List<String> tradeableNames = new LinkedList<String>(); 
-    tradeableNames.add("default"); 
+    IActivityRule mockActivityRule = mock(IActivityRule.class);
+    IInformationRevelationPolicy mockIR =
+        mock(IInformationRevelationPolicy.class);
+    ITerminationCondition mocktCondition = mock(ITerminationCondition.class);
+    IInnerIRPolicy innerIR = mock(IInnerIRPolicy.class);
 
-    IMarketConfig mConfig = new MarketConfig(mRules, tradeableNames); 
-    assertEquals(mConfig.getRules(), mRules); 
-    assertEquals(mConfig.getTradeableNames(), tradeableNames); 
-    
+    IFlexibleRules mRules = new FlexibleRules(mockAllocationRule, mockQueryRule,
+        mockActivityRule, mockIR, innerIR, mocktCondition);
+
+    IGameConfig mConfig = new MarketConfig(mRules);
+    assertEquals(mConfig.getRules(), mRules);
+
   }
-  
+
 }

@@ -1,6 +1,6 @@
-package brown.auction.value.distribution;
+package brown.auction.type.distribution;
 
-import brown.auction.value.valuation.IType;
+import brown.auction.type.valuation.IType;
 
 /**
  * IValuationDistribution samples IValuations from a distribution. 

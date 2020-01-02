@@ -1,4 +1,4 @@
-package brown.auction.value.generator; 
+package brown.auction.type.generator; 
 
 /**
  * IValuationGenerator produces doubles according to a specified distribution.

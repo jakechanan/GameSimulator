@@ -1,6 +1,6 @@
-package brown.communication.bid.library;
+package brown.communication.action.library;
 
-import brown.communication.bid.IGameAction;
+import brown.communication.action.IGameAction;
 
 public abstract class AbsGameAction implements IGameAction {
   

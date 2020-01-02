@@ -1,11 +1,11 @@
-package brown.auction.value.generator.library;
+package brown.auction.type.generator.library;
 
 import java.util.List;
 
 import org.apache.commons.math3.distribution.UniformIntegerDistribution;
 import org.apache.commons.math3.random.ISAACRandom;
 
-import brown.auction.value.generator.ITypeGenerator;
+import brown.auction.type.generator.ITypeGenerator;
 
 public class UniformIntegerValGenerator extends AbsValuationGenerator implements ITypeGenerator {
 

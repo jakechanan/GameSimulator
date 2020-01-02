@@ -10,7 +10,7 @@ import java.util.Map;
 import brown.auction.endowment.IEndowment;
 import brown.auction.endowment.distribution.IEndowmentDistribution;
 import brown.auction.endowment.library.Endowment;
-import brown.auction.value.generator.ITypeGenerator;
+import brown.auction.type.generator.ITypeGenerator;
 import brown.logging.library.PlatformLogging;
 import brown.platform.managers.IEndowmentManager;
 

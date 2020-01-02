@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
-import brown.auction.value.distribution.ITypeDistribution;
-import brown.auction.value.valuation.IType;
+import brown.auction.type.distribution.ITypeDistribution;
+import brown.auction.type.valuation.IType;
 import brown.communication.messages.ITypeMessage;
 
 /**

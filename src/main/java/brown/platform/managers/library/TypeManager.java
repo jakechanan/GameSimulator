@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import brown.auction.value.distribution.ITypeDistribution;
-import brown.auction.value.distribution.library.AbsTypeDistribution;
-import brown.auction.value.generator.ITypeGenerator;
-import brown.auction.value.valuation.IType;
+import brown.auction.type.distribution.ITypeDistribution;
+import brown.auction.type.distribution.library.AbsTypeDistribution;
+import brown.auction.type.generator.ITypeGenerator;
+import brown.auction.type.valuation.IType;
 import brown.communication.messages.ITypeMessage;
 import brown.communication.messages.library.ValuationMessage;
 import brown.logging.library.AuctionLogging;

@@ -1,19 +1,14 @@
 package brown.user.main.library;
 
-import java.util.List;
-
 import brown.platform.game.IFlexibleRules;
-import brown.user.main.IMarketConfig;
+import brown.user.main.IGameConfig;
 
-public class MarketConfig implements IMarketConfig {
+public class MarketConfig implements IGameConfig {
   
   private IFlexibleRules rules; 
-  private List<String> tradeableNames; 
  
-  public MarketConfig(IFlexibleRules marketRules, 
-      List<String> tradeableNames) {
-    this.rules = marketRules; 
-    this.tradeableNames = tradeableNames;   
+  public MarketConfig(IFlexibleRules marketRules) {
+    this.rules = marketRules;  
   }
   
   @Override
@@ -22,14 +17,8 @@ public class MarketConfig implements IMarketConfig {
   }
 
   @Override
-  public List<String> getTradeableNames() { 
-    return this.tradeableNames;
-  }
-
-  @Override
   public String toString() {
-    return "MarketConfig [rules=" + rules + ", tradeableNames=" + tradeableNames
-        + "]";
+    return "MarketConfig [rules=" + rules + "]";
   }
 
   @Override
@@ -37,8 +26,6 @@ public class MarketConfig implements IMarketConfig {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((rules == null) ? 0 : rules.hashCode());
-    result = prime * result
-        + ((tradeableNames == null) ? 0 : tradeableNames.hashCode());
     return result;
   }
 
@@ -56,12 +43,9 @@ public class MarketConfig implements IMarketConfig {
         return false;
     } else if (!rules.equals(other.rules))
       return false;
-    if (tradeableNames == null) {
-      if (other.tradeableNames != null)
-        return false;
-    } else if (!tradeableNames.equals(other.tradeableNames))
-      return false;
     return true;
-  } 
+  }
+  
+  
   
 }

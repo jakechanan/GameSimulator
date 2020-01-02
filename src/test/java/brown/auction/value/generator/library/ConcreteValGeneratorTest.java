@@ -7,7 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import brown.auction.value.generator.ITypeGenerator;
+import brown.auction.type.generator.ITypeGenerator;
+import brown.auction.type.generator.library.ConcreteValGenerator;
 
 public class ConcreteValGeneratorTest {
 

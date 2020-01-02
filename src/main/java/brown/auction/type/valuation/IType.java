@@ -1,4 +1,4 @@
-package brown.auction.value.valuation;
+package brown.auction.type.valuation;
 
 public interface IType {
 

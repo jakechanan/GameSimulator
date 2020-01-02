@@ -9,18 +9,12 @@ import brown.platform.game.IFlexibleRules;
  * @author andrewcoggins
  *
  */
-public interface IMarketConfig extends IInputConfig {
+public interface IGameConfig extends IInputConfig {
   
   /**
    * get rules
    * @return
    */
   public  IFlexibleRules getRules(); 
-  
-  /**
-   * get num tradeables map. 
-   * @return
-   */
-  public List<String> getTradeableNames(); 
   
 }

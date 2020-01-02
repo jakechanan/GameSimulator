@@ -1,6 +1,6 @@
 package brown.communication.messages;
 
-import brown.auction.value.valuation.IType;
+import brown.auction.type.valuation.IType;
 
 public interface ITypeMessage extends IServerToAgentMessage {
 

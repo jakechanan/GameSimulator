@@ -2,7 +2,7 @@ package brown.communication.messages.library;
 
 import com.esotericsoftware.kryonet.Connection;
 
-import brown.communication.bid.IBid;
+import brown.communication.action.IBid;
 import brown.communication.messages.ITradeMessage;
 import brown.communication.messageserver.IMessageServer;
 

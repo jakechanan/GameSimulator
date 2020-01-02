@@ -10,6 +10,4 @@ public interface IValuationConfig {
   public List<Constructor<?>> getGeneratorConstructors(); 
   
   public List<List<Double>> getGeneratorParams(); 
-  
-  public List<String> getItemNames(); 
 }
