@@ -7,12 +7,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+import brown.platform.game.IFlexibleRules;
+import brown.platform.game.IGameBlock;
+import brown.platform.game.library.SimultaneousGame;
 import brown.platform.item.ICart;
 import brown.platform.item.IItem;
 import brown.platform.item.library.Cart;
 import brown.platform.item.library.Item;
-import brown.platform.market.IFlexibleRules;
-import brown.platform.market.IMarketBlock;
 
 public class SimultaneousMarketTest {
 
@@ -29,7 +30,7 @@ public class SimultaneousMarketTest {
     
     carts.add(new Cart(items)); 
     
-    IMarketBlock s = new SimultaneousMarket(rules, carts); 
+    IGameBlock s = new SimultaneousGame(rules, carts); 
     
     assertEquals(s.getMarkets(), rules); 
     assertEquals(s.getMarketCarts(), carts); 

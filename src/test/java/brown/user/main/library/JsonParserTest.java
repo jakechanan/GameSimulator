@@ -18,12 +18,11 @@ import org.junit.Test;
 import brown.auction.rules.activity.SimpleOneShotActivity;
 import brown.auction.rules.innerir.NoInnerIR;
 import brown.auction.rules.ir.AnonymousPolicy;
-import brown.auction.rules.payment.SecondPricePayment;
 import brown.auction.rules.query.SimpleOneSidedQuery;
 import brown.auction.rules.termination.OneShotTermination;
 import brown.auction.rules.utility.SimpleHighestPriceAllocation;
+import brown.platform.game.library.FlexibleRules;
 import brown.platform.item.ICart;
-import brown.platform.market.library.FlexibleRules;
 import brown.user.main.IEndowmentConfig;
 import brown.user.main.IItemConfig;
 import brown.user.main.IJsonParser;
@@ -123,11 +122,11 @@ public class JsonParserTest {
     List<IMarketConfig> simMarkets = new LinkedList<IMarketConfig>(); 
     
     simMarkets.add(new MarketConfig(new FlexibleRules(new SimpleHighestPriceAllocation(), 
-        new SecondPricePayment(), new SimpleOneSidedQuery(), 
+        new SimpleOneSidedQuery(), 
         new SimpleOneShotActivity(), new AnonymousPolicy(), 
         new NoInnerIR(), new OneShotTermination()), tradeableNames)); 
     simMarkets.add(new MarketConfig(new FlexibleRules(new SimpleHighestPriceAllocation(), 
-        new SecondPricePayment(), new SimpleOneSidedQuery(), 
+        new SimpleOneSidedQuery(), 
         new SimpleOneShotActivity(), new AnonymousPolicy(), 
         new NoInnerIR(), new OneShotTermination()), tradeableNames));
     marketConfigs.add(simMarkets); 

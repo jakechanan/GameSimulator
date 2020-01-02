@@ -2,7 +2,7 @@ package brown.user.main.library;
 
 import java.util.List;
 
-import brown.platform.market.IFlexibleRules;
+import brown.platform.game.IFlexibleRules;
 import brown.user.main.IMarketConfig;
 
 public class MarketConfig implements IMarketConfig {

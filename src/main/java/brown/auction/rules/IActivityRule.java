@@ -1,11 +1,9 @@
 package brown.auction.rules;
 
 import java.util.List;
-import java.util.Set;
 
 import brown.auction.marketstate.IMarketState;
 import brown.communication.messages.ITradeMessage;
-import brown.platform.item.ICart;
 
 /**
  * The activity rule determines what bids and what kinds of 
@@ -20,13 +18,6 @@ public interface IActivityRule {
    * @param state market internal state. 
    * @param aBid some TradeMessage
    */
-  void isAcceptable(IMarketState state, ITradeMessage aBid, List<ITradeMessage> currentBids, 
-      ICart items);
+  void isAcceptable(IMarketState state, ITradeMessage aBid, List<ITradeMessage> currentBids);
  
-  /**
-   * Handle reserve prices, which may change in some auctions.
-   * @param state
-   */
-  void setReserves(IMarketState state, ICart items);
-
 }

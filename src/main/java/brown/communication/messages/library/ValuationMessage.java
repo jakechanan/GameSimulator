@@ -1,18 +1,18 @@
 package brown.communication.messages.library;
 
-import brown.auction.value.valuation.IGeneralValuation;
-import brown.communication.messages.IValuationMessage;
+import brown.auction.value.valuation.IType;
+import brown.communication.messages.ITypeMessage;
 import brown.user.agent.IAgent;
 
-public class ValuationMessage extends AbsServerToAgentMessage implements IValuationMessage {
+public class ValuationMessage extends AbsServerToAgentMessage implements ITypeMessage {
   
-  private IGeneralValuation valuation; 
+  private IType valuation; 
   
   public ValuationMessage() {
     super(null, null); 
   }
   
-  public ValuationMessage(Integer messageID, Integer agentID, IGeneralValuation valuation) {
+  public ValuationMessage(Integer messageID, Integer agentID, IType valuation) {
     super(messageID, agentID);
     this.valuation = valuation; 
   }
@@ -20,11 +20,11 @@ public class ValuationMessage extends AbsServerToAgentMessage implements IValuat
 
   @Override
   public void agentDispatch(IAgent agent) {
-    agent.onValuationMessage(this);
+    agent.onTypeMessage(this);
   }
   
   
-  public IGeneralValuation getValuation() {
+  public IType getValuation() {
     return this.valuation; 
   }
 

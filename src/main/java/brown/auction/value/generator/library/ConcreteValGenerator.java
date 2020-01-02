@@ -2,9 +2,9 @@ package brown.auction.value.generator.library;
 
 import java.util.List;
 
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 
-public class ConcreteValGenerator implements IValuationGenerator {
+public class ConcreteValGenerator implements ITypeGenerator {
   
   private Double value; 
   

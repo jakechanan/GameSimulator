@@ -20,14 +20,13 @@ import brown.auction.rules.IActivityRule;
 import brown.auction.rules.IUtilityRule;
 import brown.auction.rules.IInformationRevelationPolicy;
 import brown.auction.rules.IInnerIRPolicy;
-import brown.auction.rules.IPaymentRule;
 import brown.auction.rules.IQueryRule;
 import brown.auction.rules.ITerminationCondition;
 import brown.logging.library.ErrorLogging;
 import brown.logging.library.PlatformLogging;
+import brown.platform.game.IFlexibleRules;
+import brown.platform.game.library.FlexibleRules;
 import brown.platform.item.ICart;
-import brown.platform.market.IFlexibleRules;
-import brown.platform.market.library.FlexibleRules;
 import brown.user.main.IEndowmentConfig;
 import brown.user.main.IItemConfig;
 import brown.user.main.IJsonParser;
@@ -583,7 +582,6 @@ public class JsonParser implements IJsonParser {
           Map<String, String> singleMarketRules =
               simultaneousMarketRules.get(k);
           String aRuleString = singleMarketRules.get("aRule");
-          String pRuleString = singleMarketRules.get("pRule");
           String qRuleString = singleMarketRules.get("qRule");
           String actRuleString = singleMarketRules.get("actRule");
           String irPolicyString = singleMarketRules.get("irPolicy");
@@ -592,8 +590,6 @@ public class JsonParser implements IJsonParser {
 
           Class<?> aRuleClass = Class.forName(
               "brown.auction.rules.allocation.onesided." + aRuleString);
-          Class<?> pRuleClass = Class
-              .forName("brown.auction.rules.payment.onesided." + pRuleString);
           Class<?> qRuleClass = Class
               .forName("brown.auction.rules.query.onesided." + qRuleString);
           Class<?> actRuleClass = Class.forName(
@@ -606,7 +602,6 @@ public class JsonParser implements IJsonParser {
               "brown.auction.rules.termination.onesided." + tConditionString);
 
           Constructor<?> aRuleCons = aRuleClass.getConstructor();
-          Constructor<?> pRuleCons = pRuleClass.getConstructor();
           Constructor<?> qRuleCons = qRuleClass.getConstructor();
           Constructor<?> actRuleCons = actRuleClass.getConstructor();
           Constructor<?> irPolicyCons = irPolicyClass.getConstructor();
@@ -616,7 +611,6 @@ public class JsonParser implements IJsonParser {
 
           IFlexibleRules marketRule =
               new FlexibleRules((IUtilityRule) aRuleCons.newInstance(),
-                  (IPaymentRule) pRuleCons.newInstance(),
                   (IQueryRule) qRuleCons.newInstance(),
                   (IActivityRule) actRuleCons.newInstance(),
                   (IInformationRevelationPolicy) irPolicyCons.newInstance(),

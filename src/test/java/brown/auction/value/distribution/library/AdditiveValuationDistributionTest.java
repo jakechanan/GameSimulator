@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import brown.auction.value.distribution.IValuationDistribution;
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.distribution.ITypeDistribution;
+import brown.auction.value.generator.ITypeGenerator;
 import brown.auction.value.generator.library.NormalValGenerator;
 import brown.auction.value.valuation.ISpecificValuation;
 import brown.auction.value.valuation.library.AdditiveValuation;
@@ -34,12 +34,12 @@ public class AdditiveValuationDistributionTest {
     inputItems.add(new Item("default")); 
     ICart goods = new Cart(inputItems); 
     
-    List<IValuationGenerator> generators = new LinkedList<IValuationGenerator>(); 
+    List<ITypeGenerator> generators = new LinkedList<ITypeGenerator>(); 
     List<Double> params = new LinkedList<Double>(); 
     params.add(0.0); params.add(1.0); 
     generators.add(new NormalValGenerator(params));
     
-    IValuationDistribution dist = new AdditiveValuationDistribution(goods, generators); 
+    ITypeDistribution dist = new AdditiveValuationDistribution(goods, generators); 
     ISpecificValuation valuation = dist.sample(); 
     
     Map<IItem, Double> vals = new HashMap<IItem, Double>(); 

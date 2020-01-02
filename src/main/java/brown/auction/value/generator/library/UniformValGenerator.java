@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 import org.apache.commons.math3.random.ISAACRandom;
 
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 
-public class UniformValGenerator extends AbsValuationGenerator implements IValuationGenerator {
+public class UniformValGenerator extends AbsValuationGenerator implements ITypeGenerator {
 
   private UniformRealDistribution distribution; 
   

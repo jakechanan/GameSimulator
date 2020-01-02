@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import brown.auction.value.distribution.IValuationDistribution;
+import brown.auction.value.distribution.ITypeDistribution;
 import brown.auction.value.distribution.library.AdditiveValuationDistribution;
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 import brown.auction.value.generator.library.NormalValGenerator;
-import brown.auction.value.valuation.IGeneralValuation;
+import brown.auction.value.valuation.IType;
 import brown.auction.value.valuation.ISpecificValuation;
 import brown.auction.value.valuation.library.GeneralValuation;
 import brown.platform.accounting.IAccount;
@@ -38,8 +38,8 @@ public class UtilityManagerTest {
 
     Map<Integer, IAccount> accounts = new HashMap<Integer, IAccount>();
 
-    Map<Integer, IGeneralValuation> valuations =
-        new HashMap<Integer, IGeneralValuation>();
+    Map<Integer, IType> valuations =
+        new HashMap<Integer, IType>();
 
     List<IItem> agentItems = new LinkedList<IItem>();
     agentItems.add(new Item("test", 1));;
@@ -64,21 +64,21 @@ public class UtilityManagerTest {
     valuations.put(0, new GeneralValuation(valOne));
     valuations.put(0, new GeneralValuation(valTwo));
 
-    List<IValuationGenerator> gen = new LinkedList<IValuationGenerator>();
+    List<ITypeGenerator> gen = new LinkedList<ITypeGenerator>();
     List<Double> valParams = new LinkedList<Double>();
     valParams.add(2.0);
     valParams.add(0.1);
 
     gen.add(new NormalValGenerator(valParams));
-    IValuationDistribution valDist =
+    ITypeDistribution valDist =
         new AdditiveValuationDistribution(new Cart(agentItems), gen);
     ISpecificValuation valuation = valDist.sample();
 
     valOne.put(agentItems, valuation);
     valTwo.put(agentItems, valuation);
 
-    IGeneralValuation genOne = new GeneralValuation(valOne);
-    IGeneralValuation genTwo = new GeneralValuation(valTwo);
+    IType genOne = new GeneralValuation(valOne);
+    IType genTwo = new GeneralValuation(valTwo);
 
     valuations.put(0, genOne);
     valuations.put(1, genTwo);

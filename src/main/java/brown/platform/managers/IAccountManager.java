@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import brown.auction.endowment.IEndowment;
-import brown.communication.messages.IBankUpdateMessage;
+import brown.communication.messages.IUtilityUpdateMessage;
 import brown.platform.accounting.IAccount;
 import brown.platform.accounting.IAccountUpdate;
 
@@ -65,7 +65,7 @@ public interface IAccountManager {
    * constructs messages that notify the agent that their account has been initialized.n
    * @return
    */
-  Map<Integer, IBankUpdateMessage> constructInitializationMessages(); 
+  Map<Integer, IUtilityUpdateMessage> constructInitializationMessages(); 
 
   /**
    * constructs messages that notift the agent of changes to their account. 
@@ -73,7 +73,7 @@ public interface IAccountManager {
    * IAccountUpdate used to construct these messages
    * @return
    */
-  Map<Integer, IBankUpdateMessage> constructBankUpdateMessages(List<IAccountUpdate> accountUpdates); 
+  Map<Integer, IUtilityUpdateMessage> constructBankUpdateMessages(List<IAccountUpdate> accountUpdates); 
   
   /**
    * locks the manager; no more accounts can be created after the manager is locked

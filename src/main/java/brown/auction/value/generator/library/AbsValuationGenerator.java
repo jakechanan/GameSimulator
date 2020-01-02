@@ -2,9 +2,9 @@ package brown.auction.value.generator.library;
 
 import java.util.List;
 
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 
-public abstract class AbsValuationGenerator implements IValuationGenerator {
+public abstract class AbsValuationGenerator implements ITypeGenerator {
   
   protected List<Double> params; 
   

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 
 public class ConcreteValGeneratorTest {
 
@@ -16,7 +16,7 @@ public class ConcreteValGeneratorTest {
     
     List<Double> a = new LinkedList<Double>(); 
     a.add(4.0); 
-    IValuationGenerator concreteValGenerator = new ConcreteValGenerator(a); 
+    ITypeGenerator concreteValGenerator = new ConcreteValGenerator(a); 
     
     assertTrue(concreteValGenerator.makeValuation() == 4.0); 
   }

@@ -13,17 +13,16 @@ import java.util.Map;
 import org.junit.Test;
 
 import brown.auction.rules.IActivityRule;
-import brown.auction.rules.IUtilityRule;
 import brown.auction.rules.IInformationRevelationPolicy;
 import brown.auction.rules.IInnerIRPolicy;
-import brown.auction.rules.IPaymentRule;
 import brown.auction.rules.IQueryRule;
 import brown.auction.rules.ITerminationCondition;
+import brown.auction.rules.IUtilityRule;
 import brown.auction.value.distribution.library.AdditiveValuationDistribution;
 import brown.auction.value.generator.library.NormalValGenerator;
+import brown.platform.game.IFlexibleRules;
+import brown.platform.game.library.FlexibleRules;
 import brown.platform.item.ICart;
-import brown.platform.market.IFlexibleRules;
-import brown.platform.market.library.FlexibleRules;
 import brown.user.main.IEndowmentConfig;
 import brown.user.main.IItemConfig;
 import brown.user.main.IMarketConfig;
@@ -44,14 +43,13 @@ public class SimulationConfigTest {
     
     
     IUtilityRule mockAllocationRule = mock(IUtilityRule.class); 
-    IPaymentRule mockPaymentRule = mock(IPaymentRule.class); 
     IQueryRule mockQueryRule = mock(IQueryRule.class);
     IActivityRule mockActivityRule = mock(IActivityRule.class); 
     IInformationRevelationPolicy mockIR = mock(IInformationRevelationPolicy.class); 
     ITerminationCondition mocktCondition = mock(ITerminationCondition.class); 
     IInnerIRPolicy innerIR = mock(IInnerIRPolicy.class); 
     
-    IFlexibleRules mRules = new FlexibleRules(mockAllocationRule, mockPaymentRule, mockQueryRule, mockActivityRule, mockIR, innerIR, mocktCondition); 
+    IFlexibleRules mRules = new FlexibleRules(mockAllocationRule, mockQueryRule, mockActivityRule, mockIR, innerIR, mocktCondition); 
     List<String> tradeableNames = new LinkedList<String>(); 
     tradeableNames.add("default"); 
     IMarketConfig mConfig = new MarketConfig(mRules, tradeableNames); 

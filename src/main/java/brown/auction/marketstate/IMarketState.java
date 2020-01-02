@@ -6,7 +6,6 @@ import java.util.Map;
 import brown.communication.messages.ITradeMessage;
 import brown.communication.messages.library.ActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
-import brown.platform.item.ICart;
 /**
  * Stores the internal state of a market as it runs. Consists of a series of
  * getters and setters for the various fields of the market state.
@@ -15,15 +14,10 @@ import brown.platform.item.ICart;
  */
 public interface IMarketState {
 
-  // Allocation rule
-  public Map<Integer, List<ICart>> getAllocation();
+  // Utility rule
+  public void setUtilities(List<IAccountUpdate> payment);
 
-  public void setAllocation(Map<Integer, List<ICart>> allocation);
-
-  // Payment rule
-  public void setPayments(List<IAccountUpdate> payment);
-
-  public List<IAccountUpdate> getPayments();
+  public List<IAccountUpdate> getUtilities();
 
   // orders (this is from the payment rule)
   // delete this !!! just use set Payments

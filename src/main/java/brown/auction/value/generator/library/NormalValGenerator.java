@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.ISAACRandom;
 
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 
 /**
  * generates normally distributed values according to an 
@@ -13,7 +13,7 @@ import brown.auction.value.generator.IValuationGenerator;
  * @author acoggins
  *
  */
-public class NormalValGenerator extends AbsValuationGenerator implements IValuationGenerator {
+public class NormalValGenerator extends AbsValuationGenerator implements ITypeGenerator {
  
   private NormalDistribution distribution; 
 

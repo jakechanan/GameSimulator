@@ -1,7 +1,7 @@
 package brown.platform.world.library;
 
 import brown.platform.managers.IDomainManager;
-import brown.platform.managers.IMarketManager;
+import brown.platform.managers.IGameManager;
 import brown.platform.world.IWorld;
 
 /**
@@ -12,7 +12,7 @@ import brown.platform.world.IWorld;
 public class World implements IWorld {
 
     private IDomainManager domain;
-    private IMarketManager market;
+    private IGameManager market;
 
     /**
      * A World constructor takes as input IDomainManager and IMarketManager
@@ -22,7 +22,7 @@ public class World implements IWorld {
      * @param market
      * The marketManager of the World, which stores and creates markets. 
      */
-    public World(IDomainManager domain, IMarketManager market) {
+    public World(IDomainManager domain, IGameManager market) {
         this.domain = domain;
         this.market = market;
     }
@@ -33,7 +33,7 @@ public class World implements IWorld {
     }
 
     @Override
-    public IMarketManager getMarketManager() {
+    public IGameManager getMarketManager() {
       return this.market;
     }
     

@@ -15,7 +15,7 @@ import brown.auction.endowment.IEndowment;
 import brown.auction.endowment.distribution.IEndowmentDistribution;
 import brown.auction.endowment.distribution.library.IndependentEndowmentDist;
 import brown.auction.endowment.library.Endowment;
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.value.generator.ITypeGenerator;
 import brown.platform.item.ICart;
 import brown.platform.item.IItem;
 import brown.platform.item.library.Cart;
@@ -51,8 +51,8 @@ public class EndowmentManagerTest {
     IEndowmentManager valManager = new EndowmentManager();
     valManager.createEndowment(distCons, genList, paramList, aCart);
     
-    List<IValuationGenerator> expectedGenList = new LinkedList<IValuationGenerator>(); 
-    IValuationGenerator expectedGen = (IValuationGenerator) genCons.newInstance(genParams); 
+    List<ITypeGenerator> expectedGenList = new LinkedList<ITypeGenerator>(); 
+    ITypeGenerator expectedGen = (ITypeGenerator) genCons.newInstance(genParams); 
     expectedGenList.add(expectedGen); 
     IEndowmentDistribution expected = new IndependentEndowmentDist(aCart, expectedGenList); 
     

@@ -11,10 +11,10 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import brown.auction.value.distribution.IValuationDistribution;
+import brown.auction.value.distribution.ITypeDistribution;
 import brown.auction.value.distribution.library.AdditiveValuationDistribution;
-import brown.auction.value.generator.IValuationGenerator;
-import brown.auction.value.valuation.IGeneralValuation;
+import brown.auction.value.generator.ITypeGenerator;
+import brown.auction.value.valuation.IType;
 import brown.auction.value.valuation.ISpecificValuation;
 import brown.auction.value.valuation.library.AdditiveValuation;
 import brown.auction.value.valuation.library.GeneralValuation;
@@ -22,7 +22,7 @@ import brown.platform.item.ICart;
 import brown.platform.item.IItem;
 import brown.platform.item.library.Cart;
 import brown.platform.item.library.Item;
-import brown.platform.managers.IValuationManager;
+import brown.platform.managers.ITypeManager;
 
 public class ValuationManagerTest {
   
@@ -50,13 +50,13 @@ public class ValuationManagerTest {
     genList.add(genCons); 
     paramList.add(genParams); 
     
-    IValuationManager valManager = new ValuationManager();
+    ITypeManager valManager = new TypeManager();
     valManager.createValuation(distCons, genList, paramList, aCart);
     
-    List<IValuationGenerator> expectedGenList = new LinkedList<IValuationGenerator>(); 
-    IValuationGenerator expectedGen = (IValuationGenerator) genCons.newInstance(genParams); 
+    List<ITypeGenerator> expectedGenList = new LinkedList<ITypeGenerator>(); 
+    ITypeGenerator expectedGen = (ITypeGenerator) genCons.newInstance(genParams); 
     expectedGenList.add(expectedGen); 
-    IValuationDistribution expected = new AdditiveValuationDistribution(aCart, expectedGenList); 
+    ITypeDistribution expected = new AdditiveValuationDistribution(aCart, expectedGenList); 
     
     assertEquals(valManager.getDistribution().get(0), expected); 
   }
@@ -64,7 +64,7 @@ public class ValuationManagerTest {
   @Test
   public void testAgentValuation() {
     
-    IValuationManager vManager = new ValuationManager(); 
+    ITypeManager vManager = new TypeManager(); 
     List<String> tradeableNames = new LinkedList<String>(); 
     tradeableNames.add("default"); 
     Map<IItem, Double> valueParams = new HashMap<IItem, Double>(); 
@@ -72,7 +72,7 @@ public class ValuationManagerTest {
     ISpecificValuation agentValuation = new AdditiveValuation(valueParams); 
     Map<List<IItem>, ISpecificValuation> specific = new HashMap<List<IItem>, ISpecificValuation>(); 
     specific.put(new LinkedList<IItem>(valueParams.keySet()), agentValuation); 
-    IGeneralValuation gValuation = new GeneralValuation(specific); 
+    IType gValuation = new GeneralValuation(specific); 
     vManager.addAgentValuation(1, gValuation);
     
     assertEquals(vManager.getAgentValuation(1), gValuation); 

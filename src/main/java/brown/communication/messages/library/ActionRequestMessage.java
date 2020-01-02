@@ -1,60 +1,51 @@
 package brown.communication.messages.library;
 
 import brown.auction.marketstate.IMarketState;
-import brown.communication.messages.ITradeRequestMessage;
-import brown.platform.item.ICart;
+import brown.communication.messages.IActionRequestMessage;
 import brown.user.agent.IAgent;
 
 /**
- * Trade request message is sent by an open market 
- * to an agent to prompt bidding in that market. 
- * An agent typically sends a trademessage in response
- * to a TradeRequestMessage
+ * Trade request message is sent by an open market to an agent to prompt bidding
+ * in that market. An agent typically sends a trademessage in response to a
+ * TradeRequestMessage
+ * 
  * @author andrew
  *
  */
-public class ActionRequestMessage extends AbsServerToAgentMessage implements ITradeRequestMessage {
+public class ActionRequestMessage extends AbsServerToAgentMessage
+    implements IActionRequestMessage {
 
-  private ICart items; 
-  private Integer auctionID; 
-  
+  private Integer auctionID;
+
   public ActionRequestMessage() {
     super(null, null);
-    this.items = null; 
   }
-  
-  // TODO: add a price? 
-  public ActionRequestMessage(Integer messageID, Integer auctionID, Integer agentID, ICart items) {
+
+  // TODO: add a price?
+  public ActionRequestMessage(Integer messageID, Integer auctionID,
+      Integer agentID) {
     super(messageID, agentID);
-    this.items = items; 
-    this.auctionID = auctionID; 
+    this.auctionID = auctionID;
   }
-  
+
   @Override
   public Integer getAuctionID() {
     return this.auctionID;
   }
-  
-  
-  @Override
-  public ICart getItems() {
-    return this.items; 
-  }
 
   @Override
   public void addInformation(IMarketState publicState) {
-    // TODO: 
+    // TODO:
   }
-  
+
   @Override
   public void agentDispatch(IAgent agent) {
-    agent.onTradeRequestMessage(this);
+    agent.onActionRequestMessage(this);
   }
 
   @Override
   public String toString() {
-    return "TradeRequestMessage [items=" + items
-        + ", auctionID=" + auctionID + "]";
+    return "ActionRequestMessage [auctionID=" + auctionID + "]";
   }
 
   @Override
@@ -62,7 +53,6 @@ public class ActionRequestMessage extends AbsServerToAgentMessage implements ITr
     final int prime = 31;
     int result = 1;
     result = prime * result + ((auctionID == null) ? 0 : auctionID.hashCode());
-    result = prime * result + ((items == null) ? 0 : items.hashCode());
     return result;
   }
 
@@ -79,11 +69,6 @@ public class ActionRequestMessage extends AbsServerToAgentMessage implements ITr
       if (other.auctionID != null)
         return false;
     } else if (!auctionID.equals(other.auctionID))
-      return false;
-    if (items == null) {
-      if (other.items != null)
-        return false;
-    } else if (!items.equals(other.items))
       return false;
     return true;
   }

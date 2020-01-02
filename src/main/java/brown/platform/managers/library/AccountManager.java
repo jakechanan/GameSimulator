@@ -2,13 +2,12 @@ package brown.platform.managers.library;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import brown.auction.endowment.IEndowment;
-import brown.communication.messages.IBankUpdateMessage;
+import brown.communication.messages.IUtilityUpdateMessage;
 import brown.communication.messages.library.AccountInitializationMessage;
 import brown.communication.messages.library.BankUpdateMessage;
 import brown.logging.library.ErrorLogging;
@@ -16,9 +15,6 @@ import brown.logging.library.PlatformLogging;
 import brown.platform.accounting.IAccount;
 import brown.platform.accounting.IAccountUpdate;
 import brown.platform.accounting.library.Account;
-import brown.platform.item.ICart;
-import brown.platform.item.IItem;
-import brown.platform.item.library.Cart;
 import brown.platform.managers.IAccountManager;
 
 /**
@@ -32,7 +28,7 @@ public class AccountManager implements IAccountManager {
   private boolean lock;
 
   /**
-   * AccountManager constructor stores Hashmap, and is initially unlocked. 
+   * AccountManager constructor stores Hashmap, and is initially unlocked.
    */
   public AccountManager() {
     this.accounts = new ConcurrentHashMap<Integer, IAccount>();
@@ -43,7 +39,7 @@ public class AccountManager implements IAccountManager {
     if (!this.lock) {
       synchronized (agentID) {
         this.accounts.put(agentID,
-            new Account(agentID, endowment.getMoney(), endowment.getCart()));
+            new Account(agentID, endowment.getMoney()));
       }
     } else {
       PlatformLogging.log("Creation denied: account manager locked.");
@@ -82,8 +78,6 @@ public class AccountManager implements IAccountManager {
     try {
       IAccount endowAccount = this.accounts.get(agentID);
       endowAccount.clear();
-      initialEndowment.getCart().getItems()
-          .forEach(item -> endowAccount.addItems(item));
       endowAccount.addMoney(initialEndowment.getMoney());
       this.accounts.put(agentID, endowAccount);
     } catch (NullPointerException n) {
@@ -97,85 +91,38 @@ public class AccountManager implements IAccountManager {
   }
 
   @Override
-  public Map<Integer, IBankUpdateMessage> constructInitializationMessages() {
-    Map<Integer, IBankUpdateMessage> bankUpdates =
-        new HashMap<Integer, IBankUpdateMessage>();
+  public Map<Integer, IUtilityUpdateMessage> constructInitializationMessages() {
+    Map<Integer, IUtilityUpdateMessage> bankUpdates =
+        new HashMap<Integer, IUtilityUpdateMessage>();
     for (Integer agentID : this.accounts.keySet()) {
       IAccount agentAccount = this.accounts.get(agentID);
-      ICart agentTradeables = agentAccount.getAllItems();
-      List<IItem> items = new LinkedList<IItem>();
-      agentTradeables.getItems().forEach(item -> items.add(item));
-      IBankUpdateMessage agentBankUpdate = new AccountInitializationMessage(0,
-          agentID, new Cart(items), agentAccount.getMoney());
+      IUtilityUpdateMessage agentBankUpdate =
+          new AccountInitializationMessage(0, agentID, agentAccount.getMoney());
       bankUpdates.put(agentID, agentBankUpdate);
     }
     return bankUpdates;
   }
 
   @Override
-  public Map<Integer, IBankUpdateMessage>
+  public Map<Integer, IUtilityUpdateMessage>
       constructBankUpdateMessages(List<IAccountUpdate> accountUpdates) {
-    Map<Integer, IBankUpdateMessage> bankUpdates =
-        new HashMap<Integer, IBankUpdateMessage>();
-
+    Map<Integer, IUtilityUpdateMessage> bankUpdates =
+        new HashMap<Integer, IUtilityUpdateMessage>();
     accountUpdates.forEach(update -> bankUpdates.put(update.getTo(),
-        new BankUpdateMessage(0, update.getTo(),
-            update.receiveCart() ? update.getCart()
-                : new Cart(new LinkedList<IItem>()),
-            update.receiveCart() ? new Cart(new LinkedList<IItem>())
-                : update.getCart(),
-            update.receiveCart() ? -1.0 * update.getCost()
-                : update.getCost())));
+        new BankUpdateMessage(0, update.getTo(), update.getCost())));
     return bankUpdates;
-    
-    
+
   }
 
   @Override
   public void updateAccounts(List<IAccountUpdate> accountUpdates) {
     for (IAccountUpdate update : accountUpdates) {
       if (this.accounts.containsKey(update.getTo())) {
-        IAccount account = this.accounts.get(update.getTo()); 
-        if (update.receiveCart()) {
-          account.removeMoney(update.getCost());
-          update.getCart().getItems().forEach(item -> account.addItems(item));
-        } else {
-          account.addMoney(update.getCost());
-          update.getCart().getItems().forEach(item -> account.removeItems(item));
-        }
+        IAccount account = this.accounts.get(update.getTo());
+        account.addMoney(update.getCost());
       }
     }
 
-  }
-
-  @Override
-  public String toString() {
-    return "AccountManager [accounts=" + accounts + "]";
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((accounts == null) ? 0 : accounts.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    AccountManager other = (AccountManager) obj;
-    if (accounts == null) {
-      if (other.accounts != null)
-        return false;
-    } else if (!accounts.equals(other.accounts))
-      return false;
-    return true;
   }
 
 }

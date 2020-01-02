@@ -2,7 +2,7 @@ package brown.platform.managers.library;
 
 import brown.logging.library.PlatformLogging;
 import brown.platform.managers.IDomainManager;
-import brown.platform.managers.IMarketManager;
+import brown.platform.managers.IGameManager;
 import brown.platform.managers.IWorldManager;
 import brown.platform.world.IWorld;
 import brown.platform.world.library.World;
@@ -24,7 +24,7 @@ public class WorldManager implements IWorldManager {
         this.lock = false;
     }
 
-    public void createWorld(IDomainManager domain, IMarketManager markets) {
+    public void createWorld(IDomainManager domain, IGameManager markets) {
         if (!this.lock) {
             this.world = new World(domain, markets);
             this.lock = true;
