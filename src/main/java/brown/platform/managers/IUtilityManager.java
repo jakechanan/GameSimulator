@@ -3,7 +3,7 @@ package brown.platform.managers;
 import java.util.List;
 import java.util.Map;
 
-import brown.auction.value.valuation.IGeneralValuation;
+import brown.auction.type.valuation.IType;
 import brown.platform.accounting.IAccount;
 
 /**
@@ -23,7 +23,7 @@ public interface IUtilityManager {
    * after a run of a simulation, update current utilities of agents. 
    * creates a record of a simulation-specific utility and an average utility. s
    */
-  public void updateUtility(Map<Integer, IAccount> agentAccounts, Map<Integer, IGeneralValuation> agentValuations); 
+  public void updateUtility(Map<Integer, IAccount> agentAccounts, Map<Integer, IType> agentValuations); 
   
   /**
    * prints utility for a specific simulation run, and the average utility up to the point that this is called. 

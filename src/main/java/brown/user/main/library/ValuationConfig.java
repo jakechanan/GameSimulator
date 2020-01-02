@@ -6,42 +6,41 @@ import java.util.List;
 import brown.user.main.IValuationConfig;
 
 public class ValuationConfig implements IValuationConfig {
-  
-  private Constructor<?> valDistribution; 
+
+  private Constructor<?> valDistribution;
   private List<Constructor<?>> valuationCons;
-  private List<List<Double>> valuationParams; 
-  private List<String> itemNames; 
-  
-  public ValuationConfig(List<String> itemNames, Constructor<?> distCons, 
+  private List<List<Double>> valuationParams;
+
+  public ValuationConfig(Constructor<?> distCons,
       List<Constructor<?>> valuationCons, List<List<Double>> valuationParams) {
-    this.itemNames = itemNames; 
-    this.valuationCons = valuationCons; 
-    this.valuationParams = valuationParams; 
+    this.valuationCons = valuationCons;
+    this.valuationParams = valuationParams;
     this.valDistribution = distCons;
   }
-  
+
   public Constructor<?> getValDistribution() {
-    return this.valDistribution; 
+    return this.valDistribution;
   }
-  
+
   public List<Constructor<?>> getGeneratorConstructors() {
     return this.valuationCons;
   }
-  
+
   public List<List<Double>> getGeneratorParams() {
-    return this.valuationParams; 
+    return this.valuationParams;
   }
-  
-  
-  public List<String> getItemNames() {
-    return this.itemNames; 
+
+  @Override
+  public String toString() {
+    return "ValuationConfig [valDistribution=" + valDistribution
+        + ", valuationCons=" + valuationCons + ", valuationParams="
+        + valuationParams + "]";
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((itemNames == null) ? 0 : itemNames.hashCode());
     result = prime * result
         + ((valDistribution == null) ? 0 : valDistribution.hashCode());
     result = prime * result
@@ -60,11 +59,6 @@ public class ValuationConfig implements IValuationConfig {
     if (getClass() != obj.getClass())
       return false;
     ValuationConfig other = (ValuationConfig) obj;
-    if (itemNames == null) {
-      if (other.itemNames != null)
-        return false;
-    } else if (!itemNames.equals(other.itemNames))
-      return false;
     if (valDistribution == null) {
       if (other.valDistribution != null)
         return false;
@@ -83,11 +77,4 @@ public class ValuationConfig implements IValuationConfig {
     return true;
   }
 
-  @Override
-  public String toString() {
-    return "ValuationConfig [valDistribution=" + valDistribution
-        + ", valuationCons=" + valuationCons + ", valuationParams="
-        + valuationParams + ", itemNames=" + itemNames + "]";
-  }
-  
 }

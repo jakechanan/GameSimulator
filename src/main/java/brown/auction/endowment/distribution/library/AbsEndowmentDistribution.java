@@ -4,27 +4,22 @@ import java.util.List;
 
 import brown.auction.endowment.IEndowment;
 import brown.auction.endowment.distribution.IEndowmentDistribution;
-import brown.auction.value.generator.IValuationGenerator;
-import brown.platform.item.ICart;
+import brown.auction.type.generator.ITypeGenerator;
 
 public abstract class AbsEndowmentDistribution
     implements IEndowmentDistribution {
 
-  protected List<IValuationGenerator> generators;
-  protected ICart items;
+  protected List<ITypeGenerator> generators;
 
-  public AbsEndowmentDistribution(ICart items,
-      List<IValuationGenerator> generators) {
+  public AbsEndowmentDistribution(List<ITypeGenerator> generators) {
     this.generators = generators;
-    this.items = items;
   }
 
   public abstract IEndowment sample();
 
   @Override
   public String toString() {
-    return "AbsEndowmentDistribution [generators=" + generators + ", items="
-        + items + "]";
+    return "AbsEndowmentDistribution [generators=" + generators + "]";
   }
 
   @Override
@@ -33,7 +28,6 @@ public abstract class AbsEndowmentDistribution
     int result = 1;
     result =
         prime * result + ((generators == null) ? 0 : generators.hashCode());
-    result = prime * result + ((items == null) ? 0 : items.hashCode());
     return result;
   }
 
@@ -50,11 +44,6 @@ public abstract class AbsEndowmentDistribution
       if (other.generators != null)
         return false;
     } else if (!generators.equals(other.generators))
-      return false;
-    if (items == null) {
-      if (other.items != null)
-        return false;
-    } else if (!items.equals(other.items))
       return false;
     return true;
   }

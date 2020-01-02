@@ -1,6 +1,6 @@
 package brown.communication.messages;
 
-import brown.communication.bid.IBid;
+import brown.communication.action.IBid;
 
 public interface ITradeMessage extends IAgentToServerMessage {
 

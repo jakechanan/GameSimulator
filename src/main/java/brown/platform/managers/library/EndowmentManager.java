@@ -10,15 +10,13 @@ import java.util.Map;
 import brown.auction.endowment.IEndowment;
 import brown.auction.endowment.distribution.IEndowmentDistribution;
 import brown.auction.endowment.library.Endowment;
-import brown.auction.value.generator.IValuationGenerator;
+import brown.auction.type.generator.ITypeGenerator;
 import brown.logging.library.PlatformLogging;
-import brown.platform.item.ICart;
-import brown.platform.item.IItem;
-import brown.platform.item.library.Cart;
 import brown.platform.managers.IEndowmentManager;
 
 /**
  * EndowmentManager creates and stores IEndowment
+ * 
  * @author andrewcoggins
  *
  */
@@ -29,9 +27,8 @@ public class EndowmentManager implements IEndowmentManager {
   private boolean lock;
 
   /**
-   * Constructor takes no arguments. 
-   * starts unlocked and creates initial map for agent endowments
-   * and list of distributions. 
+   * Constructor takes no arguments. starts unlocked and creates initial map for
+   * agent endowments and list of distributions.
    */
   public EndowmentManager() {
 
@@ -41,38 +38,37 @@ public class EndowmentManager implements IEndowmentManager {
   }
 
   public void createEndowment(Constructor<?> distCons,
-      List<Constructor<?>> generatorCons, List<List<Double>> generatorParams, 
-      ICart items)
+      List<Constructor<?>> generatorCons, List<List<Double>> generatorParams)
       throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, InvocationTargetException {  
+      IllegalArgumentException, InvocationTargetException {
     if (!this.lock) {
-      List<IValuationGenerator> generatorList =
-          new LinkedList<IValuationGenerator>();
+      List<ITypeGenerator> generatorList = new LinkedList<ITypeGenerator>();
       for (int i = 0; i < generatorCons.size(); i++) {
-        IValuationGenerator newGen = (IValuationGenerator) generatorCons.get(i).newInstance(generatorParams.get(i));
+        ITypeGenerator newGen = (ITypeGenerator) generatorCons.get(i)
+            .newInstance(generatorParams.get(i));
         generatorList.add(newGen);
       }
-      this.distributions.add(
-          (IEndowmentDistribution) distCons.newInstance(items, generatorList));
+      this.distributions
+          .add((IEndowmentDistribution) distCons.newInstance(generatorList));
     } else {
       PlatformLogging.log("Creation denied: Endowment manager locked.");
     }
   }
 
   public IEndowment makeAgentEndowment(Integer agentID) {
-    List<IEndowment> endowments = new LinkedList<IEndowment>(); 
+    List<IEndowment> endowments = new LinkedList<IEndowment>();
     for (IEndowmentDistribution dist : this.distributions) {
       IEndowment anEndowment = dist.sample();
-      endowments.add(anEndowment); 
+      endowments.add(anEndowment);
     }
-    this.agentEndowments.put(agentID, combine(endowments)); 
+    this.agentEndowments.put(agentID, combine(endowments));
     return this.agentEndowments.get(agentID);
   }
 
   public List<IEndowmentDistribution> getDistribution() {
     return this.distributions;
   }
-  
+
   public void lock() {
     this.lock = true;
   }
@@ -81,22 +77,20 @@ public class EndowmentManager implements IEndowmentManager {
   public void reset() {
     this.agentEndowments.clear();
   }
-  
+
   private IEndowment combine(List<IEndowment> multipleEndowments) {
     if (multipleEndowments.size() > 0) {
       IEndowment first = multipleEndowments.get(0);
-      
-      ICart firstCart = first.getCart(); 
+
       double firstMoney = first.getMoney();
-      
-      multipleEndowments.remove(0); 
+
+      multipleEndowments.remove(0);
       for (IEndowment anEndowment : multipleEndowments) {
-        firstMoney += anEndowment.getMoney(); 
-        anEndowment.getCart().getItems().forEach(anItem -> firstCart.addToCart(anItem));
+        firstMoney += anEndowment.getMoney();
       }
-      return new Endowment(firstCart, firstMoney); 
+      return new Endowment(firstMoney);
     } else {
-      return new Endowment(new Cart(new LinkedList<IItem>()), 0.0); 
+      return new Endowment(0.0);
     }
   }
 

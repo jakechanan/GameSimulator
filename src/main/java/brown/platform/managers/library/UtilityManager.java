@@ -5,11 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import brown.auction.value.valuation.IGeneralValuation;
+import brown.auction.type.valuation.IType;
 import brown.logging.library.ErrorLogging;
-import brown.logging.library.PlatformLogging;
 import brown.platform.accounting.IAccount;
-import brown.platform.item.ICart;
 import brown.platform.managers.IUtilityManager;
 
 /**
@@ -40,13 +38,12 @@ public class UtilityManager implements IUtilityManager {
   
 
   @Override
-  public void updateUtility(Map<Integer, IAccount> agentAccounts, Map<Integer, IGeneralValuation> agentValuations) { 
+  public void updateUtility(Map<Integer, IAccount> agentAccounts, Map<Integer, IType> agentValuations) { 
     for (Map.Entry<Integer, IAccount> entry : agentAccounts.entrySet()) {
       Integer agentID = entry.getKey(); 
-      ICart goods = entry.getValue().getAllItems(); 
       Double money  = entry.getValue().getMoney(); 
-      IGeneralValuation agentValuation = agentValuations.get(agentID); 
-      Double goodValues = agentValuation.getValuation(goods); 
+      IType agentValuation = agentValuations.get(agentID); 
+      Double goodValues = agentValuation.getType(); 
       if (this.agentRecords.containsKey(agentID)) {
         List<Double> agentUtilities = this.agentRecords.get(agentID); 
         agentUtilities.add(money + goodValues); 

@@ -2,8 +2,7 @@ package brown.platform.domain;
 
 import brown.platform.managers.IAccountManager;
 import brown.platform.managers.IEndowmentManager;
-import brown.platform.managers.IItemManager;
-import brown.platform.managers.IValuationManager;
+import brown.platform.managers.ITypeManager;
 
 /**
  * Interface IDomain
@@ -12,18 +11,11 @@ import brown.platform.managers.IValuationManager;
 public interface IDomain {
 
   /**
-   * get IDomainManager's ItemManager
-   * 
-   * @return
-   */
-  public IItemManager getItemManager(); 
-  
-  /**
    * get IDomainManager's ValuationManager
    * 
    * @return
    */
-  public IValuationManager getValuationManager(); 
+  public ITypeManager getValuationManager(); 
   
   /**
    * get IDomainManager's EndowmentManager

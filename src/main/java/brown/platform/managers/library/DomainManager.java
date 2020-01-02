@@ -6,8 +6,7 @@ import brown.platform.domain.IDomain;
 import brown.platform.managers.IAccountManager;
 import brown.platform.managers.IDomainManager;
 import brown.platform.managers.IEndowmentManager;
-import brown.platform.managers.IItemManager;
-import brown.platform.managers.IValuationManager;
+import brown.platform.managers.ITypeManager;
 
 /**
  * Domain Manager creates and stores domains. 
@@ -26,10 +25,10 @@ public class DomainManager implements IDomainManager {
         this.lock = false;
     }
 
-    public void createDomain(IItemManager manager, IValuationManager valuation,
+    public void createDomain(ITypeManager valuation,
                              IEndowmentManager endowmentManager, IAccountManager acctManager) {
         if (!this.lock){
-            this.domain = new Domain(manager, valuation, endowmentManager, acctManager);
+            this.domain = new Domain(valuation, endowmentManager, acctManager);
             this.lock = true;
         } else {
             PlatformLogging.log("Creation denied: domain manager locked.");

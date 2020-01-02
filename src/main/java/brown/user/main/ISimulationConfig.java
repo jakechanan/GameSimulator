@@ -14,12 +14,6 @@ public interface ISimulationConfig extends IInputConfig {
    * @return
    */
   public  Integer getSimulationRuns();
-  
-  /**
-   * get tradeable config. 
-   * @return
-   */
-  public  List<IItemConfig> getTConfig(); 
    
   /**
    * get valuation config
@@ -37,5 +31,5 @@ public interface ISimulationConfig extends IInputConfig {
    * get market config. 
    * @return
    */
-  public  List<List<IMarketConfig>> getMConfig();
+  public  List<List<IGameConfig>> getMConfig();
 }

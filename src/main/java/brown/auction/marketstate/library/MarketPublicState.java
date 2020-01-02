@@ -1,15 +1,13 @@
 package brown.auction.marketstate.library;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import brown.auction.marketstate.IMarketState;
 import brown.communication.messages.ITradeMessage;
-import brown.communication.messages.library.TradeRequestMessage;
+import brown.communication.messages.library.ActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
-import brown.platform.item.ICart;
 
 /**
  * Standard MarketState stores the internal information of a market.
@@ -24,15 +22,11 @@ public class MarketPublicState implements IMarketState {
   // history
   private List<List<ITradeMessage>> tradeHistory;
 
-  // Allocation rule
-
-  private Map<Integer, List<ICart>> allocation;
-
-  // Payment rule
+  // Utility rule
   private List<IAccountUpdate> payments;
 
   // Query rule
-  private TradeRequestMessage tRequest;
+  private ActionRequestMessage tRequest;
 
   // Activity rule
   private Boolean isAcceptable;
@@ -43,7 +37,6 @@ public class MarketPublicState implements IMarketState {
   private boolean isOpen;
 
   public MarketPublicState() {
-    this.allocation = new HashMap<Integer, List<ICart>>();
     this.payments = new LinkedList<IAccountUpdate>();
     this.time = System.currentTimeMillis();
     this.isOpen = true;
@@ -79,16 +72,16 @@ public class MarketPublicState implements IMarketState {
   // Maybe rename this method clearPayments:
   @Override
   public void clearOrders() {
-    this.setPayments(new LinkedList<IAccountUpdate>());
+    this.setUtilities(new LinkedList<IAccountUpdate>());
   }
 
   @Override
-  public TradeRequestMessage getTRequest() {
+  public ActionRequestMessage getTRequest() {
     return this.tRequest;
   }
 
   @Override
-  public void setTRequest(TradeRequestMessage t) {
+  public void setTRequest(ActionRequestMessage t) {
     this.tRequest = t;
   }
 
@@ -103,22 +96,12 @@ public class MarketPublicState implements IMarketState {
   }
 
   @Override
-  public Map<Integer, List<ICart>> getAllocation() {
-    return this.allocation;
-  }
-
-  @Override
-  public List<IAccountUpdate> getPayments() {
+  public List<IAccountUpdate> getUtilities() {
     return this.payments;
   }
 
   @Override
-  public void setAllocation(Map<Integer, List<ICart>> allocation) {
-    this.allocation = allocation;
-  }
-
-  @Override
-  public void setPayments(List<IAccountUpdate> payments) {
+  public void setUtilities(List<IAccountUpdate> payments) {
     this.payments = payments;
   }
 

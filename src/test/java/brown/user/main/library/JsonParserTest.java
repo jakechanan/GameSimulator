@@ -2,6 +2,7 @@ package brown.user.main.library;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,19 +16,17 @@ import java.util.Map;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
-import brown.auction.rules.activity.onesided.SimpleOneShotActivity;
-import brown.auction.rules.allocation.onesided.SimpleHighestPriceAllocation;
-import brown.auction.rules.innerir.onesided.NoInnerIR;
-import brown.auction.rules.ir.onesided.AnonymousPolicy;
-import brown.auction.rules.payment.onesided.SecondPricePayment;
-import brown.auction.rules.query.onesided.SimpleOneSidedQuery;
-import brown.auction.rules.termination.onesided.OneShotTermination;
-import brown.platform.item.ICart;
-import brown.platform.market.library.FlexibleRules;
+import brown.auction.rules.IActivityRule;
+import brown.auction.rules.IInformationRevelationPolicy;
+import brown.auction.rules.IInnerIRPolicy;
+import brown.auction.rules.IQueryRule;
+import brown.auction.rules.ITerminationCondition;
+import brown.auction.rules.IUtilityRule;
+import brown.platform.game.IFlexibleRules;
+import brown.platform.game.library.FlexibleRules;
 import brown.user.main.IEndowmentConfig;
-import brown.user.main.IItemConfig;
+import brown.user.main.IGameConfig;
 import brown.user.main.IJsonParser;
-import brown.user.main.IMarketConfig;
 import brown.user.main.ISimulationConfig;
 import brown.user.main.IValuationConfig;
 
@@ -47,28 +46,21 @@ public class JsonParserTest {
     
     assertEquals(firstSimulationConfig, secondSimulationConfig); 
     
-    assertTrue(firstSimulationConfig.getSimulationRuns() == 1); 
-    
-    List<IItemConfig> itemConfigs = new LinkedList<IItemConfig>(); 
-    itemConfigs.add(new ItemConfig("testItem", 1)); 
-    
-    assertEquals(firstSimulationConfig.getTConfig(), itemConfigs); 
+    assertTrue(firstSimulationConfig.getSimulationRuns() == 1);  
     
     List<IValuationConfig> valuationConfigs = new LinkedList<IValuationConfig>(); 
-    List<String> tradeableNames = new LinkedList<String>(); 
-    tradeableNames.add("testItem"); 
     
     Class<?> distributionClass =
-        Class.forName("brown.auction.value.distribution.library.AdditiveValuationDistribution");
+        Class.forName("brown.auction.type.distribution.library.HLTypeDistribution");
     
     Constructor<?> distributionCons =
-        distributionClass.getConstructor(ICart.class, List.class);
+        distributionClass.getConstructor(List.class);
     
     List<Constructor<?>> genList = new LinkedList<Constructor<?>>(); 
     List<List<Double>> paramList = new LinkedList<List<Double>>(); 
     
     Class<?> generatorClass = Class.forName(
-        "brown.auction.value.generator.library.NormalValGenerator");
+        "brown.auction.type.generator.library.NormalValGenerator");
     Constructor<?> generatorCons =
         generatorClass.getConstructor(List.class);
     
@@ -79,7 +71,7 @@ public class JsonParserTest {
     genList.add(generatorCons); 
     paramList.add(genParams); 
     
-    valuationConfigs.add(new ValuationConfig(tradeableNames, distributionCons, genList, paramList)); 
+    valuationConfigs.add(new ValuationConfig(distributionCons, genList, paramList)); 
     assertEquals(firstSimulationConfig.getVConfig(), valuationConfigs); 
     
     List<IEndowmentConfig> eConfigs = new LinkedList<IEndowmentConfig>(); 
@@ -87,13 +79,13 @@ public class JsonParserTest {
     Class<?> endowmentDistributionClass =
         Class.forName("brown.auction.endowment.distribution.library.IndependentEndowmentDist");
     Constructor<?> endowmentDistributionCons =
-        endowmentDistributionClass.getConstructor(ICart.class, List.class);
+        endowmentDistributionClass.getConstructor(List.class);
 
     List<Constructor<?>> endowmentList = new LinkedList<Constructor<?>>(); 
     List<List<Double>> endowmentParamList = new LinkedList<List<Double>>(); 
     
     Class<?> eGeneratorClass = Class.forName(
-        "brown.auction.value.generator.library.NormalValGenerator");
+        "brown.auction.type.generator.library.NormalValGenerator");
     Constructor<?> eGeneratorCons =
         eGeneratorClass.getConstructor(List.class);
     
@@ -109,9 +101,7 @@ public class JsonParserTest {
     endowmentParamList.add(eGenParamsOne);
     endowmentParamList.add(eGenParams); 
     
-    Map<String, Integer> endowmentMapping = new HashMap<String, Integer>(); 
-    endowmentMapping.put("testItem", 1);
-    eConfigs.add(new EndowmentConfig(tradeableNames, endowmentDistributionCons, endowmentList, endowmentParamList)); 
+    eConfigs.add(new EndowmentConfig(endowmentDistributionCons, endowmentList, endowmentParamList)); 
     
     System.out.println(eConfigs); 
     System.out.println(firstSimulationConfig.getEConfig()); 
@@ -119,17 +109,20 @@ public class JsonParserTest {
     
     assertEquals(firstSimulationConfig.getEConfig(), eConfigs); 
     
-    List<List<IMarketConfig>> marketConfigs = new LinkedList<List<IMarketConfig>>(); 
-    List<IMarketConfig> simMarkets = new LinkedList<IMarketConfig>(); 
+    List<List<IGameConfig>> marketConfigs = new LinkedList<List<IGameConfig>>(); 
+    List<IGameConfig> simMarkets = new LinkedList<IGameConfig>(); 
     
-    simMarkets.add(new MarketConfig(new FlexibleRules(new SimpleHighestPriceAllocation(), 
-        new SecondPricePayment(), new SimpleOneSidedQuery(), 
-        new SimpleOneShotActivity(), new AnonymousPolicy(), 
-        new NoInnerIR(), new OneShotTermination()), tradeableNames)); 
-    simMarkets.add(new MarketConfig(new FlexibleRules(new SimpleHighestPriceAllocation(), 
-        new SecondPricePayment(), new SimpleOneSidedQuery(), 
-        new SimpleOneShotActivity(), new AnonymousPolicy(), 
-        new NoInnerIR(), new OneShotTermination()), tradeableNames));
+    IUtilityRule mockAllocationRule = mock(IUtilityRule.class); 
+    IQueryRule mockQueryRule = mock(IQueryRule.class);
+    IActivityRule mockActivityRule = mock(IActivityRule.class); 
+    IInformationRevelationPolicy mockIR = mock(IInformationRevelationPolicy.class); 
+    ITerminationCondition mocktCondition = mock(ITerminationCondition.class); 
+    IInnerIRPolicy innerIR = mock(IInnerIRPolicy.class); 
+    
+    IFlexibleRules mRules = new FlexibleRules(mockAllocationRule, mockQueryRule, mockActivityRule, mockIR, innerIR, mocktCondition);
+    
+    simMarkets.add(new MarketConfig(mRules)); 
+    simMarkets.add(new MarketConfig(mRules)); 
     marketConfigs.add(simMarkets); 
     assertEquals(firstSimulationConfig.getMConfig(), marketConfigs); 
     

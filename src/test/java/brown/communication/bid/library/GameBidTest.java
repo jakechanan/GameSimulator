@@ -4,17 +4,19 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import brown.communication.action.library.GameAction;
+
 public class GameBidTest {
 
   @Test
   public void testGameBid() {
-    GameBid g = new GameBid(0); 
+    GameAction g = new GameAction(0); 
     assertTrue(g.getAction() == 0); 
     
-    GameBid gTwo = new GameBid(9237498); 
+    GameAction gTwo = new GameAction(9237498); 
     assertTrue(gTwo.getAction() == 9237498); 
     
-    GameBid gThree = new GameBid(-12); 
+    GameAction gThree = new GameAction(-12); 
     assertTrue(gThree.getAction() == -12); 
   }
 }

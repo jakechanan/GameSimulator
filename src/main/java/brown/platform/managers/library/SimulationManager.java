@@ -9,29 +9,24 @@ import java.util.Map;
 import com.esotericsoftware.kryonet.Connection;
 
 import brown.auction.endowment.IEndowment;
-import brown.auction.value.distribution.IValuationDistribution;
-import brown.auction.value.valuation.IGeneralValuation;
-import brown.auction.value.valuation.ISpecificValuation;
-import brown.auction.value.valuation.library.GeneralValuation;
-import brown.communication.messages.IBankUpdateMessage;
+import brown.auction.type.valuation.IType;
+import brown.communication.messages.IUtilityUpdateMessage;
 import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IRegistrationMessage;
 import brown.communication.messages.ITradeMessage;
-import brown.communication.messages.ITradeRequestMessage;
-import brown.communication.messages.IValuationMessage;
+import brown.communication.messages.IActionRequestMessage;
+import brown.communication.messages.ITypeMessage;
 import brown.communication.messageserver.IMessageServer;
 import brown.communication.messageserver.library.MessageServer;
 import brown.logging.library.PlatformLogging;
 import brown.platform.accounting.IAccount;
 import brown.platform.accounting.IAccountUpdate;
-import brown.platform.item.IItem;
-import brown.platform.item.library.Item;
 import brown.platform.managers.IAccountManager;
 import brown.platform.managers.IEndowmentManager;
-import brown.platform.managers.IMarketManager;
+import brown.platform.managers.IGameManager;
 import brown.platform.managers.ISimulationManager;
+import brown.platform.managers.ITypeManager;
 import brown.platform.managers.IUtilityManager;
-import brown.platform.managers.IValuationManager;
 import brown.platform.managers.IWorldManager;
 import brown.platform.simulation.ISimulation;
 import brown.platform.simulation.library.Simulation;
@@ -57,10 +52,10 @@ public class SimulationManager implements ISimulationManager {
   private Map<Integer, String> idToName;
   private int agentCount;
 
-  private IMarketManager currentMarketManager;
+  private IGameManager currentMarketManager;
   private IAccountManager currentAccountManager;
   private IEndowmentManager currentEndowmentManager;
-  private IValuationManager currentValuationManager;
+  private ITypeManager currentValuationManager;
   
   private IUtilityManager utilityManager; 
 
@@ -124,7 +119,7 @@ public class SimulationManager implements ISimulationManager {
             this.runAuction(simulationDelayTime, l);
           }
           // update utility totals. 
-          Map<Integer, IGeneralValuation> agentValuations = new HashMap<Integer, IGeneralValuation>(); 
+          Map<Integer, IType> agentValuations = new HashMap<Integer, IType>(); 
           Map<Integer, IAccount> agentAccounts = new HashMap<Integer, IAccount>(); 
           this.privateToPublic.keySet().forEach(key -> agentValuations.put(key, this.currentValuationManager.getAgentValuation(key)));
           this.privateToPublic.keySet().forEach(key -> agentAccounts.put(key, this.currentAccountManager.getAccount(key)));
@@ -192,10 +187,10 @@ public class SimulationManager implements ISimulationManager {
       synchronized (this.currentMarketManager.getActiveMarket(marketID)) {
         if (this.currentMarketManager.marketOpen(marketID)) {
           // updating the market. 
-          List<ITradeRequestMessage> tradeRequests =
+          List<IActionRequestMessage> tradeRequests =
               this.currentMarketManager.updateMarket(marketID,
                   new LinkedList<Integer>(this.agentConnections.keySet()));
-          for (ITradeRequestMessage tradeRequest : tradeRequests) {
+          for (IActionRequestMessage tradeRequest : tradeRequests) {
             this.messageServer.sendMessage(
                 this.agentConnections.get(tradeRequest.getAgentID()),
                 tradeRequest);
@@ -204,7 +199,7 @@ public class SimulationManager implements ISimulationManager {
           List<IAccountUpdate> accountUpdates =
               this.currentMarketManager.finishMarket(marketID);
           this.currentAccountManager.updateAccounts(accountUpdates);
-          Map<Integer, IBankUpdateMessage> bankUpdates =
+          Map<Integer, IUtilityUpdateMessage> bankUpdates =
               this.currentAccountManager
                   .constructBankUpdateMessages(accountUpdates);
           Map<Integer, IInformationMessage> informationMessages =
@@ -232,22 +227,14 @@ public class SimulationManager implements ISimulationManager {
       } else {
         this.currentAccountManager.createAccount(agentID, agentEndowment);
       }
-      // give agent valuation
-      Map<List<IItem>, ISpecificValuation> specificValuationMap = new HashMap<List<IItem>, ISpecificValuation>(); 
-      for (IValuationDistribution specificDistribution : this.currentValuationManager.getDistribution()) { 
-        List<IItem> specificItems = new LinkedList<IItem>(); 
-        for (String itemName : specificDistribution.getItemNames()) {
-          specificItems.add(new Item(itemName)); 
-        }
-        specificValuationMap.put(specificItems, specificDistribution.sample()); 
-      }
- 
-      this.currentValuationManager.addAgentValuation(agentID, new GeneralValuation(specificValuationMap)); 
+      
+      IType agentType = this.currentValuationManager.getDistribution().sample(); 
+      this.currentValuationManager.addAgentValuation(agentID, agentType); 
     }
     // the account manager should be able to create these messages.
-    Map<Integer, IBankUpdateMessage> accountInitializations =
+    Map<Integer, IUtilityUpdateMessage> accountInitializations =
         this.currentAccountManager.constructInitializationMessages();
-    Map<Integer, IValuationMessage> agentValuations =
+    Map<Integer, ITypeMessage> agentValuations =
         this.currentValuationManager.constructValuationMessages();
     for (Integer agentID : accountInitializations.keySet()) {
       this.messageServer.sendMessage(this.agentConnections.get(agentID),

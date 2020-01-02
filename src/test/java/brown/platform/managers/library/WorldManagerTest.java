@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import org.junit.Test;
 
 import brown.platform.managers.IDomainManager;
-import brown.platform.managers.IMarketManager;
+import brown.platform.managers.IGameManager;
 import brown.platform.managers.IWorldManager;
 import brown.platform.world.IWorld;
 import brown.platform.world.library.World;
@@ -16,7 +16,7 @@ public class WorldManagerTest {
   @Test
   public void testWorldManager() {
     IDomainManager mockedDomain = mock(DomainManager.class); 
-    IMarketManager mockedMarketManager = mock(MarketManager.class); 
+    IGameManager mockedMarketManager = mock(GameManager.class); 
     
     IWorldManager worldManager = new WorldManager(); 
     worldManager.createWorld(mockedDomain, mockedMarketManager);

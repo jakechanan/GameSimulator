@@ -1,7 +1,7 @@
 package brown.platform.world;
 
 import brown.platform.managers.IDomainManager;
-import brown.platform.managers.IMarketManager;
+import brown.platform.managers.IGameManager;
 
 /**
  * A World contains a DomainManager and a MarketManager.
@@ -23,6 +23,6 @@ public interface IWorld {
    * 
    * @return
    */
-  public IMarketManager getMarketManager(); 
+  public IGameManager getMarketManager(); 
   
 }

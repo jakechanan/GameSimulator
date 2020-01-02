@@ -17,7 +17,7 @@ public interface IWorldManager {
    * @param markets
    * IMarketManager used to create world
    */
-  void createWorld(IDomainManager domain, IMarketManager markets);
+  void createWorld(IDomainManager domain, IGameManager markets);
 
   /**
    * get the IWorld stored within the IWorldManager
