@@ -74,7 +74,8 @@ public class UtilityManagerTest {
     for (Integer id : agentRecords.keySet()) {
       List<Double> utils = agentRecords.get(id);
       assertTrue(utils.size() == 1);
-      assertTrue(utils.get(0) > 100.0);
+      System.out.println(utils.get(0)); 
+      assertTrue(utils.get(0) == 100.0);
     }
   }
 

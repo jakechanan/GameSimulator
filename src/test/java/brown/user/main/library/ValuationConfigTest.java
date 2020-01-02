@@ -26,7 +26,7 @@ public class ValuationConfigTest {
     params.add(1.0);
 
     Class genClass = Class
-        .forName("brown.auction.value.generator.library.NormalValGenerator");
+        .forName("brown.auction.type.generator.library.NormalValGenerator");
     List<Double> genParams = new LinkedList<Double>();
     genParams.add(0.0);
     genParams.add(1.0);

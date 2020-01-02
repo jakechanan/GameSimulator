@@ -64,4 +64,49 @@ public class Transaction implements ITransaction {
     return this.PRICE;
   }
 
+  @Override
+  public String toString() {
+    return "Transaction [TO=" + TO + ", FROM=" + FROM + ", PRICE=" + PRICE
+        + ", TIMESTAMP=" + TIMESTAMP + "]";
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((FROM == null) ? 0 : FROM.hashCode());
+    long temp;
+    temp = Double.doubleToLongBits(PRICE);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + (int) (TIMESTAMP ^ (TIMESTAMP >>> 32));
+    result = prime * result + ((TO == null) ? 0 : TO.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Transaction other = (Transaction) obj;
+    if (FROM == null) {
+      if (other.FROM != null)
+        return false;
+    } else if (!FROM.equals(other.FROM))
+      return false;
+    if (Double.doubleToLongBits(PRICE) != Double.doubleToLongBits(other.PRICE))
+      return false;
+    if (TIMESTAMP != other.TIMESTAMP)
+      return false;
+    if (TO == null) {
+      if (other.TO != null)
+        return false;
+    } else if (!TO.equals(other.TO))
+      return false;
+    return true;
+  }
+
 }

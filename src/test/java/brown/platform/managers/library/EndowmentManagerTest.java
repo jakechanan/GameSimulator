@@ -27,7 +27,7 @@ public class EndowmentManagerTest {
     List<Constructor<?>> genList = new LinkedList<Constructor<?>>(); 
     List<List<Double>> paramList = new LinkedList<List<Double>>(); 
 
-    Class genClass = Class.forName("brown.auction.value.generator.library.NormalValGenerator"); 
+    Class genClass = Class.forName("brown.auction.type.generator.library.NormalValGenerator"); 
     List<Double> genParams = new LinkedList<Double>(); 
     genParams.add(0.0); 
     genParams.add(1.0); 

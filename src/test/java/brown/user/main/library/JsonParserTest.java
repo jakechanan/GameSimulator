@@ -51,7 +51,7 @@ public class JsonParserTest {
     List<IValuationConfig> valuationConfigs = new LinkedList<IValuationConfig>(); 
     
     Class<?> distributionClass =
-        Class.forName("brown.auction.value.distribution.library.AdditiveValuationDistribution");
+        Class.forName("brown.auction.type.distribution.library.HLTypeDistribution");
     
     Constructor<?> distributionCons =
         distributionClass.getConstructor(List.class);
@@ -60,7 +60,7 @@ public class JsonParserTest {
     List<List<Double>> paramList = new LinkedList<List<Double>>(); 
     
     Class<?> generatorClass = Class.forName(
-        "brown.auction.value.generator.library.NormalValGenerator");
+        "brown.auction.type.generator.library.NormalValGenerator");
     Constructor<?> generatorCons =
         generatorClass.getConstructor(List.class);
     
@@ -85,7 +85,7 @@ public class JsonParserTest {
     List<List<Double>> endowmentParamList = new LinkedList<List<Double>>(); 
     
     Class<?> eGeneratorClass = Class.forName(
-        "brown.auction.value.generator.library.NormalValGenerator");
+        "brown.auction.type.generator.library.NormalValGenerator");
     Constructor<?> eGeneratorCons =
         eGeneratorClass.getConstructor(List.class);
     
@@ -101,8 +101,6 @@ public class JsonParserTest {
     endowmentParamList.add(eGenParamsOne);
     endowmentParamList.add(eGenParams); 
     
-    Map<String, Integer> endowmentMapping = new HashMap<String, Integer>(); 
-    endowmentMapping.put("testItem", 1);
     eConfigs.add(new EndowmentConfig(endowmentDistributionCons, endowmentList, endowmentParamList)); 
     
     System.out.println(eConfigs); 

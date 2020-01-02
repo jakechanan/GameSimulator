@@ -262,7 +262,7 @@ public class JsonParser implements IJsonParser {
           valuationGeneratorParameters.get(i);
       String valuationDistributionString = simulationValuationDistributions;
       Class<?> distributionClass =
-          Class.forName("brown.auction.value.distribution.library."
+          Class.forName("brown.auction.type.distribution.library."
               + valuationDistributionString);
       Constructor<?> distributionCons =
           distributionClass.getConstructor(List.class);
@@ -281,7 +281,7 @@ public class JsonParser implements IJsonParser {
       for (int k = 0; k < singleValuationGeneratorNames.size(); k++) {
         String generatorName = singleValuationGeneratorNames.get(k);
         Class<?> generatorClass = Class
-            .forName("brown.auction.value.generator.library." + generatorName);
+            .forName("brown.auction.type.generator.library." + generatorName);
         Constructor<?> generatorCons =
             generatorClass.getConstructor(List.class);
 
@@ -335,7 +335,7 @@ public class JsonParser implements IJsonParser {
         for (int k = 0; k < singleEndowmentGeneratorNames.size(); k++) {
           String generatorName = singleEndowmentGeneratorNames.get(k);
           Class<?> generatorClass = Class.forName(
-              "brown.auction.value.generator.library." + generatorName);
+              "brown.auction.type.generator.library." + generatorName);
           Constructor<?> generatorCons =
               generatorClass.getConstructor(List.class);
 

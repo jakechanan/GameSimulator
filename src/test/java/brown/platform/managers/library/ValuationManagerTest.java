@@ -22,13 +22,13 @@ public class ValuationManagerTest {
   public void testCreateValuation() throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException,
   IllegalAccessException, IllegalArgumentException, InvocationTargetException {
     
-    Class distClass = Class.forName("brown.auction.value.distribution.library.AdditiveValuationDistribution");
+    Class distClass = Class.forName("brown.auction.type.distribution.library.HLTypeDistribution");
     Constructor<?> distCons = distClass.getConstructor(List.class); 
     
     List<Constructor<?>> genList = new LinkedList<Constructor<?>>(); 
     List<List<Double>> paramList = new LinkedList<List<Double>>(); 
     
-    Class genClass = Class.forName("brown.auction.value.generator.library.NormalValGenerator"); 
+    Class genClass = Class.forName("brown.auction.type.generator.library.NormalValGenerator"); 
     List<Double> genParams = new LinkedList<Double>(); 
     genParams.add(0.0); 
     genParams.add(1.0); 
