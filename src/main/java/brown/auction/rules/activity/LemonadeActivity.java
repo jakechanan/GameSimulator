@@ -22,7 +22,5 @@ public class LemonadeActivity extends AbsActivity implements IActivityRule {
     } else {
       state.setAcceptable(false);
     }
-
   }
-
 }
