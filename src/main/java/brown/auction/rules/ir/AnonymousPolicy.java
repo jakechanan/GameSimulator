@@ -8,7 +8,6 @@ public class AnonymousPolicy extends AbsRule implements IInformationRevelationPo
 
   @Override
   public void updatePublicState(IMarketState state, IMarketState publicState) {
-    // TODO Auto-generated method stub
     
   }
 

@@ -10,7 +10,7 @@ import brown.auction.marketstate.IMarketState;
 import brown.auction.marketstate.library.MarketState;
 import brown.auction.rules.ITerminationCondition;
 import brown.auction.rules.termination.OneShotTermination;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 
 public class OneShotTerminationTest {
 
@@ -22,13 +22,13 @@ public class OneShotTerminationTest {
     
     assertTrue(state.isOpen()); 
     
-    tCondition.checkTerminated(state, new LinkedList<ITradeMessage>());
+    tCondition.checkTerminated(state, new LinkedList<IActionMessage>());
     
     assertTrue(state.isOpen()); 
     
     state.tick();
     
-    tCondition.checkTerminated(state, new LinkedList<ITradeMessage>());
+    tCondition.checkTerminated(state, new LinkedList<IActionMessage>());
     
     assertTrue(!state.isOpen()); 
     

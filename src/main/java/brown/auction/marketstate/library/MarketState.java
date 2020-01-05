@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import brown.auction.marketstate.IMarketState;
-import brown.communication.messages.ITradeMessage;
-import brown.communication.messages.library.ActionRequestMessage;
+import brown.communication.messages.IActionMessage;
+import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 
 /**
@@ -23,13 +23,13 @@ public class MarketState implements IMarketState {
   // the trade history needs to be in here for the current step. 
   
   // history
-  private List<List<ITradeMessage>> tradeHistory;
+  private List<List<IActionMessage>> tradeHistory;
 
   // Utility rule
   private List<IAccountUpdate> payments;
 
   // Query rule
-  private ActionRequestMessage tRequest;
+  private IActionRequestMessage tRequest;
 
   // Activity rule
   private Boolean isAcceptable;
@@ -43,7 +43,7 @@ public class MarketState implements IMarketState {
     this.payments = new LinkedList<IAccountUpdate>();
     this.time = System.currentTimeMillis();
     this.isOpen = true;
-    this.tradeHistory = new LinkedList<List<ITradeMessage>>();
+    this.tradeHistory = new LinkedList<List<IActionMessage>>();
   }
 
   @Override
@@ -79,12 +79,12 @@ public class MarketState implements IMarketState {
   }
 
   @Override
-  public ActionRequestMessage getTRequest() {
+  public IActionRequestMessage getTRequest() {
     return this.tRequest;
   }
 
   @Override
-  public void setTRequest(ActionRequestMessage t) {
+  public void setTRequest(IActionRequestMessage t) {
     this.tRequest = t;
   }
 
@@ -109,12 +109,12 @@ public class MarketState implements IMarketState {
   }
 
   @Override
-  public List<List<ITradeMessage>> getTradeHistory() {
+  public List<List<IActionMessage>> getTradeHistory() {
     return this.tradeHistory;
   }
 
   @Override
-  public void addToTradeHistory(List<ITradeMessage> tradeMessages) {
+  public void addToTradeHistory(List<IActionMessage> tradeMessages) {
     this.tradeHistory.add(tradeMessages);
   }
 

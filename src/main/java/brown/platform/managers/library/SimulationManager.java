@@ -13,7 +13,7 @@ import brown.auction.type.valuation.IType;
 import brown.communication.messages.IUtilityUpdateMessage;
 import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IRegistrationMessage;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.ITypeMessage;
 import brown.communication.messageserver.IMessageServer;
@@ -163,7 +163,7 @@ public class SimulationManager implements ISimulationManager {
   }
 
   @Override
-  public void giveTradeMessage(ITradeMessage tradeMessage) {
+  public void giveTradeMessage(IActionMessage tradeMessage) {
     // TODO: send back a status message
     this.currentMarketManager.handleTradeMessage(tradeMessage);
   }

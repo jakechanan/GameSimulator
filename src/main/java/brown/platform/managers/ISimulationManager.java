@@ -3,7 +3,7 @@ package brown.platform.managers;
 import com.esotericsoftware.kryonet.Connection;
 
 import brown.communication.messages.IRegistrationMessage;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 
 /**
  * stores and creates Simulations. 
@@ -57,6 +57,6 @@ public interface ISimulationManager {
    * @param tradeMessage
    * trade message from agent. 
    */
-  void giveTradeMessage(ITradeMessage tradeMessage);
+  void giveTradeMessage(IActionMessage tradeMessage);
 
 }

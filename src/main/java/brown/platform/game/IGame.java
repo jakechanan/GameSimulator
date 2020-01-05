@@ -3,7 +3,7 @@ package brown.platform.game;
 import java.util.List;
 
 import brown.auction.marketstate.IMarketState;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 
@@ -35,7 +35,7 @@ public interface IGame {
    * @return
    * boolean determining whether or not the bid was accepted. 
    */
-  public boolean processBid(ITradeMessage bid);
+  public boolean processBid(IActionMessage bid);
   
   /**
    * Construct account updates once the market has completed. 

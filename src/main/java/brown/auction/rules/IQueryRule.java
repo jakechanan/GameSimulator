@@ -3,7 +3,7 @@ package brown.auction.rules;
 import java.util.List;
 
 import brown.auction.marketstate.IMarketState;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 
 /**
  * A Query rule controls the agent channel and trade request that are sent
@@ -25,7 +25,7 @@ public interface IQueryRule {
    * This comes with a trade request.
    * @param state market state.
    */
-  void makeTradeRequest(Integer marketID, IMarketState state, List<ITradeMessage> bids, Integer agentID);
+  void makeTradeRequest(Integer marketID, IMarketState state, List<IActionMessage> bids, Integer agentID);
 
   
 }

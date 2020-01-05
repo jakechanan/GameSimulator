@@ -3,7 +3,7 @@ package brown.communication.messages.library;
 import com.esotericsoftware.kryonet.Connection;
 
 import brown.communication.action.IBid;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messageserver.IMessageServer;
 
 /**
@@ -13,7 +13,7 @@ import brown.communication.messageserver.IMessageServer;
  * @author andrew
  *
  */
-public class ActionMessage extends AbsAgentToServerMessage implements ITradeMessage {
+public class ActionMessage extends AbsAgentToServerMessage implements IActionMessage {
   
   private Integer auctionID; 
   private IBid bid; 

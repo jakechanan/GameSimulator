@@ -3,8 +3,8 @@ package brown.auction.marketstate;
 import java.util.List;
 import java.util.Map;
 
-import brown.communication.messages.ITradeMessage;
-import brown.communication.messages.library.ActionRequestMessage;
+import brown.communication.messages.IActionMessage;
+import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 /**
  * Stores the internal state of a market as it runs. Consists of a series of
@@ -24,9 +24,9 @@ public interface IMarketState {
   public void clearOrders();
 
   // Query rule
-  public ActionRequestMessage getTRequest();
+  public IActionRequestMessage getTRequest();
 
-  public void setTRequest(ActionRequestMessage t);
+  public void setTRequest(IActionRequestMessage t);
 
   // Activity rule
   public boolean getAcceptable();
@@ -48,8 +48,8 @@ public interface IMarketState {
 
   public void close();
   
-  public List<List<ITradeMessage>> getTradeHistory(); 
+  public List<List<IActionMessage>> getTradeHistory(); 
   
-  public void addToTradeHistory(List<ITradeMessage> tradeMessages); 
+  public void addToTradeHistory(List<IActionMessage> tradeMessages); 
 
 }

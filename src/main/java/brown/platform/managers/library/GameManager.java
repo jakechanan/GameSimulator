@@ -12,7 +12,7 @@ import brown.auction.marketstate.library.MarketPublicState;
 import brown.auction.marketstate.library.MarketState;
 import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IStatusMessage;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.library.ActionRejectionMessage;
 import brown.communication.messages.library.ErrorMessage;
@@ -90,7 +90,7 @@ public class GameManager implements IGameManager {
   }
 
   @Override
-  public IStatusMessage handleTradeMessage(ITradeMessage message) { 
+  public IStatusMessage handleTradeMessage(IActionMessage message) { 
     Integer marketID = message.getAuctionID();
     Integer agentID = message.getAgentID();
     if (this.activeMarkets.containsKey(marketID)) {
