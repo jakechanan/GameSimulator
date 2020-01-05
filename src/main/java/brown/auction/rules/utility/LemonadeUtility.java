@@ -83,13 +83,15 @@ public class LemonadeUtility extends AbsRule implements IUtilityRule {
     // for each agent...
     for (Integer agentID : agentActions.keySet()) {
       Integer action = agentActions.get(agentID); 
-      int utilityCount = 0; 
+      double numStands = (double) actionCount.get(action); 
+      double utilityCount = 0.0; 
       for (List<Integer> allocation : lemonadeAllocations) {
         if (allocation.get(0) == action) {
-          utilityCount += 1; 
+       
+          utilityCount += 1.0 / numStands; 
         } 
         if (allocation.get(1) == action) {
-          utilityCount += 1; 
+          utilityCount += 1.0 / numStands; 
         }
       }
       acctUpdates.add(new AccountUpdate(agentID, -1, utilityCount)); 

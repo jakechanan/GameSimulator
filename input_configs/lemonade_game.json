@@ -1,0 +1,31 @@
+{
+	"name": "test simulation", 
+	"startingDelayTime": 10, 
+	"simulationDelayTime": 1, 
+	"numTotalRuns": 1,
+	"simulation": [{
+		"numRuns": 1,
+		"typeDistribution": "HLTypeDistribution", 
+		"typeGenerator": [{
+			"name": "ConcreteValGenerator", 
+			"parameters": [0.0]
+		}], 
+		"endowmentDistribution": "IndependentEndowmentDist", 
+		"endowmentGenerator": [{
+			"name": "ConcreteValGenerator", 
+			"parameters": [0.0]
+		}], 
+		"seqMarket": [{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "LemonadeUtility",  
+					"qRule": "SimpleQuery", 
+					"actRule": "LemonadeActivity", 
+					"irPolicy": "AnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}], 
+	}]
+}
