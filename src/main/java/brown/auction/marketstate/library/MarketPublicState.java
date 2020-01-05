@@ -125,4 +125,14 @@ public class MarketPublicState implements IMarketState {
     this.reserves = reserves; 
   }
 
+  @Override
+  public String toString() {
+    return "MarketPublicState [ticks=" + ticks + ", time=" + time
+        + ", tradeHistory=" + tradeHistory + ", payments=" + payments
+        + ", tRequest=" + tRequest + ", isAcceptable=" + isAcceptable
+        + ", reserves=" + reserves + ", isOpen=" + isOpen + "]";
+  }
+  
+  
+
 }

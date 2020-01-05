@@ -23,7 +23,6 @@ public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
     IGameAction action = new GameAction(0); 
     IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action); 
     this.CLIENT.sendTCP(actionMessage); 
-    
   }
 
 }

@@ -21,7 +21,67 @@
 					"uRule": "LemonadeUtility",  
 					"qRule": "SimpleQuery", 
 					"actRule": "LemonadeActivity", 
-					"irPolicy": "AnonymousPolicy", 
+					"irPolicy": "NonAnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}, 
+	{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "LemonadeUtility",  
+					"qRule": "SimpleQuery", 
+					"actRule": "LemonadeActivity", 
+					"irPolicy": "NonAnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}, 
+	{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "LemonadeUtility",  
+					"qRule": "SimpleQuery", 
+					"actRule": "LemonadeActivity", 
+					"irPolicy": "NonAnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}, 
+	{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "LemonadeUtility",  
+					"qRule": "SimpleQuery", 
+					"actRule": "LemonadeActivity", 
+					"irPolicy": "NonAnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}, 
+	{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "LemonadeUtility",  
+					"qRule": "SimpleQuery", 
+					"actRule": "LemonadeActivity", 
+					"irPolicy": "NonAnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}, 
+	{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "LemonadeUtility",  
+					"qRule": "SimpleQuery", 
+					"actRule": "LemonadeActivity", 
+					"irPolicy": "NonAnonymousPolicy", 
 					"innerIRPolicy": "NoInnerIR", 
 					"tCondition": "OneShotTermination"
 				}, 

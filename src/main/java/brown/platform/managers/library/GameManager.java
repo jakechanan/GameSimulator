@@ -157,7 +157,9 @@ public class GameManager implements IGameManager {
         new HashMap<Integer, IInformationMessage>();
     IMarketState publicState =
         this.whiteboard.getOuterInformation(marketID);
-
+    
+    System.out.println(publicState); 
+    
     for (Integer agentID : agentIDs) {
       informationMessages.put(agentID,
           new InformationMessage(0, agentID, publicState));

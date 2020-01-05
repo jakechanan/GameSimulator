@@ -21,7 +21,7 @@ import brown.auction.rules.ITerminationCondition;
 import brown.auction.rules.IUtilityRule;
 import brown.auction.rules.activity.LemonadeActivity;
 import brown.auction.rules.innerir.NoInnerIR;
-import brown.auction.rules.ir.AnonymousPolicy;
+import brown.auction.rules.ir.NoIR;
 import brown.auction.rules.query.SimpleQuery;
 import brown.auction.rules.termination.OneShotTermination;
 import brown.auction.rules.utility.LemonadeUtility;
@@ -114,7 +114,7 @@ public class JsonParserTest {
     IUtilityRule mockAllocationRule = new LemonadeUtility(); 
     IQueryRule mockQueryRule = new SimpleQuery();
     IActivityRule mockActivityRule = new LemonadeActivity(); 
-    IInformationRevelationPolicy mockIR = new AnonymousPolicy(); 
+    IInformationRevelationPolicy mockIR = new NoIR(); 
     ITerminationCondition mocktCondition = new OneShotTermination(); 
     IInnerIRPolicy innerIR = new NoInnerIR(); 
     
