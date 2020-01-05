@@ -44,7 +44,7 @@ public class Game implements IGame {
 
   public IActionRequestMessage constructTradeRequest(Integer agentID) {
     this.RULES.getQRule().makeTradeRequest(ID, STATE, bids, agentID);
-    ActionRequestMessage request = this.STATE.getTRequest();
+    IActionRequestMessage request = this.STATE.getTRequest();
     return request;
   }
 
