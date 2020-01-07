@@ -371,7 +371,7 @@ public class JsonParser implements IJsonParser {
         for (int k = 0; k < simultaneousMarketRules.size(); k++) {
           Map<String, String> singleMarketRules =
               simultaneousMarketRules.get(k);
-          String aRuleString = singleMarketRules.get("aRule");
+          String aRuleString = singleMarketRules.get("uRule");
           String qRuleString = singleMarketRules.get("qRule");
           String actRuleString = singleMarketRules.get("actRule");
           String irPolicyString = singleMarketRules.get("irPolicy");
@@ -379,17 +379,17 @@ public class JsonParser implements IJsonParser {
           String tConditionString = singleMarketRules.get("tCondition");
 
           Class<?> aRuleClass = Class.forName(
-              "brown.auction.rules.allocation.onesided." + aRuleString);
+              "brown.auction.rules.utility." + aRuleString);
           Class<?> qRuleClass = Class
-              .forName("brown.auction.rules.query.onesided." + qRuleString);
+              .forName("brown.auction.rules.query." + qRuleString);
           Class<?> actRuleClass = Class.forName(
-              "brown.auction.rules.activity.onesided." + actRuleString);
+              "brown.auction.rules.activity." + actRuleString);
           Class<?> irPolicyClass = Class
-              .forName("brown.auction.rules.ir.onesided." + irPolicyString);
+              .forName("brown.auction.rules.ir." + irPolicyString);
           Class<?> innerIRPolicyClass = Class.forName(
-              "brown.auction.rules.innerir.onesided." + innerIRPolicyString);
+              "brown.auction.rules.innerir." + innerIRPolicyString);
           Class<?> tConditionClass = Class.forName(
-              "brown.auction.rules.termination.onesided." + tConditionString);
+              "brown.auction.rules.termination." + tConditionString);
 
           Constructor<?> aRuleCons = aRuleClass.getConstructor();
           Constructor<?> qRuleCons = qRuleClass.getConstructor();

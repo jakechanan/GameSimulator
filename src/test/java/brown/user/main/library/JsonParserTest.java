@@ -2,16 +2,13 @@ package brown.user.main.library;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
@@ -22,6 +19,12 @@ import brown.auction.rules.IInnerIRPolicy;
 import brown.auction.rules.IQueryRule;
 import brown.auction.rules.ITerminationCondition;
 import brown.auction.rules.IUtilityRule;
+import brown.auction.rules.activity.LemonadeActivity;
+import brown.auction.rules.innerir.NoInnerIR;
+import brown.auction.rules.ir.NoIR;
+import brown.auction.rules.query.SimpleQuery;
+import brown.auction.rules.termination.OneShotTermination;
+import brown.auction.rules.utility.LemonadeUtility;
 import brown.platform.game.IFlexibleRules;
 import brown.platform.game.library.FlexibleRules;
 import brown.user.main.IEndowmentConfig;
@@ -91,17 +94,13 @@ public class JsonParserTest {
     
     List<Double> eGenParamsOne = new LinkedList<Double>(); 
     eGenParamsOne.add(0.0); 
-    eGenParamsOne.add(10.0); 
-    List<Double> eGenParams = new LinkedList<Double>(); 
-    eGenParams.add(0.0); 
-    eGenParams.add(100.0); 
+    eGenParamsOne.add(1.0); 
     
-    endowmentList.add(eGeneratorCons); 
     endowmentList.add(eGeneratorCons); 
     endowmentParamList.add(eGenParamsOne);
-    endowmentParamList.add(eGenParams); 
     
     eConfigs.add(new EndowmentConfig(endowmentDistributionCons, endowmentList, endowmentParamList)); 
+    eConfigs.add(new EndowmentConfig(endowmentDistributionCons, endowmentList, endowmentParamList));
     
     System.out.println(eConfigs); 
     System.out.println(firstSimulationConfig.getEConfig()); 
@@ -112,12 +111,12 @@ public class JsonParserTest {
     List<List<IGameConfig>> marketConfigs = new LinkedList<List<IGameConfig>>(); 
     List<IGameConfig> simMarkets = new LinkedList<IGameConfig>(); 
     
-    IUtilityRule mockAllocationRule = mock(IUtilityRule.class); 
-    IQueryRule mockQueryRule = mock(IQueryRule.class);
-    IActivityRule mockActivityRule = mock(IActivityRule.class); 
-    IInformationRevelationPolicy mockIR = mock(IInformationRevelationPolicy.class); 
-    ITerminationCondition mocktCondition = mock(ITerminationCondition.class); 
-    IInnerIRPolicy innerIR = mock(IInnerIRPolicy.class); 
+    IUtilityRule mockAllocationRule = new LemonadeUtility(); 
+    IQueryRule mockQueryRule = new SimpleQuery();
+    IActivityRule mockActivityRule = new LemonadeActivity(); 
+    IInformationRevelationPolicy mockIR = new NoIR(); 
+    ITerminationCondition mocktCondition = new OneShotTermination(); 
+    IInnerIRPolicy innerIR = new NoInnerIR(); 
     
     IFlexibleRules mRules = new FlexibleRules(mockAllocationRule, mockQueryRule, mockActivityRule, mockIR, innerIR, mocktCondition);
     

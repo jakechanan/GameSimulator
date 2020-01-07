@@ -3,7 +3,7 @@ package brown.auction.rules;
 import java.util.List;
 
 import brown.auction.marketstate.IMarketState;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 
 /**
  * An inner termination condition manages when a single auction is over. 
@@ -16,6 +16,6 @@ public interface ITerminationCondition {
    * @param state market internal state.
    * @param messages the current bids in the active market- the termination condition may rely on these. 
    */
-  void checkTerminated(IMarketState state, List<ITradeMessage> messages);
+  void checkTerminated(IMarketState state, List<IActionMessage> messages);
 
 }

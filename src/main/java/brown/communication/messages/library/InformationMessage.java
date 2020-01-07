@@ -24,6 +24,37 @@ public class InformationMessage extends AbsServerToAgentMessage implements IInfo
   
   public IMarketState getPublicState() {
     return this.publicState; 
-  } 
+  }
 
+  @Override
+  public String toString() {
+    return "InformationMessage [publicState=" + publicState + "]";
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result =
+        prime * result + ((publicState == null) ? 0 : publicState.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    InformationMessage other = (InformationMessage) obj;
+    if (publicState == null) {
+      if (other.publicState != null)
+        return false;
+    } else if (!publicState.equals(other.publicState))
+      return false;
+    return true;
+  } 
+  
 }

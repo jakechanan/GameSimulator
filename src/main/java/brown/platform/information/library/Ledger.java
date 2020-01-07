@@ -5,39 +5,39 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.platform.accounting.ITransaction;
 import brown.platform.information.ILedger;
 
 public class Ledger implements ILedger {
 
-  private Map<Integer, Map<Integer, List<ITradeMessage>>> acceptedBids;
-  private Map<Integer, Map<Integer, List<ITradeMessage>>> rejectedBids;
+  private Map<Integer, Map<Integer, List<IActionMessage>>> acceptedBids;
+  private Map<Integer, Map<Integer, List<IActionMessage>>> rejectedBids;
   private Map<Integer, List<ITransaction>> transactions;
 
   public Ledger() {
-    this.acceptedBids = new HashMap<Integer, Map<Integer, List<ITradeMessage>>>();
-    this.rejectedBids = new HashMap<Integer, Map<Integer, List<ITradeMessage>>>();
+    this.acceptedBids = new HashMap<Integer, Map<Integer, List<IActionMessage>>>();
+    this.rejectedBids = new HashMap<Integer, Map<Integer, List<IActionMessage>>>();
     this.transactions = new HashMap<Integer, List<ITransaction>>();
   }
 
   @Override
-  public void postBid(ITradeMessage aBid, Integer timeStep) {
+  public void postBid(IActionMessage aBid, Integer timeStep) {
     if (this.acceptedBids.containsKey(aBid.getAuctionID())) {
-      Map<Integer, List<ITradeMessage>> marketBids = this.acceptedBids.get(aBid.getAuctionID()); 
+      Map<Integer, List<IActionMessage>> marketBids = this.acceptedBids.get(aBid.getAuctionID()); 
       if (marketBids.containsKey(timeStep)) {
-        List<ITradeMessage> bids = marketBids.get(timeStep); 
+        List<IActionMessage> bids = marketBids.get(timeStep); 
         bids.add(aBid); 
         marketBids.put(timeStep, bids); 
       } else {
-        List<ITradeMessage> bids = new LinkedList<ITradeMessage>();
+        List<IActionMessage> bids = new LinkedList<IActionMessage>();
         bids.add(aBid); 
         marketBids.put(timeStep, bids); 
       }
       this.acceptedBids.put(aBid.getAuctionID(), marketBids); 
     } else {
-      Map<Integer, List<ITradeMessage>> marketBids = new HashMap<Integer, List<ITradeMessage>>(); 
-      List<ITradeMessage> bids = new LinkedList<ITradeMessage>(); 
+      Map<Integer, List<IActionMessage>> marketBids = new HashMap<Integer, List<IActionMessage>>(); 
+      List<IActionMessage> bids = new LinkedList<IActionMessage>(); 
       bids.add(aBid); 
       marketBids.put(timeStep, bids); 
       this.acceptedBids.put(aBid.getAuctionID(), marketBids); 
@@ -45,22 +45,22 @@ public class Ledger implements ILedger {
   }
 
   @Override
-  public void postRejectedBid(ITradeMessage aBid, Integer timeStep) {
+  public void postRejectedBid(IActionMessage aBid, Integer timeStep) {
     if (this.rejectedBids.containsKey(aBid.getAuctionID())) {
-      Map<Integer, List<ITradeMessage>> marketBids = this.rejectedBids.get(aBid.getAuctionID()); 
+      Map<Integer, List<IActionMessage>> marketBids = this.rejectedBids.get(aBid.getAuctionID()); 
       if (marketBids.containsKey(timeStep)) {
-        List<ITradeMessage> bids = marketBids.get(timeStep); 
+        List<IActionMessage> bids = marketBids.get(timeStep); 
         bids.add(aBid); 
         marketBids.put(timeStep, bids); 
       } else {
-        List<ITradeMessage> bids = new LinkedList<ITradeMessage>();
+        List<IActionMessage> bids = new LinkedList<IActionMessage>();
         bids.add(aBid); 
         marketBids.put(timeStep, bids); 
       }
       this.rejectedBids.put(aBid.getAuctionID(), marketBids); 
     } else {
-      Map<Integer, List<ITradeMessage>> marketBids = new HashMap<Integer, List<ITradeMessage>>(); 
-      List<ITradeMessage> bids = new LinkedList<ITradeMessage>(); 
+      Map<Integer, List<IActionMessage>> marketBids = new HashMap<Integer, List<IActionMessage>>(); 
+      List<IActionMessage> bids = new LinkedList<IActionMessage>(); 
       bids.add(aBid); 
       marketBids.put(timeStep, bids); 
       this.rejectedBids.put(aBid.getAuctionID(), marketBids); 
@@ -81,20 +81,20 @@ public class Ledger implements ILedger {
   }
 
   @Override
-  public Map<Integer, List<ITradeMessage>> getAcceptedBids(Integer marketID) {
+  public Map<Integer, List<IActionMessage>> getAcceptedBids(Integer marketID) {
     if (this.acceptedBids.containsKey(marketID)) {
       return this.acceptedBids.get(marketID);     
     } else {
-      return new HashMap<Integer, List<ITradeMessage>>(); 
+      return new HashMap<Integer, List<IActionMessage>>(); 
     }
   }
 
   @Override
-  public Map<Integer, List<ITradeMessage>> getRejectedBids(Integer marketID) {
+  public Map<Integer, List<IActionMessage>> getRejectedBids(Integer marketID) {
     if (this.rejectedBids.containsKey(marketID)) {
       return this.rejectedBids.get(marketID);     
     } else {
-      return new HashMap<Integer, List<ITradeMessage>>(); 
+      return new HashMap<Integer, List<IActionMessage>>(); 
     }
   }
 

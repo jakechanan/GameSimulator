@@ -6,7 +6,7 @@ import java.util.Set;
 
 import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IStatusMessage;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 import brown.platform.game.IFlexibleRules;
@@ -51,7 +51,7 @@ public interface IGameManager {
    * @return
    * IStatusMessage specifying whether or not the ITradeMessage was rejected or not. 
    */
-  public IStatusMessage handleTradeMessage(ITradeMessage message); 
+  public IStatusMessage handleTradeMessage(IActionMessage message); 
   
   /**
    * get the IDs of all the active, open markets. 

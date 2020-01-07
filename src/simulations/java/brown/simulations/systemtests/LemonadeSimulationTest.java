@@ -15,16 +15,16 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import brown.simulations.BasicSimulation;
+import brown.simulations.LemonadeSimulation;
 
-public class BasicSimulationTest {
+public class LemonadeSimulationTest {
 
   @Test
   public void testBasicSimulation() throws InterruptedException, IOException {
     // NOTE: PRINTING ANYTHING IN THIS TEST WILL KILL THE TEST. 
     List<String> agentList = new LinkedList<String>();
     agentList.add("brown.user.agent.library.SimpleAgent");
-    BasicSimulation basicSim = new BasicSimulation(agentList,
+    LemonadeSimulation basicSim = new LemonadeSimulation(agentList,
         "input_configs/second_price_auction.json", "basicSimulationTest", true);
     basicSim.run();
     Thread.sleep(5000);

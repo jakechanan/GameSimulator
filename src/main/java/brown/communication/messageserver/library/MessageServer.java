@@ -6,7 +6,7 @@ import com.esotericsoftware.kryonet.Listener;
 import brown.communication.messages.IAgentToServerMessage;
 import brown.communication.messages.IRegistrationMessage;
 import brown.communication.messages.IServerToAgentMessage;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messages.library.RegistrationResponseMessage;
 import brown.communication.messageserver.IMessageServer;
 import brown.logging.library.ErrorLogging;
@@ -59,7 +59,7 @@ public class MessageServer extends KryoServer implements IMessageServer {
     }
 
   @Override
-  public void onBid(Connection connection, ITradeMessage bidMessage) {
+  public void onBid(Connection connection, IActionMessage bidMessage) {
     if (connections.containsKey(connection)) {
       PlatformLogging.log("[-] bid recieved from " + bidMessage.getAgentID());
       this.manager.giveTradeMessage(bidMessage); 

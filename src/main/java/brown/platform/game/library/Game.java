@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import brown.auction.marketstate.IMarketState;
-import brown.communication.messages.ITradeMessage;
+import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.library.ActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
@@ -21,7 +21,7 @@ public class Game implements IGame {
   private final IMarketState PUBLICSTATE;
   private final Set<Integer> AGENTS; 
 
-  private List<ITradeMessage> bids;
+  private List<IActionMessage> bids;
 
   // TODO: make the market remember its history in a memory-efficient way. 
   // make the state a remembering thing. 
@@ -33,7 +33,7 @@ public class Game implements IGame {
     this.STATE = state;
     this.PUBLICSTATE = publicState;
     this.AGENTS = agents; 
-    this.bids = new LinkedList<ITradeMessage>();
+    this.bids = new LinkedList<IActionMessage>();
   }
 
   @Override
@@ -44,11 +44,11 @@ public class Game implements IGame {
 
   public IActionRequestMessage constructTradeRequest(Integer agentID) {
     this.RULES.getQRule().makeTradeRequest(ID, STATE, bids, agentID);
-    ActionRequestMessage request = this.STATE.getTRequest();
+    IActionRequestMessage request = this.STATE.getTRequest();
     return request;
   }
 
-  public boolean processBid(ITradeMessage bid) {
+  public boolean processBid(IActionMessage bid) {
     this.RULES.getActRule().isAcceptable(this.STATE, bid, this.bids);
     boolean acceptable = this.STATE.getAcceptable();
     if (acceptable) {
