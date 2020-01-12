@@ -1,5 +1,8 @@
 package brown.user.agent.library;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import brown.communication.action.IGameAction;
 import brown.communication.action.library.GameAction;
 import brown.communication.messages.IActionMessage;
@@ -9,16 +12,24 @@ import brown.system.setup.ISetup;
 import brown.user.agent.IAgent;
 
 public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
-
+  
+  private List<List<IActionMessage>> tradeHistory; 
+  
   public BasicLemonadeAgent(String host, int port, ISetup gameSetup,
       String name) {
     super(host, port, gameSetup, name);
+    tradeHistory = new LinkedList<List<IActionMessage>>(); 
   }
 
   @Override
   public void
-      onActionRequestMessage(IActionRequestMessage tradeRequestMessage) {
-    
+      onActionRequestMessage(IActionRequestMessage tradeRequestMessage) { 
+    if (this.lastInformationMessage != null) {
+      List<List<IActionMessage>> tHist = this.lastInformationMessage.getPublicState().getTradeHistory();  
+      this.tradeHistory.add(tHist.get(tHist.size() - 1)); 
+    }
+    System.out.println(lastInformationMessage); 
+    System.out.println(this.tradeHistory.size()); 
     Integer auctionID = tradeRequestMessage.getAuctionID(); 
     IGameAction action = new GameAction(0); 
     IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action); 
