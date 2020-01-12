@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import brown.auction.marketstate.IMarketState;
+import brown.auction.marketstate.IMarketPublicState;
 import brown.auction.marketstate.library.MarketPublicState;
 import brown.auction.marketstate.library.MarketState;
-import brown.communication.messages.IInformationMessage;
-import brown.communication.messages.IStatusMessage;
 import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
+import brown.communication.messages.IInformationMessage;
+import brown.communication.messages.IStatusMessage;
 import brown.communication.messages.library.ActionRejectionMessage;
 import brown.communication.messages.library.ErrorMessage;
 import brown.communication.messages.library.InformationMessage;
@@ -143,7 +143,7 @@ public class GameManager implements IGameManager {
         new LinkedList<IActionRequestMessage>();
     for (Integer agentID : agents) {
       IActionRequestMessage tRequest = market.constructTradeRequest(agentID);
-      IMarketState agentState = whiteboard.getInnerInformation(marketID, agentID, market.getTimestep()); 
+      IMarketPublicState agentState = whiteboard.getInnerInformation(marketID, agentID, market.getTimestep()); 
       tRequest.addInformation(agentState); 
       tradeRequests.add(tRequest);
     }
@@ -155,7 +155,7 @@ public class GameManager implements IGameManager {
       constructInformationMessages(Integer marketID, List<Integer> agentIDs) {
     Map<Integer, IInformationMessage> informationMessages =
         new HashMap<Integer, IInformationMessage>();
-    IMarketState publicState =
+    IMarketPublicState publicState =
         this.whiteboard.getOuterInformation(marketID);
     
     System.out.println(publicState); 

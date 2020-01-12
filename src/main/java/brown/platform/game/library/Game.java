@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import brown.auction.marketstate.IMarketPublicState;
 import brown.auction.marketstate.IMarketState;
 import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
-import brown.communication.messages.library.ActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 import brown.platform.game.IFlexibleRules;
 import brown.platform.game.IGame;
@@ -18,7 +18,7 @@ public class Game implements IGame {
   private final Integer ID;
   private final IFlexibleRules RULES;
   private final IMarketState STATE;
-  private final IMarketState PUBLICSTATE;
+  private final IMarketPublicState PUBLICSTATE;
   private final Set<Integer> AGENTS; 
 
   private List<IActionMessage> bids;
@@ -27,7 +27,7 @@ public class Game implements IGame {
   // make the state a remembering thing. 
   // at some point need to add the bids into the market state. 
   public Game(Integer ID, IFlexibleRules rules, IMarketState state,
-      IMarketState publicState, Set<Integer> agents) {
+      IMarketPublicState publicState, Set<Integer> agents) {
     this.ID = ID;
     this.RULES = rules;
     this.STATE = state;
@@ -90,7 +90,7 @@ public class Game implements IGame {
   }
 
   @Override
-  public IMarketState getPublicState() {
+  public IMarketPublicState getPublicState() {
     return this.PUBLICSTATE;
   }
 

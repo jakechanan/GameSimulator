@@ -1,6 +1,6 @@
 package brown.communication.messages.library;
 
-import brown.auction.marketstate.IMarketState;
+import brown.auction.marketstate.IMarketPublicState;
 import brown.communication.messages.IActionRequestMessage;
 import brown.user.agent.IAgent;
 
@@ -34,7 +34,7 @@ public class ActionRequestMessage extends AbsServerToAgentMessage
   }
 
   @Override
-  public void addInformation(IMarketState publicState) {
+  public void addInformation(IMarketPublicState publicState) {
     // TODO:
   }
 

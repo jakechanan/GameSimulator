@@ -243,8 +243,15 @@ public class SimulationManager implements ISimulationManager {
     }
   }
   
+  @Override
+  public Map<Integer, Integer> getAgentIDs() {
+    return this.privateToPublic;
+  }
+  
+  
   private void startMessageServer() {
     this.messageServer = new MessageServer(2121, new Setup(), this);
   }
+
 
 }
