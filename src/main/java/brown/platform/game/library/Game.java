@@ -11,6 +11,7 @@ import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 import brown.platform.game.IFlexibleRules;
 import brown.platform.game.IGame;
+import brown.platform.utils.Utils;
 
 
 public class Game implements IGame {
@@ -92,6 +93,11 @@ public class Game implements IGame {
   @Override
   public IMarketPublicState getPublicState() {
     return this.PUBLICSTATE;
+  }
+  
+  @Override
+  public IMarketPublicState getUnredactedPublicState() {
+    return Utils.toPublicState(this.STATE);
   }
 
   @Override

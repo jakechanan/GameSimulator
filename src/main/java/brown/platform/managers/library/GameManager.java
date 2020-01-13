@@ -13,6 +13,7 @@ import brown.auction.marketstate.library.MarketState;
 import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.IInformationMessage;
+import brown.communication.messages.ISimulationReportMessage;
 import brown.communication.messages.IStatusMessage;
 import brown.communication.messages.library.ActionRejectionMessage;
 import brown.communication.messages.library.ErrorMessage;
@@ -59,8 +60,7 @@ public class GameManager implements IGameManager {
   @Override
   public void createSimultaneousGame(List<IFlexibleRules> marketRules) {
     if (!this.lock) {
-      IGameBlock marketBlock =
-          new SimultaneousGame(marketRules);
+      IGameBlock marketBlock = new SimultaneousGame(marketRules);
       this.allMarkets.add(marketBlock);
     } else {
       PlatformLogging.log("ERROR: market manager locked.");
@@ -83,14 +83,13 @@ public class GameManager implements IGameManager {
     IGameBlock currentMarketBlock = this.allMarkets.get(index);
     List<IFlexibleRules> marketRules = currentMarketBlock.getMarkets();
     for (int i = 0; i < marketRules.size(); i++) {
-      this.activeMarkets.put(i,
-          new Game(i, marketRules.get(i), new MarketState(),
-              new MarketPublicState(), agents));
+      this.activeMarkets.put(i, new Game(i, marketRules.get(i),
+          new MarketState(), new MarketPublicState(), agents));
     }
   }
 
   @Override
-  public IStatusMessage handleTradeMessage(IActionMessage message) { 
+  public IStatusMessage handleTradeMessage(IActionMessage message) {
     Integer marketID = message.getAuctionID();
     Integer agentID = message.getAgentID();
     if (this.activeMarkets.containsKey(marketID)) {
@@ -130,10 +129,11 @@ public class GameManager implements IGameManager {
     // tick the market
     market.tick();
     // update market trade history
-    market.updateTradeHistory(); 
-    // update inner information: copy changes from the market state to the market public state. 
+    market.updateTradeHistory();
+    // update inner information: copy changes from the market state to the
+    // market public state.
     market.updateInnerInformation();
-    
+
     for (Integer agentID : agents) {
       this.whiteboard.postInnerInformation(marketID, agentID,
           this.activeMarkets.get(marketID).getPublicState());
@@ -143,8 +143,9 @@ public class GameManager implements IGameManager {
         new LinkedList<IActionRequestMessage>();
     for (Integer agentID : agents) {
       IActionRequestMessage tRequest = market.constructTradeRequest(agentID);
-      IMarketPublicState agentState = whiteboard.getInnerInformation(marketID, agentID, market.getTimestep()); 
-      tRequest.addInformation(agentState); 
+      IMarketPublicState agentState = whiteboard.getInnerInformation(marketID,
+          agentID, market.getTimestep());
+      tRequest.addInformation(agentState);
       tradeRequests.add(tRequest);
     }
     return tradeRequests;
@@ -157,14 +158,18 @@ public class GameManager implements IGameManager {
         new HashMap<Integer, IInformationMessage>();
     IMarketPublicState publicState =
         this.whiteboard.getOuterInformation(marketID);
-    
-    System.out.println(publicState); 
-    
     for (Integer agentID : agentIDs) {
       informationMessages.put(agentID,
           new InformationMessage(0, agentID, publicState));
     }
     return informationMessages;
+  }
+
+  @Override
+  public Map<Integer, ISimulationReportMessage>
+      constructSimulationReportMessages(List<Integer> agentIDs) {
+    TODO: 
+    return null;
   }
 
   @Override
@@ -175,6 +180,8 @@ public class GameManager implements IGameManager {
     market.updateOuterInformation();
     this.whiteboard.postOuterInformation(marketID,
         this.activeMarkets.get(marketID).getPublicState());
+    this.whiteboard.postSimulationInformation(marketID,
+        this.activeMarkets.get(marketID).getUnredactedPublicState());
     return accountUpdates;
   }
 

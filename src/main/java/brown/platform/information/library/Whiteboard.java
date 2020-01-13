@@ -16,10 +16,13 @@ public class Whiteboard implements IWhiteboard {
   // TODO: make the market state something that remembers. 
 	private Map<Integer, IMarketPublicState> innerMarketWhiteboard;
 	private Map<Integer, IMarketPublicState> outerMarketWhiteboard; 
+	private Map<Integer, IMarketPublicState> simulationReportWhiteboard; 
+	  
 	
 	public Whiteboard() {
 		this.innerMarketWhiteboard = new HashMap<Integer, IMarketPublicState>(); 
 		this.outerMarketWhiteboard = new HashMap<Integer, IMarketPublicState>(); 
+		this.simulationReportWhiteboard = new HashMap<Integer, IMarketPublicState>(); 
 	}
 
   @Override
@@ -42,6 +45,13 @@ public class Whiteboard implements IWhiteboard {
   }
 
   @Override
+  public void postSimulationInformation(Integer marketID,
+      IMarketPublicState marketPublicState) {
+    this.simulationReportWhiteboard.put(marketID, marketPublicState);
+    
+  }
+  
+  @Override
   public IMarketPublicState getInnerInformation(Integer marketID, Integer agentID, Integer timeStep) {
     // TODO: fix and uncomment
     //return this.innerMarketWhiteboard.get(marketID).get(timeStep); 
@@ -52,11 +62,17 @@ public class Whiteboard implements IWhiteboard {
   public IMarketPublicState getOuterInformation(Integer marketID) {
     return this.outerMarketWhiteboard.get(marketID); 
   }
+  
+  @Override
+  public IMarketPublicState getSimulationInformation(Integer marketID) {
+    return this.simulationReportWhiteboard.get(marketID); 
+  }
 
   @Override
   public void clear() {
     this.innerMarketWhiteboard.clear();
     this.outerMarketWhiteboard.clear(); 
+    this.simulationReportWhiteboard.clear(); 
   }
 
 }

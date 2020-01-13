@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import brown.auction.marketstate.IMarketPublicState;
+import brown.auction.marketstate.IMarketState;
 import brown.auction.marketstate.library.MarketPublicState;
 import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
@@ -81,5 +82,12 @@ public class Utils {
 
     return message;
   }
+  
+  public static IMarketPublicState toPublicState(IMarketState state) {
+    
+    // TODO: 
+    return null; 
+  }
+
 
 }
