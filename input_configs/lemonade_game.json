@@ -1,6 +1,6 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 3, 
+	"startingDelayTime": 15, 
 	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{

@@ -97,7 +97,10 @@ public class SimulationManager implements ISimulationManager {
     startMessageServer();
     PlatformLogging.log("Agent connection phase: sleeping for "
         + startingDelayTime + " seconds");
-    Thread.sleep(startingDelayTime * MILLISECONDS);
+    for (int i = 0; i < startingDelayTime; i++) {
+      PlatformLogging.log(startingDelayTime - i + " seconds left to register");
+      Thread.sleep(MILLISECONDS);
+    }
     PlatformLogging.log("Agent connection phase: beginning simulation");
     // add the agent IDs to the utility manager.
     // should this be here, or in handleRegistration?
