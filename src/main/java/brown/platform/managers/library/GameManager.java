@@ -18,6 +18,7 @@ import brown.communication.messages.IStatusMessage;
 import brown.communication.messages.library.ActionRejectionMessage;
 import brown.communication.messages.library.ErrorMessage;
 import brown.communication.messages.library.InformationMessage;
+import brown.communication.messages.library.SimulationReportMessage;
 import brown.logging.library.PlatformLogging;
 import brown.platform.accounting.IAccountUpdate;
 import brown.platform.game.IFlexibleRules;
@@ -168,8 +169,18 @@ public class GameManager implements IGameManager {
   @Override
   public Map<Integer, ISimulationReportMessage>
       constructSimulationReportMessages(List<Integer> agentIDs) {
-    TODO: 
-    return null;
+
+    Map<Integer, IMarketPublicState> simInformation =
+        this.whiteboard.getSimulationReportWhiteboard();
+
+    Map<Integer, ISimulationReportMessage> agentMessages =
+        new HashMap<Integer, ISimulationReportMessage>();
+
+    for (Integer agentID : agentIDs) {
+      agentMessages.put(agentID,
+          new SimulationReportMessage(0, agentID, simInformation));
+    }
+    return agentMessages;
   }
 
   @Override

@@ -84,9 +84,18 @@ public class Utils {
   }
   
   public static IMarketPublicState toPublicState(IMarketState state) {
+
+    IMarketPublicState newState = new MarketPublicState(); 
     
-    // TODO: 
-    return null; 
+    newState.setTicks(state.getTicks());
+    newState.setTime(state.getTime());
+    newState.setUtilities(state.getUtilities()); 
+    newState.setReserves(state.getReserves());
+    
+    for (List<IActionMessage> tradeStep: state.getTradeHistory())
+      newState.addToTradeHistory(tradeStep);
+  
+    return newState; 
   }
 
 

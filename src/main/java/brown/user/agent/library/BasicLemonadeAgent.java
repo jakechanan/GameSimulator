@@ -9,6 +9,7 @@ import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.ISimulationReportMessage;
 import brown.communication.messages.library.ActionMessage;
+import brown.logging.library.UserLogging;
 import brown.system.setup.ISetup;
 import brown.user.agent.IAgent;
 
@@ -29,8 +30,6 @@ public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
       List<List<IActionMessage>> tHist = this.lastInformationMessage.getPublicState().getTradeHistory();  
       this.tradeHistory.add(tHist.get(tHist.size() - 1)); 
     }
-    System.out.println(lastInformationMessage); 
-    System.out.println(this.tradeHistory.size()); 
     Integer auctionID = tradeRequestMessage.getAuctionID(); 
     IGameAction action = new GameAction(0); 
     IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action); 
@@ -40,7 +39,7 @@ public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
   @Override
   public void
       onSimulationReportMessage(ISimulationReportMessage simulationMessage) {
-    // TODO Auto-generated method stub
+    UserLogging.log(simulationMessage); 
     
   }
 
