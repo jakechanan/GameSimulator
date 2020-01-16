@@ -2,6 +2,7 @@ package brown.user.agent.library;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import brown.communication.action.IGameAction;
 import brown.communication.action.library.GameAction;
@@ -31,7 +32,8 @@ public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
       this.tradeHistory.add(tHist.get(tHist.size() - 1)); 
     }
     Integer auctionID = tradeRequestMessage.getAuctionID(); 
-    IGameAction action = new GameAction(0); 
+    Random r = new Random(); 
+    IGameAction action = new GameAction(r.nextInt(12)); 
     IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action); 
     this.CLIENT.sendTCP(actionMessage); 
   }

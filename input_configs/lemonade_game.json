@@ -1,10 +1,10 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 10, 
+	"startingDelayTime": 3, 
 	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{
-		"numRuns": 6,
+		"numRuns": 2,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 
