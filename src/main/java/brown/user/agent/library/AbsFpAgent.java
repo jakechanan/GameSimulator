@@ -69,6 +69,10 @@ public abstract class AbsFpAgent extends AbsAgent implements IAgent {
                 }
             }
         }
+
+        public double probabilityOf(Integer agentId, IBid action) {
+            return probs.get(agentId).get(action);
+        }
     }
 
     protected static class ActionHistory {
