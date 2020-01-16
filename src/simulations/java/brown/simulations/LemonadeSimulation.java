@@ -18,17 +18,20 @@ public class LemonadeSimulation extends AbsUserSimulation {
     Thread st = new Thread(sr);
     Thread at = new Thread(ar);
     Thread atTwo = new Thread(ar);
+    Thread atThree = new Thread(ar);
 
     st.start();
     if (agentClass != null) {
       at.start();
       atTwo.start();
+      atThree.start();
     }
 
     while (true) {
       if (!st.isAlive()) {
         at.interrupt();
         atTwo.interrupt();
+        atThree.interrupt();
         break;
       }
       Thread.sleep(1000);

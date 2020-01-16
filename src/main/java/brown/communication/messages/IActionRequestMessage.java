@@ -1,6 +1,6 @@
 package brown.communication.messages;
 
-import brown.auction.marketstate.IMarketState;
+import brown.auction.marketstate.IMarketPublicState;
 
 public interface IActionRequestMessage extends IServerToAgentMessage {
   
@@ -8,6 +8,6 @@ public interface IActionRequestMessage extends IServerToAgentMessage {
   
   public Integer getAuctionID();  
   
-  public void addInformation(IMarketState publicState); 
+  public void addInformation(IMarketPublicState publicState); 
   
 }

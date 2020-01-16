@@ -21,7 +21,7 @@ import brown.auction.rules.ITerminationCondition;
 import brown.auction.rules.IUtilityRule;
 import brown.auction.rules.activity.LemonadeActivity;
 import brown.auction.rules.innerir.NoInnerIR;
-import brown.auction.rules.ir.NoIR;
+import brown.auction.rules.ir.NonAnonymousPolicy;
 import brown.auction.rules.query.SimpleQuery;
 import brown.auction.rules.termination.OneShotTermination;
 import brown.auction.rules.utility.LemonadeUtility;
@@ -114,7 +114,7 @@ public class JsonParserTest {
     IUtilityRule mockAllocationRule = new LemonadeUtility(); 
     IQueryRule mockQueryRule = new SimpleQuery();
     IActivityRule mockActivityRule = new LemonadeActivity(); 
-    IInformationRevelationPolicy mockIR = new NoIR(); 
+    IInformationRevelationPolicy mockIR = new NonAnonymousPolicy(); 
     ITerminationCondition mocktCondition = new OneShotTermination(); 
     IInnerIRPolicy innerIR = new NoInnerIR(); 
     
@@ -123,6 +123,11 @@ public class JsonParserTest {
     simMarkets.add(new MarketConfig(mRules)); 
     simMarkets.add(new MarketConfig(mRules)); 
     marketConfigs.add(simMarkets); 
+    System.out.println(firstSimulationConfig.getMConfig());
+    System.out.println(marketConfigs);
+    
+    System.out.println(firstSimulationConfig.getMConfig().equals(marketConfigs)); 
+    
     assertEquals(firstSimulationConfig.getMConfig(), marketConfigs); 
     
   }

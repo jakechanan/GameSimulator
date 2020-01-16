@@ -1,23 +1,24 @@
 package brown.platform.information;
 
-import brown.auction.marketstate.IMarketState;
+import java.util.Map;
+
+import brown.auction.marketstate.IMarketPublicState;
 
 public interface IWhiteboard {
   
-  public void postInnerInformation(Integer marketID, Integer agentID, IMarketState marketPublicState); 
+  public void postInnerInformation(Integer marketID, Integer agentID, IMarketPublicState marketPublicState); 
   
-  public void postOuterInformation(Integer marketID, IMarketState marketPublicState); 
-
-// TODO: include bids and trades in MarketPublicState
-//  public void postBids(Integer marketID, List<IBid> bids); 
-//  
-//  public void postTrades(Integer marketID, List<ITransaction> completedTransactions); 
+  public void postOuterInformation(Integer marketID, IMarketPublicState marketPublicState); 
   
-  public IMarketState getInnerInformation(Integer marketID, Integer agentID, Integer timeStep); 
+  public void postSimulationInformation(Integer marketID, IMarketPublicState marketPublicState); 
   
-  public IMarketState getOuterInformation(Integer marketID); 
+  public IMarketPublicState getInnerInformation(Integer marketID, Integer agentID, Integer timeStep); 
   
+  public IMarketPublicState getOuterInformation(Integer marketID); 
   
+  public IMarketPublicState getSimulationInformation(Integer marketID); 
+  
+  public Map<Integer, IMarketPublicState> getSimulationReportWhiteboard(); 
   
   public void clear(); 
   

@@ -1,9 +1,10 @@
 package brown.user.agent;
 
-import brown.communication.messages.IUtilityUpdateMessage;
-import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IActionRequestMessage;
+import brown.communication.messages.IInformationMessage;
+import brown.communication.messages.ISimulationReportMessage;
 import brown.communication.messages.ITypeMessage;
+import brown.communication.messages.IUtilityUpdateMessage;
 import brown.system.client.IClient;
 
 /**
@@ -24,5 +25,7 @@ public interface IAgent extends IClient {
   public void onActionRequestMessage(IActionRequestMessage tradeRequestMessage); 
   
   public void onTypeMessage(ITypeMessage valuationMessage); 
+  
+  public void onSimulationReportMessage(ISimulationReportMessage simulationMessage); 
 
 }

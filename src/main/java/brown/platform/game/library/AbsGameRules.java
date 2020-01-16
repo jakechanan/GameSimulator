@@ -69,10 +69,9 @@ public abstract class AbsGameRules implements IGameRules {
     return this.tCondition;
   }
 
-  
   @Override
   public String toString() {
-    return "AbsMarketRules [aRule=" + aRule + ", qRule=" + qRule + ", actRule="
+    return "AbsGameRules [aRule=" + aRule + ", qRule=" + qRule + ", actRule="
         + actRule + ", infoPolicy=" + infoPolicy + ", innerIRPolicy="
         + innerIRPolicy + ", tCondition=" + tCondition + "]";
   }
@@ -134,7 +133,5 @@ public abstract class AbsGameRules implements IGameRules {
       return false;
     return true;
   }
-
-
 
 }

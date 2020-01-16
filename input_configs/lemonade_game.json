@@ -1,10 +1,10 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 10, 
-	"simulationDelayTime": 1, 
+	"startingDelayTime": 15, 
+	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{
-		"numRuns": 1,
+		"numRuns": 2,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 
@@ -26,66 +26,6 @@
 					"tCondition": "OneShotTermination"
 				}, 
 			}]
-		}, 
-	{
-			"simMarket": [{
-				"marketRules": {
-					"uRule": "LemonadeUtility",  
-					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
-					"irPolicy": "NonAnonymousPolicy", 
-					"innerIRPolicy": "NoInnerIR", 
-					"tCondition": "OneShotTermination"
-				}, 
-			}]
-		}, 
-	{
-			"simMarket": [{
-				"marketRules": {
-					"uRule": "LemonadeUtility",  
-					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
-					"irPolicy": "NonAnonymousPolicy", 
-					"innerIRPolicy": "NoInnerIR", 
-					"tCondition": "OneShotTermination"
-				}, 
-			}]
-		}, 
-	{
-			"simMarket": [{
-				"marketRules": {
-					"uRule": "LemonadeUtility",  
-					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
-					"irPolicy": "NonAnonymousPolicy", 
-					"innerIRPolicy": "NoInnerIR", 
-					"tCondition": "OneShotTermination"
-				}, 
-			}]
-		}, 
-	{
-			"simMarket": [{
-				"marketRules": {
-					"uRule": "LemonadeUtility",  
-					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
-					"irPolicy": "NonAnonymousPolicy", 
-					"innerIRPolicy": "NoInnerIR", 
-					"tCondition": "OneShotTermination"
-				}, 
-			}]
-		}, 
-	{
-			"simMarket": [{
-				"marketRules": {
-					"uRule": "LemonadeUtility",  
-					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
-					"irPolicy": "NonAnonymousPolicy", 
-					"innerIRPolicy": "NoInnerIR", 
-					"tCondition": "OneShotTermination"
-				}, 
-			}]
-		}], 
+		}] 
 	}]
 }
