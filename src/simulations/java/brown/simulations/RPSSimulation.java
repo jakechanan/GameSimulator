@@ -38,7 +38,7 @@ public class RPSSimulation extends AbsUserSimulation {
 
     public static void main(String[] args) throws InterruptedException {
         List<String> agentList = new LinkedList<String>();
-        agentList.add("brown.user.agent.library.BasicRPSAgent");
+        agentList.add("brown.user.agent.library.ExponentialWeightsAgent");
         agentList.add("brown.user.agent.library.FictitiousPlayAgent");
         RPSSimulation basicSim = new RPSSimulation(agentList,
                 "input_configs/rock_paper_scissors.json", "outfile", false);
