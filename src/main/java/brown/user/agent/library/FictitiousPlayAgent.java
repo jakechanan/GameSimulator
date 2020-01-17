@@ -39,6 +39,7 @@ public class FictitiousPlayAgent extends AbsAgent implements IAgent {
         this.utilFn = new RPSUtilityFn();
     }
 
+    // Calculates this agent's utility from a hypothetical action profile.
     public Double calculateUtilityFromActions(Integer myMove, Integer opponentMove) {
         Integer SELF = 0, OPPONENT = 1;
 
@@ -53,15 +54,17 @@ public class FictitiousPlayAgent extends AbsAgent implements IAgent {
         return this.utilFn.getAgentUtilities(Arrays.asList(actionMessage1, actionMessage2)).get(SELF);
     }
 
-    public void predictOpponentNextMove() {
+    // Create a probability distribution over the opponent's possible actions.
+    public void predict() {
         // TODO: TASK 1
         // Create an instance variable to store your probabilities.
         // Hint: Opponent action history is stored in this.opponentActions.
-        // Use this.utilFn.getPossibleActions() for a complete list of possible actions.
+
+        List<Integer> possibleActions = this.utilFn.getPossibleActions();
 
         // TODO (jake): comment this out for lab
         this.opponentProbs = new HashMap<>();
-        for (Integer action : this.utilFn.getPossibleActions()) {
+        for (Integer action : possibleActions) {
             this.opponentProbs.put(action, 0.0);
         }
         for (Integer action : this.opponentActions) {
@@ -70,10 +73,11 @@ public class FictitiousPlayAgent extends AbsAgent implements IAgent {
     }
 
 
-    public Integer calculateExpectedBestBid() {
+    // Using your probability distribution, calculate this agent's (expected) best action.
+    public Integer optimize() {
         // TODO: TASK 2
         // Use your predictions to implement Fictitious Play
-        // Hint: use calculateUtilityFromActions()
+        // Hint: use calculateUtilityFromActions() to get the utility of a hypothetical action profile.
 
         Integer bestMove = 0;
 
@@ -113,8 +117,8 @@ public class FictitiousPlayAgent extends AbsAgent implements IAgent {
     onActionRequestMessage(IActionRequestMessage tradeRequestMessage) {
         int bid = 0;
         if (this.lastBid != null) {
-            predictOpponentNextMove();
-            bid = calculateExpectedBestBid();
+            predict();
+            bid = optimize();
         }
 
         Integer auctionID = tradeRequestMessage.getAuctionID();
