@@ -2,6 +2,7 @@ package brown.system.setup.library;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -53,7 +54,7 @@ public final class Setup implements ISetup {
    */
   public static List<String> getJavaFiles(String path) throws IOException {
     List<String> output = new LinkedList<String>();
-    Files.walk(Paths.get(path)).filter(Files::isRegularFile)
+    Files.walk(Paths.get(path)).filter(Files::isRegularFile).filter(s -> s.toString().endsWith(".java"))
         .forEach(s -> output.add(s.toString().replaceAll(path, "")
             .replaceAll(".java", "").replaceAll("/", ".")));
     return output;
