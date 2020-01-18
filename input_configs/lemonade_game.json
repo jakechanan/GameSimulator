@@ -1,5 +1,6 @@
 {
 	"name": "test simulation", 
+	"serverPort": 2121,
 	"startingDelayTime": 5, 
 	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,

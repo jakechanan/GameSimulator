@@ -42,7 +42,7 @@ public interface ISimulationManager {
    * @throws InterruptedException
    */
   void runSimulation(int startingDelayTime, double simulationDelayTime,
-      int numRuns) throws InterruptedException;
+      int numRuns, int serverPort) throws InterruptedException;
 
   /**
    * handle an IRegistrationMessage sent from an agent. 

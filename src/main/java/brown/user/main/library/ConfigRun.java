@@ -33,7 +33,7 @@ public class ConfigRun {
   }
 
   public void run(Integer startingDelayTime, Double simulationDelayTime,
-      Integer numSimulations) throws InstantiationException,
+      Integer numSimulations, Integer serverPort) throws InstantiationException,
       IllegalAccessException, IllegalArgumentException,
       InvocationTargetException, InterruptedException {
     ISimulationManager simulationManager = new SimulationManager();
@@ -80,7 +80,7 @@ public class ConfigRun {
     }
 
     simulationManager.runSimulation(startingDelayTime, simulationDelayTime,
-        numSimulations);
+        numSimulations, serverPort);
     
     
   }

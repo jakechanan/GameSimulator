@@ -445,7 +445,10 @@ public class JsonParser implements IJsonParser {
     outerParams.put("numTotalRuns", ((Long) jo.get("numTotalRuns")).intValue());
     outerParams.put("startingDelayTime",
         ((Long) jo.get("startingDelayTime")).intValue());
-
+    if (jo.containsKey("serverPort"))
+      outerParams.put("serverPort", ((Long) jo.get("serverPort")).intValue()); 
+    else
+      outerParams.put("serverPort", 2121);
     return outerParams;
   }
   
