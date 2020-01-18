@@ -79,12 +79,13 @@ public class GameManager implements IGameManager {
   }
 
   @Override
-  public void openMarkets(int index, Set<Integer> agents) {
+  public void openMarkets(int index, Set<Integer> agents, int groupIndex) {
     // TODO: somehow open markets using whiteboard information.
     IGameBlock currentMarketBlock = this.allMarkets.get(index);
     List<IFlexibleRules> marketRules = currentMarketBlock.getMarkets();
     for (int i = 0; i < marketRules.size(); i++) {
-      this.activeMarkets.put(i, new Game(i, marketRules.get(i),
+      int marketID = i + (marketRules.size() * groupIndex); 
+      this.activeMarkets.put(marketID, new Game(marketID, marketRules.get(i),
           new MarketState(), new MarketPublicState(), agents));
     }
   }
@@ -124,8 +125,7 @@ public class GameManager implements IGameManager {
     return this.activeMarkets.get(marketID);
   }
 
-  public List<IActionRequestMessage> updateMarket(Integer marketID,
-      List<Integer> agents) {
+  public List<IActionRequestMessage> updateMarket(Integer marketID) {
     IGame market = this.activeMarkets.get(marketID);
     // tick the market
     market.tick();
@@ -135,14 +135,14 @@ public class GameManager implements IGameManager {
     // market public state.
     market.updateInnerInformation();
 
-    for (Integer agentID : agents) {
+    for (Integer agentID : market.getMarketAgents()) {
       this.whiteboard.postInnerInformation(marketID, agentID,
           this.activeMarkets.get(marketID).getPublicState());
     }
 
     List<IActionRequestMessage> tradeRequests =
         new LinkedList<IActionRequestMessage>();
-    for (Integer agentID : agents) {
+    for (Integer agentID : market.getMarketAgents()) {
       IActionRequestMessage tRequest = market.constructTradeRequest(agentID);
       IMarketPublicState agentState = whiteboard.getInnerInformation(marketID,
           agentID, market.getTimestep());

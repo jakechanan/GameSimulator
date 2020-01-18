@@ -2,9 +2,11 @@ package brown.platform.managers.library;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.esotericsoftware.kryonet.Connection;
 
@@ -52,14 +54,15 @@ public class SimulationManager implements ISimulationManager {
   private Map<Integer, Connection> agentConnections;
   private Map<Integer, Integer> privateToPublic;
   private Map<Integer, String> idToName;
+  private List<List<Integer>> agentGroups;
   private int agentCount;
 
   private IGameManager currentMarketManager;
   private IAccountManager currentAccountManager;
   private IEndowmentManager currentEndowmentManager;
   private ITypeManager currentValuationManager;
-
   private IUtilityManager utilityManager;
+  private int groupSize;
 
   private IMessageServer messageServer;
 
@@ -76,10 +79,10 @@ public class SimulationManager implements ISimulationManager {
   }
 
   @Override
-  public void createSimulation(int numSimulationRuns,
+  public void createSimulation(int numSimulationRuns, int groupSize,
       IWorldManager worldManager) {
     if (!this.lock) {
-      this.simulations.add(new Simulation(worldManager));
+      this.simulations.add(new Simulation(groupSize, worldManager));
       this.numSimulationRuns.add(numSimulationRuns);
     } else {
       PlatformLogging.log("Creation denied: simulation manager locked.");
@@ -108,7 +111,7 @@ public class SimulationManager implements ISimulationManager {
         .forEach(id -> this.utilityManager.addAgentRecord(id));
     for (int i = 0; i < numRuns; i++) {
       for (int j = 0; j < this.simulations.size(); j++) {
-
+        // set agent groupings. 
         this.currentMarketManager = this.simulations.get(j).getWorldManager()
             .getWorld().getMarketManager();
         this.currentAccountManager = this.simulations.get(j).getWorldManager()
@@ -117,7 +120,9 @@ public class SimulationManager implements ISimulationManager {
             .getWorld().getDomainManager().getDomain().getEndowmentManager();
         this.currentValuationManager = this.simulations.get(j).getWorldManager()
             .getWorld().getDomainManager().getDomain().getValuationManager();
-
+        this.groupSize = this.simulations.get(j).getGroupSize();
+        this.setAgentGroupings(); 
+        System.out.println(this.agentGroups); 
         for (int k = 0; k < this.numSimulationRuns.get(j); k++) {
           this.initializeAgents();
           for (int l = 0; l < this.currentMarketManager
@@ -183,7 +188,11 @@ public class SimulationManager implements ISimulationManager {
 
   private synchronized void runAuction(double simulationDelayTime, int index)
       throws InterruptedException {
-    this.currentMarketManager.openMarkets(index, this.privateToPublic.keySet());
+    // just open different markets for different agents...?
+    for (int i = 0; i < this.agentGroups.size(); i++) {
+      System.out.println("agent group: " + agentGroups.get(i)); 
+      this.currentMarketManager.openMarkets(index, new HashSet<Integer>(agentGroups.get(i)), i); 
+    }
     while (this.currentMarketManager.anyMarketsOpen()) {
       Thread.sleep((int) (simulationDelayTime * MILLISECONDS));
       PlatformLogging.log("updating auctions");
@@ -201,8 +210,8 @@ public class SimulationManager implements ISimulationManager {
         if (this.currentMarketManager.marketOpen(marketID)) {
           // updating the market.
           List<IActionRequestMessage> tradeRequests =
-              this.currentMarketManager.updateMarket(marketID,
-                  new LinkedList<Integer>(this.agentConnections.keySet()));
+              this.currentMarketManager.updateMarket(marketID);
+          System.out.println(marketID + " " + tradeRequests); 
           for (IActionRequestMessage tradeRequest : tradeRequests) {
             this.messageServer.sendMessage(
                 this.agentConnections.get(tradeRequest.getAgentID()),
@@ -250,9 +259,9 @@ public class SimulationManager implements ISimulationManager {
       } else {
         this.currentAccountManager.createAccount(agentID, agentEndowment);
       }
-
       IType agentType = this.currentValuationManager.getDistribution().sample();
       this.currentValuationManager.addAgentValuation(agentID, agentType);
+
     }
     // the account manager should be able to create these messages.
     Map<Integer, IUtilityUpdateMessage> accountInitializations =
@@ -266,7 +275,34 @@ public class SimulationManager implements ISimulationManager {
           agentValuations.get(agentID));
     }
   }
-
+  
+  private void setAgentGroupings() {
+    this.agentGroups = new LinkedList<List<Integer>>();
+    if (this.groupSize > 0) {
+      for (Integer agentID : privateToPublic.keySet()) {
+        List<List<Integer>> incompleteAgentGroups =
+            this.agentGroups.stream().filter(list -> list.size() < this.groupSize)
+                .collect(Collectors.toList());
+        if (incompleteAgentGroups.size() > 0) {
+          List<Integer> incompleteGroup = incompleteAgentGroups.get(0); 
+          this.agentGroups.remove(incompleteGroup); 
+          incompleteGroup.add(agentID); 
+          this.agentGroups.add(incompleteGroup); 
+        } else {
+          List<Integer> incompleteGroup = new LinkedList<Integer>(); 
+          incompleteGroup.add(agentID);
+          this.agentGroups.add(incompleteGroup); 
+        }
+      } 
+    } else {
+      List<Integer> agentGroup = new LinkedList<Integer>(); 
+      for (Integer agentID : privateToPublic.keySet()) {
+        agentGroup.add(agentID);
+      }
+      this.agentGroups.add(agentGroup); 
+    }
+  }
+  
   @Override
   public Map<Integer, Integer> getAgentIDs() {
     return this.privateToPublic;

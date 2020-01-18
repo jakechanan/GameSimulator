@@ -44,7 +44,7 @@ public interface IGameManager {
    * open the markets at a specified index. 
    * @param index
    */
-  public void openMarkets(int index, Set<Integer> agents); 
+  public void openMarkets(int index, Set<Integer> agents, int groupIndex); 
   
   /**
    * handle a tradeMessage, meaning to redirect it to its intended market. 
@@ -77,7 +77,7 @@ public interface IGameManager {
    * @return
    * List<ITradeRequestMessage> to be sent to agents. 
    */
-  public List<IActionRequestMessage> updateMarket(Integer marketID, List<Integer> agents); 
+  public List<IActionRequestMessage> updateMarket(Integer marketID); 
   
   /**
    * constructs information message to be sent back to agents. 

@@ -68,11 +68,11 @@ public class ConfigRun {
         }
         marketManager.createSimultaneousGame(marketRules);
       }
-
+      
       domainManager.createDomain(valuationManager,
           endowmentManager, accountManager);
       worldManager.createWorld(domainManager, marketManager);
-      simulationManager.createSimulation(aConfig.getSimulationRuns(),
+      simulationManager.createSimulation(aConfig.getSimulationRuns(), aConfig.getGroupSize(),
           worldManager);
       valuationManager.lock();
       simulationManager.lock();

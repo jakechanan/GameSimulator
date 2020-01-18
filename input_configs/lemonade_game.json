@@ -1,10 +1,11 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 15, 
+	"startingDelayTime": 5, 
 	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{
 		"numRuns": 2,
+		"groupSize": 1,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 
@@ -26,6 +27,6 @@
 					"tCondition": "OneShotTermination"
 				}, 
 			}]
-		}] 
+		}]  
 	}]
 }
