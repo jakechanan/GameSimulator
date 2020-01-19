@@ -22,9 +22,9 @@ public class BasicRPSAgent extends AbsLemonadeAgent implements IAgent {
     public void
     onActionRequestMessage(IActionRequestMessage tradeRequestMessage) {
         Integer auctionID = tradeRequestMessage.getAuctionID();
-        Random r = new Random();
         // some basic unbalanced probabilities.
-        IGameAction action = new GameAction((Math.random() < 0.25) ? 0 : (Math.random() < 0.55) ? 1 : 2);
+        double a = Math.random();
+        IGameAction action = new GameAction((a < 0.25) ? 0 : (a < 0.55) ? 1 : 2);
         IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action);
         this.CLIENT.sendTCP(actionMessage);
     }

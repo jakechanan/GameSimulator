@@ -9,7 +9,9 @@ import brown.communication.action.library.GameAction;
 import brown.communication.messages.*;
 import brown.communication.messages.library.ActionMessage;
 import brown.logging.library.UserLogging;
+import brown.simulations.RPSSimulation;
 import brown.system.setup.ISetup;
+import brown.system.setup.library.Setup;
 import brown.user.agent.IAgent;
 
 import java.util.*;
@@ -116,6 +118,7 @@ public class RpsFictitiousPlayAgent extends AbsAgent implements IAgent {
 
     @Override
     public void onSimulationReportMessage(ISimulationReportMessage simulationMessage) {
+        // TODO(jake): fix once public ID is available
         List<IActionMessage> history = simulationMessage.getMarketResults().get(this.auctionID).getTradeHistory().get(0);
         Integer bid1 = ((GameAction)history.get(0).getBid()).getAction();
         Integer bid2 = ((GameAction)history.get(1).getBid()).getAction();
@@ -124,5 +127,10 @@ public class RpsFictitiousPlayAgent extends AbsAgent implements IAgent {
         } else {
             this.opponentActions.add(bid1);
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        List<String> agents = Arrays.asList(RpsFictitiousPlayAgent.class.getCanonicalName(), BasicRPSAgent.class.getCanonicalName());
+        new RPSSimulation(agents, "input_configs/rock_paper_scissors.json", "outfile", false).run();
     }
 }

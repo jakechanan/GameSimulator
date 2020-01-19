@@ -4,7 +4,7 @@
 	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{
-		"numRuns": 50,
+		"numRuns": 100,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 

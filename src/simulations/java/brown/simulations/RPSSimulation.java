@@ -13,8 +13,8 @@ public class RPSSimulation extends AbsUserSimulation {
     public void run() throws InterruptedException {
 
         ServerRunnable sr = new ServerRunnable();
-        AgentRunnable ar = new AgentRunnable(agentClass.get(0), "alice");
-        AgentRunnable ar2 = new AgentRunnable(agentClass.get(1), "bob");
+        AgentRunnable ar = new AgentRunnable(agentClass.get(0), "myAgent");
+        AgentRunnable ar2 = new AgentRunnable(agentClass.get(1), "opponent");
 
         Thread st = new Thread(sr);
         Thread at = new Thread(ar);

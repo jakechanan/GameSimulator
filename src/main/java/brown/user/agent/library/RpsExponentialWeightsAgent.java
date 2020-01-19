@@ -6,9 +6,11 @@ import brown.communication.action.IGameAction;
 import brown.communication.action.library.GameAction;
 import brown.communication.messages.*;
 import brown.communication.messages.library.ActionMessage;
+import brown.simulations.RPSSimulation;
 import brown.system.setup.ISetup;
 import brown.user.agent.IAgent;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +60,22 @@ public class RpsExponentialWeightsAgent extends AbsAgent implements IAgent {
 
         // Hint: use Math.exp(a) to get e^a.
 
+        List<Integer> possibleActions = Arrays.asList(0, 1, 2);
+        Map<Integer, Double> averageRewardPerAction = this.averageRewards();
+
+
+        Double sum = 0.0;
+        for (Integer action : possibleActions) {
+            Double expReward = Math.exp(averageRewardPerAction.get(action));
+            probs.put(action, expReward);
+            sum += expReward;
+        }
+
+        for (Integer action : possibleActions) {
+            Double expReward = probs.get(action);
+            probs.put(action, expReward / sum);
+        }
+
         return probs;
     }
 
@@ -67,11 +85,16 @@ public class RpsExponentialWeightsAgent extends AbsAgent implements IAgent {
      * @return The agent's next move: ROCK, PAPER, or SCISSORS.
      */
     public Integer sample(Map<Integer, Double> probs) {
+        System.out.println("total: " + this.actionRewards);
+        System.out.println("count: " + this.actionCounts);
+        System.out.println("avg: " + this.averageRewards());
+        System.out.println("probs: " + probs);
         Double a = Math.random();
         Double total = 0.0;
         for (Integer action : probs.keySet()) {
             total += probs.get(action);
             if (a < total) {
+                System.out.println("CHOOSE: " + action);
                 return action;
             }
         }
@@ -120,12 +143,18 @@ public class RpsExponentialWeightsAgent extends AbsAgent implements IAgent {
     public void onSimulationReportMessage(ISimulationReportMessage simulationMessage) {
         List<IActionMessage> history = simulationMessage.getMarketResults().get(this.auctionID).getTradeHistory().get(0);
 
+        // TODO(jake) fix once public ID is available
         for (int i = 0; i < history.size(); i++) {
             Integer bid = ((GameAction)history.get(i).getBid()).getAction();
             if (bid.equals(this.lastBid)) {
-                this.actionRewards.put(this.lastBid, simulationMessage.getMarketResults().get(this.auctionID).getUtilities().get(i).getCost());
+                this.actionRewards.put(this.lastBid, this.actionRewards.get(this.lastBid) + simulationMessage.getMarketResults().get(this.auctionID).getUtilities().get(i).getCost());
                 return;
             }
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        List<String> agents = Arrays.asList(RpsExponentialWeightsAgent.class.getCanonicalName(), BasicRPSAgent.class.getCanonicalName());
+        new RPSSimulation(agents, "input_configs/rock_paper_scissors.json", "outfile", false).run();
     }
 }
