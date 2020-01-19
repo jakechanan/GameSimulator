@@ -1,12 +1,11 @@
 {
 	"name": "test simulation", 
-	"serverPort": 2121,
 	"startingDelayTime": 5, 
 	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{
 		"numRuns": 2,
-		"groupSize": 1,
+		"groupSize": 3,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 
