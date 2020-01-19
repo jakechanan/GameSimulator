@@ -60,22 +60,6 @@ public class RpsExponentialWeightsAgent extends AbsAgent implements IAgent {
 
         // Hint: use Math.exp(a) to get e^a.
 
-        List<Integer> possibleActions = Arrays.asList(0, 1, 2);
-        Map<Integer, Double> averageRewardPerAction = this.averageRewards();
-
-
-        Double sum = 0.0;
-        for (Integer action : possibleActions) {
-            Double expReward = Math.exp(averageRewardPerAction.get(action));
-            probs.put(action, expReward);
-            sum += expReward;
-        }
-
-        for (Integer action : possibleActions) {
-            Double expReward = probs.get(action);
-            probs.put(action, expReward / sum);
-        }
-
         return probs;
     }
 
@@ -85,16 +69,11 @@ public class RpsExponentialWeightsAgent extends AbsAgent implements IAgent {
      * @return The agent's next move: ROCK, PAPER, or SCISSORS.
      */
     public Integer sample(Map<Integer, Double> probs) {
-        System.out.println("total: " + this.actionRewards);
-        System.out.println("count: " + this.actionCounts);
-        System.out.println("avg: " + this.averageRewards());
-        System.out.println("probs: " + probs);
         Double a = Math.random();
         Double total = 0.0;
         for (Integer action : probs.keySet()) {
             total += probs.get(action);
             if (a < total) {
-                System.out.println("CHOOSE: " + action);
                 return action;
             }
         }
