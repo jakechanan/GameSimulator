@@ -127,7 +127,6 @@ public class SimulationManager implements ISimulationManager {
         for (int k = 0; k < this.numSimulationRuns.get(j); k++) {
           this.initializeAgents();
           PlatformLogging.log("running simulation");
-          PlatformLogging.log(this.currentMarketManager.getNumMarketBlocks());
           for (int l = 0; l < this.currentMarketManager
               .getNumMarketBlocks(); l++) {
             
