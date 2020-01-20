@@ -126,9 +126,12 @@ public class SimulationManager implements ISimulationManager {
         this.setAgentGroupings(); 
         for (int k = 0; k < this.numSimulationRuns.get(j); k++) {
           this.initializeAgents();
+          PlatformLogging.log("running simulation");
+          PlatformLogging.log(this.currentMarketManager.getNumMarketBlocks());
           for (int l = 0; l < this.currentMarketManager
               .getNumMarketBlocks(); l++) {
-            PlatformLogging.log("running simulation");
+            
+            PlatformLogging.log("running market block");
             this.runAuction(simulationDelayTime, l);
           }
           // after auction is over, send simulation report messages
@@ -192,7 +195,7 @@ public class SimulationManager implements ISimulationManager {
     // just open different markets for different agents...?
     PlatformLogging.log(this.agentGroups.size() + " Agent Groups"); 
     for (int i = 0; i < this.agentGroups.size(); i++) {
-      this.currentMarketManager.openMarkets(index, new HashSet<Integer>(agentGroups.get(i)), i); 
+      this.currentMarketManager.openMarkets(index, new HashSet<Integer>(agentGroups.get(i)), i, this.agentGroups.size()); 
     }
     while (this.currentMarketManager.anyMarketsOpen()) {
       Thread.sleep((int) (simulationDelayTime * MILLISECONDS));
@@ -212,7 +215,6 @@ public class SimulationManager implements ISimulationManager {
           // updating the market.
           List<IActionRequestMessage> tradeRequests =
               this.currentMarketManager.updateMarket(marketID);
-          System.out.println(marketID + " " + tradeRequests); 
           for (IActionRequestMessage tradeRequest : tradeRequests) {
             this.messageServer.sendMessage(
                 this.agentConnections.get(tradeRequest.getAgentID()),

@@ -216,7 +216,7 @@ public class JsonParser implements IJsonParser {
                     }
                   }
                   simMarketRules.add(singleMarketRules);
-                }
+                } 
                 simulationMarketRules.add(simMarketRules);
               } else {
                 ErrorLogging.log(
@@ -361,7 +361,7 @@ public class JsonParser implements IJsonParser {
     }
 
     // market configs
-
+    
     List<List<List<IGameConfig>>> marketConfigs =
         new LinkedList<List<List<IGameConfig>>>();
     for (int i = 0; i < marketRules.size(); i++) {
