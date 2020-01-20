@@ -8,7 +8,7 @@ import brown.communication.messages.IActionMessage;
 
 import java.util.List;
 
-public class RPSActivity extends AbsActivity implements IActivityRule {
+public class RpsActivity extends AbsActivity implements IActivityRule {
 
     @Override
     public void isAcceptable(IMarketState state, IActionMessage aBid,

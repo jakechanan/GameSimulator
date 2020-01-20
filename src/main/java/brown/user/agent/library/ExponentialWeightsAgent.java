@@ -2,7 +2,7 @@ package brown.user.agent.library;
 
 import brown.auction.rules.IUtilityFn;
 import brown.auction.rules.utility.LemonadeUtilityFn;
-import brown.auction.rules.utility.RPSUtilityFn;
+import brown.auction.rules.utility.RpsUtilityFn;
 import brown.communication.action.IGameAction;
 import brown.communication.action.library.GameAction;
 import brown.communication.messages.*;

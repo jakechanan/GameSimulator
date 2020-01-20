@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RPSUtilityFn implements IUtilityFn {
+public class RpsUtilityFn implements IUtilityFn {
 
     @Override
     public Map<Integer, Double> getAgentUtilities(List<IActionMessage> messages) {

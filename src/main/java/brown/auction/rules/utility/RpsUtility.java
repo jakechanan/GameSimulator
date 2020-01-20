@@ -12,11 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class RPSUtility extends AbsRule implements IUtilityRule {
+public class RpsUtility extends AbsRule implements IUtilityRule {
     private IUtilityFn utilFn;
 
-    public RPSUtility() {
-        this.utilFn = new RPSUtilityFn();
+    public RpsUtility() {
+        this.utilFn = new RpsUtilityFn();
     }
 
     @Override

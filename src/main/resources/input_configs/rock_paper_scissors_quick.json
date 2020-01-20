@@ -18,9 +18,9 @@
 		"seqMarket": [{
 			"simMarket": [{
 				"marketRules": {
-					"uRule": "RPSUtility",
+					"uRule": "RpsUtility",
 					"qRule": "SimpleQuery", 
-					"actRule": "RPSActivity",
+					"actRule": "RpsActivity",
 					"irPolicy": "NonAnonymousPolicy", 
 					"innerIRPolicy": "NoInnerIR", 
 					"tCondition": "OneShotTermination"

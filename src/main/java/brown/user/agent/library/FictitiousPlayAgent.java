@@ -2,7 +2,7 @@ package brown.user.agent.library;
 
 import brown.auction.rules.IUtilityFn;
 import brown.auction.rules.utility.PrisonersUtilityFn;
-import brown.auction.rules.utility.RPSUtilityFn;
+import brown.auction.rules.utility.RpsUtilityFn;
 import brown.communication.action.IBid;
 import brown.communication.action.IGameAction;
 import brown.communication.action.library.GameAction;
@@ -36,7 +36,7 @@ public class FictitiousPlayAgent extends AbsAgent implements IAgent {
         this.opponentProbs = null;
 
         // TODO(jake, andrew): implement this somewhere other than utilityFn
-        this.utilFn = new RPSUtilityFn();
+        this.utilFn = new RpsUtilityFn();
     }
 
     // Calculates this agent's utility from a hypothetical action profile.

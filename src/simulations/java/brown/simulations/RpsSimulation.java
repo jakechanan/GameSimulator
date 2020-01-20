@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class RPSSimulation extends AbsUserSimulation {
+public class RpsSimulation extends AbsUserSimulation {
 
-    public RPSSimulation(List<String> agentClass, String inputJSON,
+    public RpsSimulation(List<String> agentClass, String inputJSON,
                          String outFile, boolean writeToFile) {
         super(agentClass, inputJSON, outFile, writeToFile);
     }
@@ -43,8 +43,8 @@ public class RPSSimulation extends AbsUserSimulation {
         List<String> agentList = new LinkedList<String>();
         agentList.add("brown.user.agent.library.BasicRPSAgent");
         agentList.add("brown.user.agent.library.BasicRPSAgent");
-        RPSSimulation basicSim = new RPSSimulation(agentList,
-                "input_configs/rock_paper_scissors.json", "outfile", false);
+        RpsSimulation basicSim = new RpsSimulation(agentList,
+                "input_configs/rock_paper_scissors_quick.json", "outfile", false);
         basicSim.run();
         
     }
