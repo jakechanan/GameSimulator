@@ -1,6 +1,7 @@
 package brown.platform.game;
 
 import java.util.List;
+import java.util.Set;
 
 import brown.auction.marketstate.IMarketPublicState;
 import brown.communication.messages.IActionMessage;
@@ -90,5 +91,8 @@ public interface IGame {
   public IMarketPublicState getUnredactedPublicState(); 
   
   public void updateTradeHistory(); 
+  
+  public Set<Integer> getMarketAgents(); 
+  
   
 }

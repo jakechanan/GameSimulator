@@ -100,7 +100,7 @@ public class SimulationConfigTest {
     eConfigs.add(eConfig);
 
     ISimulationConfig sConfig =
-        new SimulationConfig(1, vConfigs, eConfigs, mConfigSquared);
+        new SimulationConfig(1, -1, vConfigs, eConfigs, mConfigSquared);
 
     assertTrue(sConfig.getSimulationRuns() == 1);
     assertEquals(sConfig.getEConfig(), eConfigs);

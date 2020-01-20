@@ -116,4 +116,9 @@ public class Game implements IGame {
     this.STATE.addToTradeHistory(this.bids);
   }
 
+  @Override
+  public Set<Integer> getMarketAgents() {
+    return this.AGENTS;
+  }
+
 }
