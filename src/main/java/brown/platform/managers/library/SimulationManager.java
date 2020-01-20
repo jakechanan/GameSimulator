@@ -124,7 +124,6 @@ public class SimulationManager implements ISimulationManager {
             .getWorld().getDomainManager().getDomain().getValuationManager();
         this.groupSize = this.simulations.get(j).getGroupSize();
         this.setAgentGroupings(); 
-        System.out.println(this.agentGroups); 
         for (int k = 0; k < this.numSimulationRuns.get(j); k++) {
           this.initializeAgents();
           for (int l = 0; l < this.currentMarketManager
@@ -191,8 +190,8 @@ public class SimulationManager implements ISimulationManager {
   private synchronized void runAuction(double simulationDelayTime, int index)
       throws InterruptedException {
     // just open different markets for different agents...?
+    PlatformLogging.log(this.agentGroups.size() + " Agent Groups"); 
     for (int i = 0; i < this.agentGroups.size(); i++) {
-      System.out.println("agent group: " + agentGroups.get(i)); 
       this.currentMarketManager.openMarkets(index, new HashSet<Integer>(agentGroups.get(i)), i); 
     }
     while (this.currentMarketManager.anyMarketsOpen()) {

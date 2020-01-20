@@ -54,7 +54,7 @@ public class TPClientTest {
             connection.sendTCP(15000);
             connection.setTimeout(60000);
             kryoServer.sendToTCP(connection.getID(),
-                new RegistrationResponseMessage(theID, theID, "testing"));
+                new RegistrationResponseMessage(theID, theID, 0, "testing"));
             kryoServer.sendToTCP(connection.getID(),
                 new ErrorMessage(0, 0, "test error"));
           }
@@ -78,7 +78,6 @@ public class TPClientTest {
     Thread.sleep(1000);
     TestClient testClient = new TestClient("localhost", 2121, new Setup());
     Thread.sleep(1000);
-    System.out.println(testClient.ID);
     assertTrue(testClient.ID == 1);
     assertEquals((testClient).error, "test error");
   }

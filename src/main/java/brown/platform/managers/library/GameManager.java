@@ -81,6 +81,7 @@ public class GameManager implements IGameManager {
   @Override
   public void openMarkets(int index, Set<Integer> agents, int groupIndex) {
     // TODO: somehow open markets using whiteboard information.
+    // TODO: make sure there aren't market ID collisions. 
     IGameBlock currentMarketBlock = this.allMarkets.get(index);
     List<IFlexibleRules> marketRules = currentMarketBlock.getMarkets();
     for (int i = 0; i < marketRules.size(); i++) {
