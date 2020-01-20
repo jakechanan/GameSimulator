@@ -4,7 +4,7 @@
 	"simulationDelayTime": 1, 
 	"numTotalRuns": 1,
 	"simulation": [{
-		"numRuns": 30,
+		"numRuns": 100,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 
@@ -18,9 +18,9 @@
 		"seqMarket": [{
 			"simMarket": [{
 				"marketRules": {
-					"uRule": "LemonadeUtility",  
+					"uRule": "ChickenUtility",  
 					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
+					"actRule": "ChickenActivity", 
 					"irPolicy": "NonAnonymousPolicy", 
 					"innerIRPolicy": "NoInnerIR", 
 					"tCondition": "OneShotTermination"
