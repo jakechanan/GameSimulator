@@ -1,7 +1,10 @@
 package brown.system.setup.library;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -10,12 +13,14 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -37,26 +42,8 @@ public final class Setup implements ISetup {
    * @return
    */
   public static boolean start(Kryo kryo) {
-	String FILEPATH = "src/main/java/";
-    String JARPATH = "brown";
-    try {
-      kryo.register(HashMap.class);
-      kryo.register(LinkedList.class);
-      List<String> classesToReflect = getJavaFiles(FILEPATH);
-      classesToReflect.addAll(getJavaFilesFromJAR(JARPATH));
-      for (String className : classesToReflect) {
-        Class<?> tpClass = Class.forName(className);
-        kryo.register(tpClass);
-      } 
-      return true;
-    } catch (IOException a) {
-      ErrorLogging.log("ERROR: java startup: " + a.toString());
-    } catch (ClassNotFoundException b) {
-      ErrorLogging.log("ERROR: java startup: " + b.toString());
-    } catch (URISyntaxException c) {
-      ErrorLogging.log("ERROR: java startup: " + c.toString());
-    }
-    return false;
+    kryo.setRegistrationRequired(false);
+    return true;
   }
 
   /**
@@ -68,44 +55,16 @@ public final class Setup implements ISetup {
  * @throws URISyntaxException 
    */
   public static List<String> getJavaFiles(String path) throws IOException {
-	List<String> output = new LinkedList<String>();
+	List<String> output = new ArrayList<String>();
 	  
 	if (!new File(path).exists()) {
     	return output;
     }
     
-    Files.walk(Paths.get(path)).filter(Files::isRegularFile).filter(s -> s.toString().endsWith(".java"))
+    Files.walk(Paths.get(path)).filter(Files::isRegularFile)
+    	.filter(s -> s.toString().endsWith(".java"))
         .forEach(s -> output.add(s.toString().replaceAll(path, "")
             .replaceAll(".java", "").replaceAll("/", ".")));
     return output;
   }
-  
-  /**
-   * helper that returns every java class starting at a path
-   * 
-   * @param path the starting path for the search
-   * @return every java class starting at path
-   * @throws IOException
- * @throws URISyntaxException 
-   */
-  public static synchronized List<String> getJavaFilesFromJAR(String path) throws IOException, URISyntaxException {
-    List<String> output = new LinkedList<String>();
-	  
-    Enumeration<URL> resources = Setup.class.getClassLoader().getResources(path);
-    while (resources.hasMoreElements()) {
-    	URL url = resources.nextElement();
-    	if (url != null && url.toURI().getScheme().equals("jar")) {
-    		FileSystem fileSystem = FileSystems.newFileSystem(url.toURI(), Collections.<String, Object>emptyMap());
-    	  	Files.walk(fileSystem.getPath(path)).filter(Files::isRegularFile)
-    	  		.filter(s -> s.toString().endsWith(".class")).forEach(s -> output.add(s.toString().substring(1)
-    				.replaceAll(".class", "").replaceAll("/", ".")));
-    	    fileSystem.close();
-    	}
-    }
-	
-    return output;
-  }
-  
-  
-
 }

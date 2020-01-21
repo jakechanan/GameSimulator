@@ -5,6 +5,7 @@
 	"numTotalRuns": 1,
 	"simulation": [{
 		"numRuns": 100,
+		"groupSize": 2,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 

@@ -24,35 +24,40 @@ public class ChickenUtility extends AbsRule implements IUtilityRule {
         Map<Integer, Double> utils = new HashMap<>();
         
         int SWERVE = 0, CONTINUE = 1;
-
-        IActionMessage a1Message = messages.get(0);
-        IActionMessage a2Message = messages.get(1);
-
-        int agent1 = a1Message.getAgentID();
-        int agent2 = a2Message.getAgentID();
-
-        int a1Action = ((IGameAction) a1Message.getBid()).getAction();
-        int a2Action = ((IGameAction) a2Message.getBid()).getAction();
-
-        double a1Util;
-        double a2Util;
-
-        if (a1Action == SWERVE && a2Action == SWERVE) {
-            a1Util = 0;
-            a2Util = 0;
-        } else if (a1Action == SWERVE && a2Action == CONTINUE) {
-            a1Util = -1;
-            a2Util = 1;
-        } else if (a1Action == CONTINUE && a2Action == SWERVE) {
-            a1Util = 1;
-            a2Util = -1;
+        
+        if (messages.size() == 2) {
+	        IActionMessage a1Message = messages.get(0);
+	        IActionMessage a2Message = messages.get(1);
+	
+	        int agent1 = a1Message.getAgentID();
+	        int agent2 = a2Message.getAgentID();
+	
+	        int a1Action = ((IGameAction) a1Message.getBid()).getAction();
+	        int a2Action = ((IGameAction) a2Message.getBid()).getAction();
+	
+	        double a1Util;
+	        double a2Util;
+	
+	        if (a1Action == SWERVE && a2Action == SWERVE) {
+	            a1Util = 0;
+	            a2Util = 0;
+	        } else if (a1Action == SWERVE && a2Action == CONTINUE) {
+	            a1Util = -1;
+	            a2Util = 1;
+	        } else if (a1Action == CONTINUE && a2Action == SWERVE) {
+	            a1Util = 1;
+	            a2Util = -1;
+	        } else {
+	            a1Util = -5;
+	            a2Util = -5;
+	        }
+	        
+	
+	        utils.put(agent1, a1Util);
+	        utils.put(agent2, a2Util);
         } else {
-            a1Util = -5;
-            a2Util = -5;
+        	utils.put(messages.get(0).getAgentID(), 0.0);
         }
-
-        utils.put(agent1, a1Util);
-        utils.put(agent2, a2Util);
 
         // for each agent...
         for (Integer agentID : utils.keySet()) {
