@@ -51,9 +51,10 @@ public class Main {
         jsonParser.parseJSONDoubleParameters(fileName);
     Integer startingDelayTime = outerParams.get("startingDelayTime");
     Integer numTotalRuns = outerParams.get("numTotalRuns");
-    Double simulationDelayTime = doubleParams.get("simulationDelayTime");
+    Integer serverPort = outerParams.get("serverPort");
+    Double simulationDelayTime = doubleParams.get("simulationDelayTime"); 
     
     ConfigRun configRun = new ConfigRun(configs);
-    configRun.run(startingDelayTime, simulationDelayTime, numTotalRuns);
+    configRun.run(startingDelayTime, simulationDelayTime, numTotalRuns, serverPort);
   }
 }

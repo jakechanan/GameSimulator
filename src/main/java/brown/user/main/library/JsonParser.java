@@ -60,7 +60,7 @@ public class JsonParser implements IJsonParser {
 
     // within simulation strings
     List<Integer> numRunsList = new LinkedList<Integer>();
-
+    List<Integer> groupSizeList = new LinkedList<Integer>(); 
     List<List<List<Map<String, String>>>> marketRules =
         new LinkedList<List<List<Map<String, String>>>>();
     List<String> valuationDistributions = new LinkedList<String>();
@@ -85,12 +85,16 @@ public class JsonParser implements IJsonParser {
       List<String> simulationEndowmentGeneratorNames = new LinkedList<String>();
       List<List<Double>> simulationEndowmentGeneratorParameters =
           new LinkedList<List<Double>>();
-
+      
+      boolean groupSizeAdded = false; 
       keyIterator = ((Map) simulationIterator.next()).entrySet().iterator();
       while (keyIterator.hasNext()) {
         Map.Entry pair = keyIterator.next();
         if (pair.getKey().equals("numRuns")) {
           numRunsList.add(((Long) pair.getValue()).intValue());
+        } else if (pair.getKey().equals("groupSize")) {
+          groupSizeList.add(((Long) pair.getValue()).intValue());
+          groupSizeAdded = true; 
         } else if (pair.getKey().equals("typeDistribution")) {
           String distribution = (String) pair.getValue();
           simulationTypeDistributions = distribution;
@@ -213,7 +217,7 @@ public class JsonParser implements IJsonParser {
                     }
                   }
                   simMarketRules.add(singleMarketRules);
-                }
+                } 
                 simulationMarketRules.add(simMarketRules);
               } else {
                 ErrorLogging.log(
@@ -228,7 +232,6 @@ public class JsonParser implements IJsonParser {
                   + pair.getKey());
         }
       }
-
       marketRules.add(simulationMarketRules);
       valuationDistributions.add(simulationTypeDistributions);
       valuationGeneratorNames.add(simulationValuationGeneratorNames);
@@ -236,6 +239,8 @@ public class JsonParser implements IJsonParser {
       endowmentDistributions.add(simulationEndowmentDistributions);
       endowmentGeneratorNames.add(simulationEndowmentGeneratorNames);
       endowmentGeneratorParameters.add(simulationEndowmentGeneratorParameters);
+      if (!groupSizeAdded) 
+        groupSizeList.add(-1); 
 
     }
 
@@ -357,7 +362,7 @@ public class JsonParser implements IJsonParser {
     }
 
     // market configs
-
+    
     List<List<List<IGameConfig>>> marketConfigs =
         new LinkedList<List<List<IGameConfig>>>();
     for (int i = 0; i < marketRules.size(); i++) {
@@ -422,7 +427,7 @@ public class JsonParser implements IJsonParser {
 
     for (int i = 0; i < marketConfigs.size(); i++) {
       ISimulationConfig singleConfig =
-          new SimulationConfig(numRunsList.get(i), valuationConfigs.get(i),
+          new SimulationConfig(numRunsList.get(i), groupSizeList.get(i), valuationConfigs.get(i),
               endowmentConfigs.get(i), marketConfigs.get(i));
       simulationConfigs.add(singleConfig);
     }
@@ -441,7 +446,10 @@ public class JsonParser implements IJsonParser {
     outerParams.put("numTotalRuns", ((Long) jo.get("numTotalRuns")).intValue());
     outerParams.put("startingDelayTime",
         ((Long) jo.get("startingDelayTime")).intValue());
-
+    if (jo.containsKey("serverPort"))
+      outerParams.put("serverPort", ((Long) jo.get("serverPort")).intValue()); 
+    else
+      outerParams.put("serverPort", 2121);
     return outerParams;
   }
   

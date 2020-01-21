@@ -3,10 +3,11 @@ package brown.user.agent.library;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import brown.communication.messages.IUtilityUpdateMessage;
-import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.IActionRequestMessage;
+import brown.communication.messages.IInformationMessage;
+import brown.communication.messages.ISimulationReportMessage;
 import brown.communication.messages.ITypeMessage;
+import brown.communication.messages.IUtilityUpdateMessage;
 import brown.communication.messages.library.AbsServerToAgentMessage;
 import brown.communication.messages.library.RegistrationMessage;
 import brown.logging.library.UserLogging;
@@ -24,7 +25,9 @@ public abstract class AbsAgent extends TPClient implements IAgent {
 
   protected double utility;
   protected Double type;
-  protected String name; 
+  protected String name;  
+  // public ID may be accessed as this.publicID
+  // private ID may be accessed as this.ID
 
   /**
    * 
@@ -101,6 +104,9 @@ public abstract class AbsAgent extends TPClient implements IAgent {
   
   @Override
   public abstract void onTypeMessage(ITypeMessage valuationMessage); 
+  
+  @Override
+  public abstract void onSimulationReportMessage(ISimulationReportMessage simReportMessage); 
   
 
 }

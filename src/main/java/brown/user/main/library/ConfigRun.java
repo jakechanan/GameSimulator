@@ -33,7 +33,7 @@ public class ConfigRun {
   }
 
   public void run(Integer startingDelayTime, Double simulationDelayTime,
-      Integer numSimulations) throws InstantiationException,
+      Integer numSimulations, Integer serverPort) throws InstantiationException,
       IllegalAccessException, IllegalArgumentException,
       InvocationTargetException, InterruptedException {
     ISimulationManager simulationManager = new SimulationManager();
@@ -68,11 +68,11 @@ public class ConfigRun {
         }
         marketManager.createSimultaneousGame(marketRules);
       }
-
+      
       domainManager.createDomain(valuationManager,
           endowmentManager, accountManager);
       worldManager.createWorld(domainManager, marketManager);
-      simulationManager.createSimulation(aConfig.getSimulationRuns(),
+      simulationManager.createSimulation(aConfig.getSimulationRuns(), aConfig.getGroupSize(),
           worldManager);
       valuationManager.lock();
       simulationManager.lock();
@@ -80,7 +80,7 @@ public class ConfigRun {
     }
 
     simulationManager.runSimulation(startingDelayTime, simulationDelayTime,
-        numSimulations);
+        numSimulations, serverPort);
     
     
   }
