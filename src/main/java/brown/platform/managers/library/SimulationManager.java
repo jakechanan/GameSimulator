@@ -111,6 +111,7 @@ public class SimulationManager implements ISimulationManager {
     // should this be here, or in handleRegistration?
     this.privateToPublic.keySet()
         .forEach(id -> this.utilityManager.addAgentRecord(id));
+    System.out.println("Num agents: " + this.privateToPublic.size());
     for (int i = 0; i < numRuns; i++) {
       for (int j = 0; j < this.simulations.size(); j++) {
         // set agent groupings. 
