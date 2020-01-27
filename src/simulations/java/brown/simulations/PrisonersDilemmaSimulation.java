@@ -5,9 +5,9 @@ import java.util.List;
 
 public class PrisonersDilemmaSimulation extends AbsUserSimulation {
 
-    public PrisonersDilemmaSimulation(List<String> agentClass, String inputJSON,
+    public PrisonersDilemmaSimulation(List<String> agentClass, String inputJSON, int port,
                               String outFile, boolean writeToFile) {
-        super(agentClass, inputJSON, outFile, writeToFile);
+        super(agentClass, inputJSON, port, outFile, writeToFile);
     }
 
     public void run() throws InterruptedException {
@@ -41,7 +41,7 @@ public class PrisonersDilemmaSimulation extends AbsUserSimulation {
         agentList.add("brown.user.agent.library.BasicPrisonersDilemmaAgent");
         agentList.add("brown.user.agent.library.FictitiousPlayAgent");
         PrisonersDilemmaSimulation basicSim = new PrisonersDilemmaSimulation(agentList,
-                "input_configs/prisoners_dilemma.json", "outfile", false);
+                "input_configs/prisoners_dilemma.json", 2121, "outfile", false);
         basicSim.run();
     }
 

@@ -1,5 +1,7 @@
 package brown.auction.type.distribution;
 
+import java.util.List;
+
 import brown.auction.type.valuation.IType;
 
 /**
@@ -12,7 +14,7 @@ public interface ITypeDistribution {
    * samples IValuations from a distribution
    * @return IValuation
    */
-  public IType sample();
+  public IType sample(Integer agentID, List<List<Integer>> agentGroups);
   
   
 }

@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class RpsSimulation extends AbsUserSimulation {
+public class BoSSimulation extends AbsUserSimulation {
 
-    public RpsSimulation(List<String> agentClass, String inputJSON, int port,
+    public BoSSimulation(List<String> agentClass, String inputJSON, int port,
                          String outFile, boolean writeToFile) {
         super(agentClass, inputJSON, port, outFile, writeToFile);
     }
@@ -36,17 +36,6 @@ public class RpsSimulation extends AbsUserSimulation {
             }
             Thread.sleep(1000);
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-    	
-        List<String> agentList = new LinkedList<String>();
-        agentList.add("brown.user.agent.library.BasicRPSAgent");
-        agentList.add("brown.user.agent.library.BasicRPSAgent");
-        RpsSimulation basicSim = new RpsSimulation(agentList,
-                "input_configs/rock_paper_scissors_quick.json", 2121, "outfile", false);
-        basicSim.run();
-        
     }
 
 }

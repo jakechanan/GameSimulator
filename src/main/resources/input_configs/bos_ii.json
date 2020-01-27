@@ -1,0 +1,32 @@
+{
+	"name": "test simulation", 
+	"startingDelayTime": 2,
+	"simulationDelayTime": 1.0, 
+	"numTotalRuns": 1,
+	"simulation": [{
+		"numRuns": 100,
+		"groupSize": 2,
+		"typeDistribution": "BosIITypeDistribution", 
+		"typeGenerator": [{
+			"name": "ConcreteValGenerator", 
+			"parameters": [0.0]
+		}], 
+		"endowmentDistribution": "IndependentEndowmentDist", 
+		"endowmentGenerator": [{
+			"name": "ConcreteValGenerator", 
+			"parameters": [0.0]
+		}], 
+		"seqMarket": [{
+			"simMarket": [{
+				"marketRules": {
+					"uRule": "BoSIIUtility",
+					"qRule": "SimpleQuery", 
+					"actRule": "BoSActivity",
+					"irPolicy": "NonAnonymousPolicy", 
+					"innerIRPolicy": "NoInnerIR", 
+					"tCondition": "OneShotTermination"
+				}, 
+			}]
+		}] 
+	}]
+}

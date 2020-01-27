@@ -25,7 +25,7 @@ public class LemonadeSimulationTest {
     List<String> agentList = new LinkedList<String>();
     agentList.add("brown.user.agent.library.SimpleAgent");
     LemonadeSimulation basicSim = new LemonadeSimulation(agentList,
-        "input_configs/second_price_auction.json", "basicSimulationTest", true);
+        "input_configs/second_price_auction.json", 2121, "basicSimulationTest", true);
     basicSim.run();
     Thread.sleep(5000);
     Path current = new File(".").toPath(); 

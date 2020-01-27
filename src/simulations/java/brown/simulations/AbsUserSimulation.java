@@ -19,16 +19,17 @@ import brown.user.main.library.Main;
 public abstract class AbsUserSimulation {
 
   protected static String host = "localhost";
-  protected static int port = 2121;
+  protected int port;
   protected String outFile;
   protected List<String> agentClass;
   protected String inputJSON;
   protected boolean writeToFile;
 
-  public AbsUserSimulation(List<String> agentClass, String inputJSON,
+  public AbsUserSimulation(List<String> agentClass, String inputJSON, int port,
       String outFile, boolean writeToFile) {
     this.agentClass = agentClass;
     this.inputJSON = inputJSON;
+    this.port = port;
     this.outFile = outFile;
     this.writeToFile = writeToFile;
   }
