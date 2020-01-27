@@ -53,6 +53,7 @@ public abstract class AbsUserSimulation {
 
         String[] inputArgs = new String[1];
         inputArgs[0] = inputJSON;
+        Main.PORT = port;
         Main.main(inputArgs);
 
       } catch (ClassNotFoundException | NoSuchMethodException

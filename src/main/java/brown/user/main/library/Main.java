@@ -19,6 +19,8 @@ import brown.user.main.ISimulationConfig;
  *
  */
 public class Main {
+	
+	public static Integer PORT = null;
  
 /**
  * 
@@ -51,7 +53,7 @@ public class Main {
         jsonParser.parseJSONDoubleParameters(fileName);
     Integer startingDelayTime = outerParams.get("startingDelayTime");
     Integer numTotalRuns = outerParams.get("numTotalRuns");
-    Integer serverPort = outerParams.get("serverPort");
+    Integer serverPort = (PORT == null) ? outerParams.get("serverPort") : PORT;
     Double simulationDelayTime = doubleParams.get("simulationDelayTime"); 
     
     ConfigRun configRun = new ConfigRun(configs);
