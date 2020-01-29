@@ -25,6 +25,7 @@ public class BoSIIUtility extends AbsRule implements IUtilityRule {
         Map<Integer, Double> utils = new HashMap<>();
         
         int STUBBORN = 0, COMPROMISE = 1;
+        int GOOD_MOOD = 0, BAD_MOOD = 1;
 
         IActionMessage a1Message = messages.get(0);
         IActionMessage a2Message = messages.get(1);
@@ -41,15 +42,60 @@ public class BoSIIUtility extends AbsRule implements IUtilityRule {
         double a1Util;
         double a2Util;
 
-        if (a1Action == a2Action) {
-            a1Util = 0;
-            a2Util = 0;
-        } else if (a1Action == STUBBORN) {
-            a1Util = 7;
-            a2Util = 3;
+        if (a1Mood == null) {
+        	if (a2Mood.equals(GOOD_MOOD)) {
+        		if (a1Action == a2Action) {
+        			a1Util = 0.0;
+        			a2Util = 0.0;
+        		} else if (a1Action == STUBBORN) {
+        			a1Util = 7.0;
+        			a2Util = 3.0;
+        		} else {
+        			a1Util = 3.0;
+        			a2Util = 7.0;
+        		}
+        	} else {
+        		if (a1Action == STUBBORN && a2Action == STUBBORN) {
+        			a1Util = 0.0;
+        			a2Util = 7.0;
+        		} else if (a1Action == COMPROMISE && a2Action == COMPROMISE) {
+        			a1Util = 0.0;
+        			a2Util = 3.0;
+        		} else if (a1Action == STUBBORN && a2Action == COMPROMISE) {
+        			a1Util = 7.0;
+        			a2Util = 0.0;
+        		} else {
+        			a1Util = 3.0;
+        			a2Util = 0.0;
+        		}
+        	}
         } else {
-            a1Util = 3;
-            a2Util = 7;
+        	if (a1Mood.equals(GOOD_MOOD)) {
+        		if (a1Action == a2Action) {
+        			a2Util = 0.0;
+        			a1Util = 0.0;
+        		} else if (a2Action == STUBBORN) {
+        			a2Util = 7.0;
+        			a1Util = 3.0;
+        		} else {
+        			a2Util = 3.0;
+        			a1Util = 7.0;
+        		}
+        	} else {
+        		if (a1Action == STUBBORN && a2Action == STUBBORN) {
+        			a2Util = 0.0;
+        			a1Util = 7.0;
+        		} else if (a1Action == COMPROMISE && a2Action == COMPROMISE) {
+        			a2Util = 0.0;
+        			a1Util = 3.0;
+        		} else if (a2Action == STUBBORN && a1Action == COMPROMISE) {
+        			a2Util = 7.0;
+        			a1Util = 0.0;
+        		} else {
+        			a2Util = 3.0;
+        			a1Util = 0.0;
+        		}
+        	}
         }
         
         utils.put(agent1, a1Util);
