@@ -33,7 +33,7 @@ public abstract class TrainableAgent extends AbsAgent implements IAgent {
 	public abstract void loadWeights(String filename);
 	public abstract void saveWeights(String filename);
 	public abstract Integer nextMove();
-	public abstract void update(ISimulationReportMessage simReportMessage);
+	public abstract void updateWeights(ISimulationReportMessage simReportMessage);
 
 	@Override
 	public void onInformationMessage(IInformationMessage informationMessage) {
