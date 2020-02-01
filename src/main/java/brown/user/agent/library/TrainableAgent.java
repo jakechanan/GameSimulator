@@ -29,7 +29,6 @@ public abstract class TrainableAgent extends AbsAgent implements IAgent {
 		this.saveWeights(filename);
 	}
 	
-	public abstract void train();
 	public abstract void loadWeights(String filename);
 	public abstract void saveWeights(String filename);
 	public abstract Integer nextMove();
@@ -59,7 +58,7 @@ public abstract class TrainableAgent extends AbsAgent implements IAgent {
 	@Override
 	public void onSimulationReportMessage(ISimulationReportMessage simReportMessage) {
 		// TODO Auto-generated method stub
-		this.update(simReportMessage);
+		this.updateWeights(simReportMessage);
 		if (++this.numRounds % saveEvery == 0) {
 			new Thread(new Runnable() {
 				
