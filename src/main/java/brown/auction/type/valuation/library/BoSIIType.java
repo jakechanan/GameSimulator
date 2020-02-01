@@ -17,7 +17,7 @@ public class BoSIIType implements IType {
 
   @Override
   public Double getType() {
-    return (this.mood == null) ? -1.0 : Double.valueOf(this.mood);
+    return 0.0;
   }
   
   public Integer getMood() {

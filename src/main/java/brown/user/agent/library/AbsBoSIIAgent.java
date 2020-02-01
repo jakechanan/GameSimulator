@@ -125,7 +125,7 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
 		  List<IActionMessage> history = msg.getMarketResults().get(agent.auctionID).getTradeHistory().get(0);
 	      for (IActionMessage act : history) {
 	    	Integer bid = ((GameAction)act.getBid()).getAction();
-	      	if (msg.getAgentID().equals(agent.publicID)) {
+	      	if (act.getAgentID().equals(agent.publicID)) {
 	      		this.myMove = bid;
 	      	} else {
 	      		this.opponentMove = bid;
