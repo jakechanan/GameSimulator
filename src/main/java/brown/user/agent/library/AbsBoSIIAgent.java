@@ -24,7 +24,7 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
   private Integer auctionID;
   
   private Integer mood;
-  private List<Move> moveHistory;
+  private List<GameRound> gameHistory;
   
   private static final Integer GOOD_MOOD = 0, BAD_MOOD = 1;
   private static final Integer STUBBORN = 0, COMPROMISE = 1;
@@ -34,7 +34,7 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
     super(host, port, gameSetup, name);
     this.mood = null;
     this.auctionID = null;
-    this.moveHistory = new LinkedList<>();
+    this.gameHistory = new LinkedList<>();
   }
 
   @Override
@@ -50,8 +50,8 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
 	  return this.mood;
   }
   
-  public List<Move> getMoveHistory() {
-	  return new ArrayList<>(this.moveHistory);
+  public List<GameRound> getGameHistory() {
+	  return new ArrayList<>(this.gameHistory);
   }
   
   public Double opponentGoodMoodProbability() {
@@ -111,17 +111,17 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
   @Override
   public void
       onSimulationReportMessage(ISimulationReportMessage simulationMessage) {
-	  this.moveHistory.add(new Move(simulationMessage, this));
+	  this.gameHistory.add(new GameRound(simulationMessage, this));
   }
   
-  protected static class Move {
+  protected static class GameRound {
 	  private Integer myMove;
 	  private Integer opponentMove;
 	  private Integer columnPlayerMood;
 	  private Double myReward;
 	  private Double opponentReward;
 	  
-	  public Move(ISimulationReportMessage msg, AbsBoSIIAgent agent) {
+	  public GameRound(ISimulationReportMessage msg, AbsBoSIIAgent agent) {
 		  List<IActionMessage> history = msg.getMarketResults().get(agent.auctionID).getTradeHistory().get(0);
 	      for (IActionMessage act : history) {
 	    	Integer bid = ((GameAction)act.getBid()).getAction();
