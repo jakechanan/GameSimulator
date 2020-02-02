@@ -24,32 +24,39 @@ public class BoSUtility extends AbsRule implements IUtilityRule {
         Map<Integer, Double> utils = new HashMap<>();
         
         int STUBBORN = 0, COMPROMISE = 1;
-
-        IActionMessage a1Message = messages.get(0);
-        IActionMessage a2Message = messages.get(1);
-
-        int agent1 = a1Message.getAgentID();
-        int agent2 = a2Message.getAgentID();
-
-        int a1Action = ((IGameAction) a1Message.getBid()).getAction();
-        int a2Action = ((IGameAction) a2Message.getBid()).getAction();
-
-        double a1Util;
-        double a2Util;
-
-        if (a1Action == a2Action) {
-            a1Util = 0;
-            a2Util = 0;
-        } else if (a1Action == STUBBORN) {
-            a1Util = 7;
-            a2Util = 3;
-        } else {
-            a1Util = 3;
-            a2Util = 7;
-        }
         
-        utils.put(agent1, a1Util);
-        utils.put(agent2, a2Util);
+        if (messages.size() == 2) {
+	        IActionMessage a1Message = messages.get(0);
+	        IActionMessage a2Message = messages.get(1);
+	
+	        int agent1 = a1Message.getAgentID();
+	        int agent2 = a2Message.getAgentID();
+	
+	        int a1Action = ((IGameAction) a1Message.getBid()).getAction();
+	        int a2Action = ((IGameAction) a2Message.getBid()).getAction();
+	
+	        double a1Util;
+	        double a2Util;
+	
+	        if (a1Action == a2Action) {
+	            a1Util = 0;
+	            a2Util = 0;
+	        } else if (a1Action == STUBBORN) {
+	            a1Util = 7;
+	            a2Util = 3;
+	        } else {
+	            a1Util = 3;
+	            a2Util = 7;
+	        }
+	        
+	        utils.put(agent1, a1Util);
+	        utils.put(agent2, a2Util);
+        } else {
+        	IActionMessage a1Message = messages.get(0);
+	
+	        int agent1 = a1Message.getAgentID();
+	        utils.put(agent1, 0.0);
+        }
 
         // for each agent...
         for (Integer agentID : utils.keySet()) {
