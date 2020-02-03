@@ -54,8 +54,8 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
 	  return new ArrayList<>(this.gameHistory);
   }
   
-  public Double opponentGoodMoodProbability() {
-	  return (isRowPlayer()) ? (2.0 / 3) : null;
+  public Double columnPlayerGoodMoodProbability() {
+	  return 2.0 / 3;
   }
   
   public Double rowPlayerRewardFrom(Integer rowPlayerMove, Integer columnPlayerMove) {
