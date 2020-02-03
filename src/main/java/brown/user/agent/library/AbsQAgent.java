@@ -39,7 +39,7 @@ public abstract class AbsQAgent extends AbsAgent implements IAgent {
 	public abstract void loadWeights(String filename);
 	public abstract void saveWeights(String filename);
 	public abstract Integer nextMove();
-	public abstract void updateQ(List<Integer> opponentActions, Double reward);
+	public abstract void updateQ(Integer myAction, List<Integer> opponentActions, Double reward);
 
 	@Override
 	public void onInformationMessage(IInformationMessage informationMessage) {
@@ -66,10 +66,13 @@ public abstract class AbsQAgent extends AbsAgent implements IAgent {
 	@Override
 	public void onSimulationReportMessage(ISimulationReportMessage simReportMessage) {
 		// TODO Auto-generated method stub
+		Integer myAction = null;
 		Map<Integer, Integer> actions = new HashMap<>();
 		List<Integer> opponents = new ArrayList<>();
 		for (IActionMessage act : simReportMessage.getMarketResults().get(this.auctionID).getTradeHistory().get(0)) {
-			if (!act.getAgentID().equals(this.publicID)) {
+			if (act.getAgentID().equals(this.publicID)) {
+				myAction = ((GameAction)act.getBid()).getAction();
+			} else {
 				actions.put(act.getAgentID(), ((GameAction)act.getBid()).getAction()); 
 				opponents.add(act.getAgentID());
 			}
@@ -89,6 +92,6 @@ public abstract class AbsQAgent extends AbsAgent implements IAgent {
         	}
         }
 		
-		this.updateQ(moves, reward);
+		this.updateQ(myAction, moves, reward);
 	}
 }
