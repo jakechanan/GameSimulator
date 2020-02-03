@@ -33,7 +33,7 @@ public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
     }
     Integer auctionID = tradeRequestMessage.getAuctionID(); 
     Random r = new Random(); 
-    IGameAction action = new GameAction(r.nextInt(12));
+    IGameAction action = new GameAction(0);
     IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action); 
     this.CLIENT.sendTCP(actionMessage); 
   }
