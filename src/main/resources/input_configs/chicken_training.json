@@ -19,9 +19,9 @@
 		"seqMarket": [{
 			"simMarket": [{
 				"marketRules": {
-					"uRule": "LemonadeUtility",  
+					"uRule": "ChickenUtility",  
 					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
+					"actRule": "ChickenActivity", 
 					"irPolicy": "NonAnonymousPolicy", 
 					"innerIRPolicy": "NoInnerIR", 
 					"tCondition": "OneShotTermination"

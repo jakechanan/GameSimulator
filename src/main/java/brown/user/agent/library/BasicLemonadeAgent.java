@@ -17,11 +17,14 @@ import brown.user.agent.IAgent;
 public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
   
   private List<List<IActionMessage>> tradeHistory; 
+  private final int action;
   
   public BasicLemonadeAgent(String host, int port, ISetup gameSetup,
       String name) {
     super(host, port, gameSetup, name);
     tradeHistory = new LinkedList<List<IActionMessage>>(); 
+    Random r = new Random(); 
+    action = r.nextInt(12);
   }
 
   @Override
@@ -32,8 +35,7 @@ public class BasicLemonadeAgent extends AbsLemonadeAgent implements IAgent {
       this.tradeHistory.add(tHist.get(tHist.size() - 1)); 
     }
     Integer auctionID = tradeRequestMessage.getAuctionID(); 
-    Random r = new Random(); 
-    IGameAction action = new GameAction(0);
+    IGameAction action = new GameAction(this.action);
     IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action); 
     this.CLIENT.sendTCP(actionMessage); 
   }
