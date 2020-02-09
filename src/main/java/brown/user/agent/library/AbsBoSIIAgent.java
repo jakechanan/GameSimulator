@@ -138,12 +138,12 @@ public abstract class AbsBoSIIAgent extends AbsAgent implements IAgent {
 	      }
 	      
 	      for (IAccountUpdate upd : msg.getMarketResults().get(agent.auctionID).getUtilities()) {
-	        	if (upd.getTo().equals(agent.publicID)) {
-	        		this.myReward = upd.getCost();
-	        	} else {
-	        		this.opponentReward = upd.getCost();
-	        	}
-	        }
+        	if (upd.getTo().equals(agent.publicID)) {
+        		this.myReward = upd.getCost();
+        	} else {
+        		this.opponentReward = upd.getCost();
+        	}
+	      }
 	  }
 
 	public Integer getMyMove() {
