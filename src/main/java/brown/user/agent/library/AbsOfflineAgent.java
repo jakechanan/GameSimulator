@@ -17,13 +17,11 @@ public abstract class AbsOfflineAgent {
 	private List<Integer> myActions;
 	private Map<Integer, Integer> opponents; // opponent ID --> idx in opponentActions
 	private List<List<Integer>> opponentActions;
-	private List<Double> rewards;
 	
 	public AbsOfflineAgent() {
 		this.myActions = new ArrayList<>();
 		this.opponents = new HashMap<>();
 		this.opponentActions = new ArrayList<>();
-		this.rewards = new ArrayList<>();
 	}
 	
 	public abstract int nextMove();
@@ -42,11 +40,7 @@ public abstract class AbsOfflineAgent {
 		return opponentActions.get(opponentNum);
 	}
 	
-	public List<Double> getRewards() {
-		return rewards;
-	}
-	
-	public void updateHistory(Map<Integer, Integer> actions, int id, double reward) {
+	public void updateHistory(Map<Integer, Integer> actions, int id) {
 		for (Integer agt : actions.keySet()) {
 			if (agt.intValue() == id) {
 				myActions.add(actions.get(agt));
@@ -58,7 +52,5 @@ public abstract class AbsOfflineAgent {
 				opponentActions.get(opponents.get(agt)).add(actions.get(agt));
 			}
 		}
-		
-		rewards.add(reward);
 	}
 }
