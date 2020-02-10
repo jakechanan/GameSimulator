@@ -1,7 +1,7 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 30, 
-	"simulationDelayTime": 0.5, 
+	"startingDelayTime": 45, 
+	"simulationDelayTime": 0.75, 
 	"numTotalRuns": 1,
 	"simulation": [{
 		"numRuns": 100,

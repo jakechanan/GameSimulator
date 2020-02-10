@@ -55,7 +55,7 @@ public class ChickenUtility extends AbsRule implements IUtilityRule {
 	
 	        utils.put(agent1, a1Util);
 	        utils.put(agent2, a2Util);
-        } else {
+        } else if (!messages.isEmpty()) {
         	utils.put(messages.get(0).getAgentID(), 0.0);
         }
 
