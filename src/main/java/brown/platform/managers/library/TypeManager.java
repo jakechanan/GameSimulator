@@ -12,7 +12,7 @@ import brown.auction.type.distribution.library.AbsTypeDistribution;
 import brown.auction.type.generator.ITypeGenerator;
 import brown.auction.type.valuation.IType;
 import brown.communication.messages.ITypeMessage;
-import brown.communication.messages.library.ValuationMessage;
+import brown.communication.messages.library.TypeMessage;
 import brown.logging.library.AuctionLogging;
 import brown.logging.library.PlatformLogging;
 import brown.platform.managers.ITypeManager;
@@ -76,12 +76,12 @@ public class TypeManager implements ITypeManager {
   }
 
   @Override
-  public Map<Integer, ITypeMessage> constructValuationMessages() {
+  public Map<Integer, ITypeMessage> constructValuationMessages(int groupSize) {
     Map<Integer, ITypeMessage> agentValuationMessages =
         new HashMap<Integer, ITypeMessage>();
     for (Integer agentValuation : this.agentValuations.keySet()) {
-      agentValuationMessages.put(agentValuation, new ValuationMessage(0,
-          agentValuation, this.agentValuations.get(agentValuation)));
+      agentValuationMessages.put(agentValuation, new TypeMessage(0,
+          agentValuation, this.agentValuations.get(agentValuation), groupSize));
     }
     return agentValuationMessages;
   }

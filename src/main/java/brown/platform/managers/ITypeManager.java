@@ -68,7 +68,7 @@ public interface ITypeManager {
    * 
    * @return
    */
-  public Map<Integer, ITypeMessage> constructValuationMessages();
+  public Map<Integer, ITypeMessage> constructValuationMessages(int groupSize);
 
   /**
    * reset all agent valuations stored within the manager.

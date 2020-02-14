@@ -15,6 +15,7 @@ public abstract class AbsTypeDistribution implements ITypeDistribution {
   }
 
   public abstract IType sample();
+ 
 
   @Override
   public String toString() {

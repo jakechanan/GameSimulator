@@ -2,13 +2,13 @@ package brown.platform.managers;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import brown.auction.type.valuation.IType;
+import brown.communication.messages.IActionMessage;
+import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.IInformationMessage;
 import brown.communication.messages.ISimulationReportMessage;
 import brown.communication.messages.IStatusMessage;
-import brown.communication.messages.IActionMessage;
-import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
 import brown.platform.game.IFlexibleRules;
 import brown.platform.game.IGame;
@@ -41,10 +41,13 @@ public interface IGameManager {
   public Integer getNumMarketBlocks(); 
   
   /**
-   * open the markets at a specified index. 
+   * 
    * @param index
+   * @param agents
+   * @param groupIndex
+   * @param numGroups
    */
-  public void openMarkets(int index, Set<Integer> agents, int groupIndex, int numGroups); 
+  public void openMarkets(int index, Map<Integer, IType> agents, int groupIndex, int numGroups); 
   
   /**
    * handle a tradeMessage, meaning to redirect it to its intended market. 

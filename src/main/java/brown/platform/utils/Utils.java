@@ -25,53 +25,55 @@ public class Utils {
       Map<Integer, Integer> agentIDs) {
     // sanitize the private IDs from an information message
     if (message instanceof IInformationMessage) {
-      
-      System.out.println("sanitizing"); 
-      
+
       IInformationMessage iMessage = (IInformationMessage) message;
       IMarketPublicState publicState = iMessage.getPublicState();
 
-      IMarketPublicState newPublicState = sanitizeState(publicState, agentIDs); 
-      
-      IInformationMessage newMessage = new InformationMessage(iMessage.getMessageID(), iMessage.getAgentID(), newPublicState);  
-      
-      return newMessage; 
+      IMarketPublicState newPublicState = sanitizeState(publicState, agentIDs);
+
+      IInformationMessage newMessage = new InformationMessage(
+          iMessage.getMessageID(), iMessage.getAgentID(), newPublicState);
+
+      return newMessage;
     } else if (message instanceof IActionRequestMessage) {
       return message;
     } else if (message instanceof ISimulationReportMessage) {
-      ISimulationReportMessage oldMessage = (ISimulationReportMessage) message; 
-      Map<Integer, IMarketPublicState> reports = oldMessage.getMarketResults(); 
-      Map<Integer, IMarketPublicState> newReports = new HashMap<Integer, IMarketPublicState>(); 
-      
+      ISimulationReportMessage oldMessage = (ISimulationReportMessage) message;
+      Map<Integer, IMarketPublicState> reports = oldMessage.getMarketResults();
+      Map<Integer, IMarketPublicState> newReports =
+          new HashMap<Integer, IMarketPublicState>();
+
       for (Integer marketID : reports.keySet()) {
-        IMarketPublicState publicState = reports.get(marketID); 
-        IMarketPublicState newPublicState = sanitizeState(publicState, agentIDs); 
-        newReports.put(marketID, newPublicState); 
+        IMarketPublicState publicState = reports.get(marketID);
+        IMarketPublicState newPublicState =
+            sanitizeState(publicState, agentIDs);
+        newReports.put(marketID, newPublicState);
       }
-      ISimulationReportMessage newMessage = new SimulationReportMessage(oldMessage.getMessageID(), oldMessage.getAgentID(), newReports); 
-      return newMessage; 
+      ISimulationReportMessage newMessage = new SimulationReportMessage(
+          oldMessage.getMessageID(), oldMessage.getAgentID(), newReports);
+      return newMessage;
     }
 
     return message;
   }
-  
+
   public static IMarketPublicState toPublicState(IMarketState state) {
 
-    IMarketPublicState newState = new MarketPublicState(); 
-    
+    IMarketPublicState newState = new MarketPublicState();
+
     newState.setTicks(state.getTicks());
     newState.setTime(state.getTime());
-    newState.setUtilities(state.getUtilities()); 
+    newState.setUtilities(state.getUtilities());
     newState.setReserves(state.getReserves());
-    
-    for (List<IActionMessage> tradeStep: state.getTradeHistory())
+
+    for (List<IActionMessage> tradeStep : state.getTradeHistory())
       newState.addToTradeHistory(tradeStep);
-  
-    return newState; 
+
+    return newState;
   }
-  
-  
-  private static IMarketPublicState sanitizeState(IMarketPublicState publicState, Map<Integer, Integer> agentIDs) {
+
+  private static IMarketPublicState sanitizeState(
+      IMarketPublicState publicState, Map<Integer, Integer> agentIDs) {
     // TODO: take this boy apart and put its pieces back together after
     // changing out all the IDs.
 
@@ -97,7 +99,7 @@ public class Utils {
         IActionMessage newActionMessage =
             new ActionMessage(trade.getMessageID(), publicAgentID,
                 trade.getAuctionID(), trade.getBid());
-        newTrades.add(newActionMessage); 
+        newTrades.add(newActionMessage);
       }
       newPublicState.addToTradeHistory(newTrades);
     }
@@ -112,13 +114,11 @@ public class Utils {
         to = agentIDs.get(to);
       if (from > 0)
         from = agentIDs.get(from);
-      newAccountUpdates
-          .add(new AccountUpdate(to, from, acctUpdate.getCost()));
+      newAccountUpdates.add(new AccountUpdate(to, from, acctUpdate.getCost()));
     }
     newPublicState.setUtilities(newAccountUpdates);
-    
-    return newPublicState; 
+
+    return newPublicState;
   }
-  
 
 }

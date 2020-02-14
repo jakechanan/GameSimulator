@@ -22,6 +22,7 @@ public class ActionRequestMessage extends AbsServerToAgentMessage
   }
 
   // TODO: add a price?
+  // TODO: give a simplified utility rule. 
   public ActionRequestMessage(Integer messageID, Integer auctionID,
       Integer agentID) {
     super(messageID, agentID);

@@ -43,7 +43,7 @@ public class LemonadeSimulation extends AbsUserSimulation {
   public static void main(String[] args) throws InterruptedException {
     List<String> agentList = new LinkedList<String>();
     agentList.add("brown.user.agent.library.BasicLemonadeAgent");
-    agentList.add("brown.user.agent.library.ExponentialWeightsAgent");
+    agentList.add("brown.user.agent.library.BasicLemonadeAgent");
     LemonadeSimulation basicSim = new LemonadeSimulation(agentList,
         "input_configs/lemonade_game.json", "outfile", false);
     basicSim.run();

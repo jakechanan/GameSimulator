@@ -14,5 +14,4 @@ public interface ITypeDistribution {
    */
   public IType sample();
   
-  
 }

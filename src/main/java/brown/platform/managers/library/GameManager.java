@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import brown.auction.marketstate.IMarketPublicState;
 import brown.auction.marketstate.library.MarketPublicState;
 import brown.auction.marketstate.library.MarketState;
+import brown.auction.type.valuation.IType;
 import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.communication.messages.IInformationMessage;
@@ -77,7 +78,7 @@ public class GameManager implements IGameManager {
   }
 
   @Override
-  public void openMarkets(int index, Set<Integer> agents, int groupIndex,
+  public void openMarkets(int index, Map<Integer, IType> agents, int groupIndex,
       int numGroups) {
     IGameBlock currentMarketBlock = this.allMarkets.get(index);
     List<IFlexibleRules> marketRules = currentMarketBlock.getMarkets();
