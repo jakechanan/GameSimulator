@@ -22,7 +22,6 @@ public class LemonadeUtility extends AbsRule implements IUtilityRule {
   @Override
   public void setAllocation(IMarketState state, List<IActionMessage> messages,
       Map<Integer, IType> types) {
-
     int LEMONADESLOTS = 12;
 
     Map<Integer, Integer> agentActions = new HashMap<Integer, Integer>();

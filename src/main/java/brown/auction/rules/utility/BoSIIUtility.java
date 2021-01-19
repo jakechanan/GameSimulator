@@ -102,7 +102,7 @@ public class BoSIIUtility extends AbsRule implements IUtilityRule {
 	        
 	        utils.put(agent1, a1Util);
 	        utils.put(agent2, a2Util);
-    	} else {
+    	} else if (!messages.isEmpty()) {
         	IActionMessage a1Message = messages.get(0);
 	
 	        int agent1 = a1Message.getAgentID();
