@@ -2,10 +2,12 @@ package brown.platform.game.library;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import brown.auction.marketstate.IMarketPublicState;
 import brown.auction.marketstate.IMarketState;
+import brown.auction.type.valuation.IType;
 import brown.communication.messages.IActionMessage;
 import brown.communication.messages.IActionRequestMessage;
 import brown.platform.accounting.IAccountUpdate;
@@ -20,7 +22,7 @@ public class Game implements IGame {
   private final IFlexibleRules RULES;
   private final IMarketState STATE;
   private final IMarketPublicState PUBLICSTATE;
-  private final Set<Integer> AGENTS; 
+  private final Map<Integer, IType> AGENTS; 
 
   private List<IActionMessage> bids;
 
@@ -28,7 +30,7 @@ public class Game implements IGame {
   // make the state a remembering thing. 
   // at some point need to add the bids into the market state. 
   public Game(Integer ID, IFlexibleRules rules, IMarketState state,
-      IMarketPublicState publicState, Set<Integer> agents) {
+      IMarketPublicState publicState, Map<Integer, IType> agents) {
     this.ID = ID;
     this.RULES = rules;
     this.STATE = state;
@@ -64,7 +66,7 @@ public class Game implements IGame {
     // so what will do the allocation? 
     // the allocation rule has to use a history. 
     
-    this.RULES.getARule().setAllocation(this.STATE, this.bids);
+    this.RULES.getARule().setAllocation(this.STATE, this.bids, this.AGENTS);
     return this.STATE.getUtilities();
   }
 
@@ -118,7 +120,7 @@ public class Game implements IGame {
 
   @Override
   public Set<Integer> getMarketAgents() {
-    return this.AGENTS;
+    return this.AGENTS.keySet();
   }
 
 }

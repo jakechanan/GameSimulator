@@ -1,4 +1,4 @@
-package brown.platform.managers.library;
+ package brown.platform.managers.library;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -190,12 +190,20 @@ public class SimulationManager implements ISimulationManager {
     this.currentMarketManager.handleTradeMessage(tradeMessage);
   }
 
+  @Override
+  public Map<Integer, Integer> getAgentIDs() {
+    return this.privateToPublic;
+  }
+  
   private synchronized void runAuction(double simulationDelayTime, int index)
       throws InterruptedException {
     // just open different markets for different agents...?
     PlatformLogging.log(this.agentGroups.size() + " Agent Groups"); 
     for (int i = 0; i < this.agentGroups.size(); i++) {
-      this.currentMarketManager.openMarkets(index, new HashSet<Integer>(agentGroups.get(i)), i, this.agentGroups.size()); 
+      Map<Integer, IType> agentTypes = new HashMap<Integer, IType>(); 
+      agentGroups.get(i).forEach(agentID -> agentTypes.put(agentID, this.currentValuationManager.getAgentValuation(agentID)));
+      this.currentMarketManager.openMarkets(index, agentTypes, i, this.agentGroups.size()); 
+      
     }
     while (this.currentMarketManager.anyMarketsOpen()) {
       Thread.sleep((int) (simulationDelayTime * MILLISECONDS));
@@ -270,7 +278,7 @@ public class SimulationManager implements ISimulationManager {
     Map<Integer, IUtilityUpdateMessage> accountInitializations =
         this.currentAccountManager.constructInitializationMessages();
     Map<Integer, ITypeMessage> agentValuations =
-        this.currentValuationManager.constructValuationMessages();
+        this.currentValuationManager.constructValuationMessages(this.groupSize);
     for (Integer agentID : accountInitializations.keySet()) {
       this.messageServer.sendMessage(this.agentConnections.get(agentID),
           accountInitializations.get(agentID));
@@ -304,11 +312,6 @@ public class SimulationManager implements ISimulationManager {
       }
       this.agentGroups.add(agentGroup); 
     }
-  }
-  
-  @Override
-  public Map<Integer, Integer> getAgentIDs() {
-    return this.privateToPublic;
   }
 
   private void startMessageServer() {

@@ -16,5 +16,4 @@ public interface ITypeDistribution {
    */
   public IType sample(Integer agentID, List<List<Integer>> agentGroups);
   
-  
 }

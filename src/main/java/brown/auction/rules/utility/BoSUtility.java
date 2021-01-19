@@ -11,6 +11,7 @@ import java.util.Set;
 import brown.auction.marketstate.IMarketState;
 import brown.auction.rules.AbsRule;
 import brown.auction.rules.IUtilityRule;
+import brown.auction.type.valuation.IType;
 import brown.communication.action.IGameAction;
 import brown.communication.messages.IActionMessage;
 import brown.platform.accounting.IAccountUpdate;
@@ -19,7 +20,7 @@ import brown.platform.accounting.library.AccountUpdate;
 public class BoSUtility extends AbsRule implements IUtilityRule {
 
     @Override
-    public void setAllocation(IMarketState state, List<IActionMessage> messages) {
+    public void setAllocation(IMarketState state, List<IActionMessage> messages, Map<Integer, IType> agentTypes) {
         List<IAccountUpdate> acctUpdates = new LinkedList<IAccountUpdate>();
         Map<Integer, Double> utils = new HashMap<>();
         

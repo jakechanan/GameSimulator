@@ -11,6 +11,7 @@ import java.util.Set;
 import brown.auction.marketstate.IMarketState;
 import brown.auction.rules.AbsRule;
 import brown.auction.rules.IUtilityRule;
+import brown.auction.type.valuation.IType;
 import brown.communication.action.IGameAction;
 import brown.communication.messages.IActionMessage;
 import brown.platform.accounting.IAccountUpdate;
@@ -19,16 +20,17 @@ import brown.platform.accounting.library.AccountUpdate;
 public class LemonadeUtility extends AbsRule implements IUtilityRule {
 
   @Override
-  public void setAllocation(IMarketState state, List<IActionMessage> messages) {
+  public void setAllocation(IMarketState state, List<IActionMessage> messages,
+      Map<Integer, IType> types) {
 
     int LEMONADESLOTS = 12;
 
     Map<Integer, Integer> agentActions = new HashMap<Integer, Integer>();
     // keep track of how many agents do each action.
-    Map<Integer, Integer> actionCount = new HashMap<Integer, Integer>(); 
-    
+    Map<Integer, Integer> actionCount = new HashMap<Integer, Integer>();
+
     for (int i = 0; i < LEMONADESLOTS; i++) {
-      actionCount.put(i, 0); 
+      actionCount.put(i, 0);
     }
 
     List<IAccountUpdate> acctUpdates = new LinkedList<IAccountUpdate>();
@@ -36,8 +38,8 @@ public class LemonadeUtility extends AbsRule implements IUtilityRule {
     for (IActionMessage message : messages) {
       Integer gameAction = ((IGameAction) message.getBid()).getAction();
       agentActions.put(message.getAgentID(), gameAction);
-      int ac = actionCount.get(gameAction); 
-      ac += 1; 
+      int ac = actionCount.get(gameAction);
+      ac += 1;
       actionCount.put(gameAction, ac);
     }
 
@@ -82,21 +84,21 @@ public class LemonadeUtility extends AbsRule implements IUtilityRule {
 
     // for each agent...
     for (Integer agentID : agentActions.keySet()) {
-      Integer action = agentActions.get(agentID); 
-      double numStands = (double) actionCount.get(action); 
-      double utilityCount = 0.0; 
+      Integer action = agentActions.get(agentID);
+      double numStands = (double) actionCount.get(action);
+      double utilityCount = 0.0;
       for (List<Integer> allocation : lemonadeAllocations) {
         if (allocation.get(0) == action) {
-       
-          utilityCount += 1.0 / numStands; 
-        } 
+
+          utilityCount += 1.0 / numStands;
+        }
         if (allocation.get(1) == action) {
-          utilityCount += 1.0 / numStands; 
+          utilityCount += 1.0 / numStands;
         }
       }
-      acctUpdates.add(new AccountUpdate(agentID, -1, utilityCount)); 
+      acctUpdates.add(new AccountUpdate(agentID, -1, utilityCount));
     }
-    
+
     state.setUtilities(acctUpdates);
   }
 
