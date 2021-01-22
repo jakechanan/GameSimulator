@@ -10,12 +10,23 @@ import brown.logging.library.UserLogging;
 import brown.system.setup.ISetup;
 import brown.user.agent.IAgent;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class BasicRPSAgent extends AbsLemonadeAgent implements IAgent {
+	private List<Integer> moveOrder;
+	
     public BasicRPSAgent(String host, int port, ISetup gameSetup,
                          String name) {
         super(host, port, gameSetup, name);
+        
+        moveOrder = new ArrayList<>();
+        moveOrder.add(0);
+        moveOrder.add(1);
+        moveOrder.add(2);
+        Collections.shuffle(moveOrder);
     }
 
     @Override
@@ -24,7 +35,8 @@ public class BasicRPSAgent extends AbsLemonadeAgent implements IAgent {
         Integer auctionID = tradeRequestMessage.getAuctionID();
         // some basic unbalanced probabilities.
         double a = Math.random();
-        IGameAction action = new GameAction((a < 0.25) ? 0 : (a < 0.55) ? 1 : 2);
+        Integer moveIdx = (a < 0.175) ? 0 : (a < 0.35) ? 1 : 2;
+        IGameAction action = new GameAction(moveOrder.get(moveIdx));
         IActionMessage actionMessage = new ActionMessage(-1, this.ID, auctionID, action);
         this.CLIENT.sendTCP(actionMessage);
     }

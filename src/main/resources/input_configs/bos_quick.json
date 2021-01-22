@@ -1,11 +1,11 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 45, 
-	"simulationDelayTime": 0.75, 
+	"startingDelayTime": 2,
+	"simulationDelayTime": 0.5, 
 	"numTotalRuns": 1,
 	"simulation": [{
 		"numRuns": 100,
-		"groupSize": 3,
+		"groupSize": 2,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{
 			"name": "ConcreteValGenerator", 
@@ -19,14 +19,14 @@
 		"seqMarket": [{
 			"simMarket": [{
 				"marketRules": {
-					"uRule": "LemonadeUtility",  
+					"uRule": "BoSUtility",
 					"qRule": "SimpleQuery", 
-					"actRule": "LemonadeActivity", 
+					"actRule": "BoSActivity",
 					"irPolicy": "NonAnonymousPolicy", 
 					"innerIRPolicy": "NoInnerIR", 
 					"tCondition": "OneShotTermination"
 				}, 
 			}]
-		}]  
+		}] 
 	}]
 }

@@ -14,8 +14,8 @@ public abstract class AbsTypeDistribution implements ITypeDistribution {
     this.generators = generators;
   }
 
-  public abstract IType sample();
- 
+  public abstract IType sample(Integer agentID, List<List<Integer>> agentGroups);
+
 
   @Override
   public String toString() {

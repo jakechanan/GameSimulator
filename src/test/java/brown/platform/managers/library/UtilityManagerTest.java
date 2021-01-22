@@ -2,6 +2,7 @@ package brown.platform.managers.library;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class UtilityManagerTest {
     ITypeDistribution valDist =
         new HLTypeDistribution(gen);
     
-    IType type = valDist.sample();
+    IType type = valDist.sample(0, new ArrayList<>());
 
     
     IType genOne = new HLType(0);

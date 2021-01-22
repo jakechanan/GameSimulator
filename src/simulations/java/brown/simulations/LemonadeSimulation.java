@@ -5,9 +5,9 @@ import java.util.List;
 
 public class LemonadeSimulation extends AbsUserSimulation {
 
-  public LemonadeSimulation(List<String> agentClass, String inputJSON,
+  public LemonadeSimulation(List<String> agentClass, String inputJSON, int port,
       String outFile, boolean writeToFile) {
-    super(agentClass, inputJSON, outFile, writeToFile);
+    super(agentClass, inputJSON, port, outFile, writeToFile);
   }
 
   public void run() throws InterruptedException {
@@ -45,7 +45,7 @@ public class LemonadeSimulation extends AbsUserSimulation {
     agentList.add("brown.user.agent.library.BasicLemonadeAgent");
     agentList.add("brown.user.agent.library.BasicLemonadeAgent");
     LemonadeSimulation basicSim = new LemonadeSimulation(agentList,
-        "input_configs/lemonade_game.json", "outfile", false);
+        "input_configs/lemonade_game.json", 2121, "outfile", false);
     basicSim.run();
   }
 

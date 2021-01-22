@@ -270,7 +270,7 @@ public class SimulationManager implements ISimulationManager {
       } else {
         this.currentAccountManager.createAccount(agentID, agentEndowment);
       }
-      IType agentType = this.currentValuationManager.getDistribution().sample();
+      IType agentType = this.currentValuationManager.getDistribution().sample(agentID, this.agentGroups);
       this.currentValuationManager.addAgentValuation(agentID, agentType);
 
     }

@@ -1,10 +1,10 @@
 {
 	"name": "test simulation", 
-	"startingDelayTime": 45, 
-	"simulationDelayTime": 0.75, 
+	"startingDelayTime": 2, 
+	"simulationDelayTime": 0.05, 
 	"numTotalRuns": 1,
 	"simulation": [{
-		"numRuns": 100,
+		"numRuns": 1000,
 		"groupSize": 3,
 		"typeDistribution": "HLTypeDistribution", 
 		"typeGenerator": [{

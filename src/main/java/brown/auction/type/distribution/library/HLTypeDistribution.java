@@ -14,7 +14,7 @@ public class HLTypeDistribution extends AbsTypeDistribution implements ITypeDist
   }
 
   @Override
-  public IType sample() {
+  public IType sample(Integer agentID, List<List<Integer>> agentGroups) {
     return new HLType(0);
   }
 
