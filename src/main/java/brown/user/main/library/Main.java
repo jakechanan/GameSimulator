@@ -54,6 +54,9 @@ public class Main {
     Integer startingDelayTime = outerParams.get("startingDelayTime");
     Integer numTotalRuns = outerParams.get("numTotalRuns");
     Integer serverPort = (PORT == null) ? outerParams.get("serverPort") : PORT;
+    if (args.length > 1) {
+    	serverPort = Integer.parseInt(args[1]);
+    }
     Double simulationDelayTime = doubleParams.get("simulationDelayTime"); 
     
     ConfigRun configRun = new ConfigRun(configs);

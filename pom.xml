@@ -10,7 +10,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>src.main.java.brown.user.main.library.Main</mainClass>
+              <mainClass>brown.user.main.library.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
