@@ -1,15 +1,10 @@
-package brown.user.agent.library;
+package brown.user.agent.library.offline;
 
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
-import brown.communication.messages.IActionMessage;
-import brown.platform.accounting.IAccountUpdate;
-import brown.user.agent.library.AbsOfflineAgent;
+import brown.user.agent.library.offline.AbsOfflineLearningAgent;
 
-public class MysteryChickenQOpponent extends AbsOfflineAgent {
+public class MysteryChickenQOpponent extends AbsOfflineLearningAgent {
   public MysteryChickenQOpponent() {
 	  super();
   }
@@ -32,6 +27,12 @@ public class MysteryChickenQOpponent extends AbsOfflineAgent {
 				return 0;
 			}
 		}
+	}
+
+	@Override
+	public void afterRound() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

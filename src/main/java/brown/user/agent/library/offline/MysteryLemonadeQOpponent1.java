@@ -1,4 +1,4 @@
-package brown.user.agent.library;
+package brown.user.agent.library.offline;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -7,9 +7,9 @@ import java.util.Random;
 
 import brown.communication.messages.IActionMessage;
 import brown.platform.accounting.IAccountUpdate;
-import brown.user.agent.library.AbsOfflineAgent;
+import brown.user.agent.library.offline.AbsOfflineLearningAgent;
 
-public class MysteryLemonadeQOpponent1 extends AbsOfflineAgent {
+public class MysteryLemonadeQOpponent1 extends AbsOfflineLearningAgent {
 	private int round;
 	
 	public MysteryLemonadeQOpponent1() {
@@ -25,8 +25,12 @@ public class MysteryLemonadeQOpponent1 extends AbsOfflineAgent {
 		} else {
 			res = this.round % 12; 
 		}
-		this.round++;
 		return res;
+	}
+
+	@Override
+	public void afterRound() {
+		this.round++;
 	}
 
 }
