@@ -15,10 +15,6 @@ public class MysteryStagHuntOpponent extends AbsOfflineLearningAgent {
 
 	@Override
 	public int nextMove() {
-		if (this.round == 0) {
-			return HARE;
-		}
-		
 		if (this.round % 6 == 0) {
 			return STAG;
 		}
