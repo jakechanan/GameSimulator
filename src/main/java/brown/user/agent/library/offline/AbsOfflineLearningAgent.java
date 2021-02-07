@@ -31,8 +31,6 @@ public abstract class AbsOfflineLearningAgent {
 	public abstract void afterRound();
 	
 	public static void train(OfflineGame simulationType, List<AbsOfflineLearningAgent> agents, int numIters) {
-		System.out.println("Training...");
-		
 		// setup simulation
 		Map<AbsOfflineLearningAgent, Integer> agentID = new HashMap<>();
 		for (AbsOfflineLearningAgent agt : agents) {
@@ -70,8 +68,6 @@ public abstract class AbsOfflineLearningAgent {
 				agt.afterRound();
 			}
 		}
-		
-		System.out.println("Done training.");
 	}
 	
 	public List<Integer> getMyActions() {
