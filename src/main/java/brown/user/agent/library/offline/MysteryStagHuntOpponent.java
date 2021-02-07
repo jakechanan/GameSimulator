@@ -34,7 +34,7 @@ public class MysteryStagHuntOpponent extends AbsOfflineLearningAgent {
 		}
 		
 		int j = 0;
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 1; i <= 2; i++) {
 			if (opponentMoves.get(opponentMoves.size() - i).intValue() == HARE) {
 				j++;
 			}
