@@ -40,9 +40,9 @@ public class MysteryStagHuntOpponent extends AbsOfflineLearningAgent {
 			}
 		}
 		if (j % 2 == 0) {
-			return HARE;
-		} else {
 			return STAG;
+		} else {
+			return HARE;
 		}
 	}
 
