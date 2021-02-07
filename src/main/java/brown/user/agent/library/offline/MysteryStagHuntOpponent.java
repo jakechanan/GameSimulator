@@ -17,8 +17,8 @@ public class MysteryStagHuntOpponent extends AbsOfflineLearningAgent {
 		if (opponentMoves.size() < 5 || opponentMoves.size() % 4 == 0) {
 			return HARE;
 		} else {
-			if (opponentMoves.get(opponentMoves.size() - 1) == STAG) {
-				return STAG;
+			if (opponentMoves.get(opponentMoves.size() - 1) == HARE) {
+				return HARE;
 			}
 			
 			int j = 0;
