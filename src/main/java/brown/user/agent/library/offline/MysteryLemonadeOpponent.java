@@ -9,10 +9,10 @@ import brown.communication.messages.IActionMessage;
 import brown.platform.accounting.IAccountUpdate;
 import brown.user.agent.library.offline.AbsOfflineLearningAgent;
 
-public class MysteryLemonadeQOpponent extends AbsOfflineLearningAgent {
+public class MysteryLemonadeOpponent extends AbsOfflineLearningAgent {
 	private int round;
 	
-	public MysteryLemonadeQOpponent() {
+	public MysteryLemonadeOpponent() {
 		super();
 	}
 
